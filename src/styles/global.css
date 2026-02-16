@@ -1,0 +1,236 @@
+/* ============================================================
+   global.css — Reset, custom properties, font-face, base styles
+   ============================================================ */
+
+/* ---------- Font Face ---------- */
+@font-face {
+  font-family: 'Manrope';
+  src: url('../assets/fonts/Manrope-Regular.woff2') format('woff2'),
+       url('../assets/fonts/Manrope-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../assets/fonts/Manrope-Medium.woff2') format('woff2'),
+       url('../assets/fonts/Manrope-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../assets/fonts/Manrope-SemiBold.woff2') format('woff2'),
+       url('../assets/fonts/Manrope-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../assets/fonts/Manrope-Bold.woff2') format('woff2'),
+       url('../assets/fonts/Manrope-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../assets/fonts/Manrope-ExtraBold.woff2') format('woff2'),
+       url('../assets/fonts/Manrope-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- CSS Custom Properties (Design Tokens) ---------- */
+:root {
+  /* Colors */
+  --color-navy:            #1E2B3C;
+  --color-teal:            #2D6A8F;
+  --color-teal-light:      #3D7FA8;
+  --color-white:           #FFFFFF;
+  --color-off-white:       #F5F5F0;
+  --color-light-gray:      #F0F0EB;
+  --color-mid-gray:        #D1D1CB;
+  --color-text-gray:       #6B7280;
+  --color-dark-gray:       #374151;
+  --color-gold:            #C9A84C;
+  --color-amber:           #D4A843;
+  --color-text-primary:    #1E2B3C;
+  --color-text-secondary:  #6B7280;
+  --color-text-on-dark:    #FFFFFF;
+  --color-text-on-dark-muted: #A0AEC0;
+  --color-hero-overlay:    rgba(30, 43, 60, 0.55);
+  --color-error:           #E53E3E;
+  --color-success:         #38A169;
+
+  /* Footer palette */
+  --color-footer-white:    #FFFFFF;
+  --color-footer-black:    #222222;
+  --color-footer-dark:     #2B2B2B;
+  --color-footer-cyan:     #4FC3F7;
+  --color-footer-gray:     #545454;
+  --color-footer-off-white:#F6F5FF;
+
+  /* Typography */
+  --font-primary: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing */
+  --section-y:    6rem;
+  --section-y-md: 4rem;
+  --section-y-sm: 3rem;
+  --container-x:    1.5rem;
+  --container-x-md: 2.5rem;
+  --container-x-lg: 5rem;
+
+  /* Grid */
+  --grid-columns: 12;
+  --grid-gap:     1.5rem;
+  --max-width:    1440px;
+
+  /* Border radius */
+  --radius-sm:   0.25rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-2xl:  1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.06);
+
+  /* Transitions */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* Navbar height */
+  --navbar-height: 72px;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  color: var(--color-text-primary);
+  background-color: var(--color-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+/* ---------- Utility Classes ---------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--container-x);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: var(--container-x-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: var(--container-x-lg);
+  }
+}
+
+/* ---------- Selection ---------- */
+::selection {
+  background-color: var(--color-teal);
+  color: var(--color-white);
+}
+
+/* ---------- Focus Visible ---------- */
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 3px;
+}
+
+/* ---------- Scrollbar (webkit) ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-light-gray);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-mid-gray);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-teal);
+}
+
+

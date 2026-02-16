@@ -1,0 +1,219 @@
+/* CtaBanner.module.css */
+
+/* ── Light variant (default — all pages) ── */
+.section {
+  padding: var(--section-y-sm, 3rem) 0;
+}
+
+@media (min-width: 768px) {
+  .section { padding: var(--section-y-md, 5rem) 0; }
+}
+
+.inner {
+  background-color: var(--color-light-gray);
+  border-radius: var(--radius-2xl);
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: background-color 0.4s ease, transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+}
+
+.inner:hover {
+  background-color: var(--color-navy, #0f1926);
+  transform: translateY(-4px);
+}
+
+/* Slightly darken overlay on hover (combined with greyscale) */
+.inner:has(.imageWrapper):hover .imageWrapper::after {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.inner:hover .heading,
+.inner:hover .description,
+.inner:hover .cta {
+  color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+  .inner { padding: 4rem 3rem; }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* White text when there's a background image */
+.inner:has(.imageWrapper) .heading,
+.inner:has(.imageWrapper) .description,
+.inner:has(.imageWrapper) .cta {
+  color: var(--color-white);
+}
+
+.inner:has(.imageWrapper):hover .heading,
+.inner:has(.imageWrapper):hover .description,
+.inner:has(.imageWrapper):hover .cta {
+  color: var(--color-white);
+}
+
+.imageWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.4s ease;
+}
+
+/* Greyscale on hover */
+.inner:hover .image {
+  filter: grayscale(100%);
+}
+
+/* Dark overlay for readability */
+.imageWrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  transition: background 0.4s ease;
+}
+
+.heading {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .heading { font-size: 2.25rem; }
+}
+
+.description {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  max-width: 48ch;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: 0.5rem;
+  transition: color var(--transition-fast);
+}
+
+.cta:hover {
+  color: var(--color-teal);
+}
+
+/* ── Dark variant (Process page — photo card) ── */
+.sectionDark {
+  padding: 4rem 0 0;
+  margin-bottom: 0;
+}
+
+.innerDark {
+  position: relative;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  /* Fallback dark bg if no photo */
+  background: var(--color-navy);
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .innerDark { min-height: 320px; }
+}
+
+/* Background photo layer */
+.bgLayer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Dark scrim over photo for readability */
+.bgLayer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 25, 38, 0.58);
+}
+
+.contentDark {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.875rem;
+  padding: 3.5rem 2rem;
+}
+
+@media (min-width: 768px) {
+  .contentDark { padding: 4rem 3rem; }
+}
+
+.headingDark {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.descriptionDark {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.65;
+  max-width: 44ch;
+}
+
+.ctaDark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: 0.5rem;
+  transition: color var(--transition-fast);
+}
+
+.ctaDark:hover {
+  color: var(--color-white);
+}

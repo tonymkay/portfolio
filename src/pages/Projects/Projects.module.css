@@ -1,0 +1,215 @@
+/* Projects.module.css */
+.page {
+  overflow-x: hidden;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hero — warm gradient is the designed look; photo layer overlays it when provided */
+.hero {
+  position: relative;
+  background: linear-gradient(160deg, var(--color-navy) 0%, #3a5a42 60%, var(--color-gold) 140%);
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 5rem 0 4rem;
+}
+
+/* Photo layer — inline backgroundImage applied when projects_hero.jpg is ready */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Scrim to keep text sharp over any background */
+.heroOverlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 25, 38, 0.35);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  text-align: center;
+}
+
+.heroHeading {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  white-space: pre-line;
+}
+
+/* Filter */
+.filterSection {
+  padding: 2rem 0 1rem;
+}
+
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  padding: 0.45rem 1.125rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-mid-gray);
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.filterBtn:hover {
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
+}
+
+.filterBtn.active {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-white);
+}
+
+/* Masonry Grid */
+.gridSection {
+  padding: 2rem 0 var(--section-y);
+}
+
+.masonryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .masonryGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+/* Reveal wrapper spans 2 cols for wide tiles */
+.wideCell {
+  grid-column: span 2;
+}
+
+.gridItem {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.gridImage {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-light-gray);
+  aspect-ratio: 4/3;
+}
+
+/* Wide cell image fills 16/9 */
+.wideCell .gridImage {
+  aspect-ratio: 16/9;
+}
+
+.gridImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+.gridItem:hover .gridImage img {
+  transform: scale(1.04);
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-navy) 100%);
+  padding: 1.5rem;
+}
+
+.placeholder span {
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 1.125rem;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 43, 60, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  border-radius: var(--radius-lg);
+}
+
+.gridItem:hover .gridOverlay {
+  opacity: 1;
+}
+
+.arrowCircle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.gridTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  padding: 0 0.125rem;
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: 4rem 0;
+  font-size: 1rem;
+}

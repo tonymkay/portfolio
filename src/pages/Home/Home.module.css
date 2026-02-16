@@ -1,0 +1,314 @@
+/* ═══════════════════════════════════════════════
+   Home.module.css
+   Matches inspo: dark full-width hero → two-col
+   intro → centered projects → testimonials → CTA
+   ═══════════════════════════════════════════════ */
+
+.page { overflow-x: hidden; }
+
+/* ── Shared eyebrow ── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* ── Shared view-more link ── */
+.viewMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+.viewMore:hover { color: var(--color-teal); }
+
+/* ══════════════════════════════════════════════
+   HERO — full-width, dark overlay, centered text
+   Large name on one line, gold subtitle below
+   ══════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  background: var(--color-navy);
+  min-height: 42vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+/* Background image overlay — backgroundImage applied inline when image exists */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  /* Gradient fallback — shows when home_hero.jpg isn't present yet */
+  background: linear-gradient(160deg, #2a3e52 0%, #1a2b3a 50%, #2e3d30 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Dark scrim ensures text stays readable over any photo */
+.heroOverlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 25, 38, 0.45);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  gap: 0.625rem;
+}
+
+/* "Antony Murimi" — the big headline */
+.heroName {
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+}
+
+/* "Identity/Product Designer" — gold subtitle */
+.heroSubtitle {
+  font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  font-weight: 500;
+  color: var(--color-gold);
+  letter-spacing: 0.06em;
+}
+
+/* ══════════════════════════════════════════════
+   INTRO — two columns
+   LEFT: Hello + bio + LEARN MORE
+   RIGHT: portrait photo square
+   ══════════════════════════════════════════════ */
+.intro {
+  padding: 4rem 0 5rem;
+  background: var(--color-white);
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .introGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+}
+
+/* LEFT side */
+.introLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.introGreeting {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.introBio {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+
+.introBioDetail {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  white-space: pre-line;
+}
+
+.learnMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.75rem;
+  border: 1.5px solid var(--color-text-primary);
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text-primary);
+  background: transparent;
+  width: fit-content;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.learnMoreBtn:hover {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-white);
+}
+
+/* RIGHT side — portrait */
+.introRight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.portraitWrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.portraitImage {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+}
+
+.portraitPlaceholder {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(145deg, #c4b5a0 0%, #8a7a6a 100%);
+  border-radius: var(--radius-xl);
+}  /* When portrait image is added, replace with <img> in JSX */
+
+/* ══════════════════════════════════════════════
+   PROJECTS — off-white bg, center header,
+   3-col × 2-row grid
+   ══════════════════════════════════════════════ */
+.projects {
+  padding: 5rem 0 6rem;
+  background: var(--color-off-white);
+}
+
+.projectsHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.projectsHeading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .projectsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .projectsGrid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ══════════════════════════════════════════════
+   TESTIMONIALS — white bg, center header,
+   two cards side by side
+   ══════════════════════════════════════════════ */
+.testimonials {
+  padding: 5rem 0 6rem;
+  background: var(--color-white);
+}
+
+.testimonialsHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.testimonialsHeading {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.testimonialGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .testimonialGrid { grid-template-columns: 1fr 1fr; }
+}
+
+.testimonialCard {
+  background: var(--color-off-white);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.testimonialAuthorRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Circular avatar — replace with <img> when portraits are added */
+.avatarCircle {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8a9bb0, #4a6070);
+  overflow: hidden;
+}
+
+.testimonialName {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.testimonialRole {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.125rem;
+}
+
+.testimonialQuote {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+}
