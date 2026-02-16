@@ -29,11 +29,47 @@ import alumniImage2 from '../assets/images/projects/alumni/alumni_image2.jpg'
 import alumniImage3 from '../assets/images/projects/alumni/alumni_image3.jpg'
 import alumniImage4 from '../assets/images/projects/alumni/alumni_image4.jpg'
 
-// ── Page Images ───────────────────────────────────────────
-import homeHero from '../assets/images/home/home_hero.jpg'
-import homePortrait from '../assets/images/home/home_portrait.jpg'
-import aboutPortrait from '../assets/images/about/about_portrait.jpg'
-import aboutWorkspace from '../assets/images/about/about_workspace.jpg'
+// ── Geopsy Project Images ──────────────────────────────────────────────────
+import geopsyImage1 from '../assets/images/projects/geopsy/geopsy_image1.jpg'
+import geopsyImage2 from '../assets/images/projects/geopsy/geopsy_image2.jpg'
+import geopsyImage3 from '../assets/images/projects/geopsy/geopsy_image3.jpg'
+import geopsyImage4 from '../assets/images/projects/geopsy/geopsy_image4.jpg'
+
+// ── Emita Project Images ────────────────────────────────────────
+import emitaImage1 from '../assets/images/projects/emita/emita_image1.jpg'
+import emitaImage2 from '../assets/images/projects/emita/emita_image2.jpg'
+import emitaImage3 from '../assets/images/projects/emita/emita_image3.jpg'
+import emitaImage4 from '../assets/images/projects/emita/emita_image4.jpg'
+
+// ── Gewal Project Images ────────────────────────────────────────
+import gewalImage1 from '../assets/images/projects/gewal/gewal_image1.jpg'
+import gewalImage2 from '../assets/images/projects/gewal/gewal_image2.jpg'
+import gewalImage3 from '../assets/images/projects/gewal/gewal_image3.jpg'
+import gewalImage4 from '../assets/images/projects/gewal/gewal_image4.jpg'
+
+// ── McDonald Project Images ─────────────────────────────────────
+import mcdonaldImage1 from '../assets/images/projects/mcdonald/mcdonald_image1.jpg'
+import mcdonaldImage2 from '../assets/images/projects/mcdonald/mcdonald_image2.jpg'
+import mcdonaldImage3 from '../assets/images/projects/mcdonald/mcdonald_image3.jpg'
+import mcdonaldImage4 from '../assets/images/projects/mcdonald/mcdonald_image4.jpg'
+
+// ── Midas Project Images ────────────────────────────────────────
+import midasImage1 from '../assets/images/projects/midas/midas_image1.jpg'
+import midasImage2 from '../assets/images/projects/midas/midas_image2.jpg'
+import midasImage3 from '../assets/images/projects/midas/midas_image3.jpg'
+import midasImage4 from '../assets/images/projects/midas/midas_image4.jpg'
+
+// ── Kezjoy Project Images ───────────────────────────────────────
+import kezjoyImage1 from '../assets/images/projects/kezjoy/kezjoy_image1.jpg'
+import kezjoyImage2 from '../assets/images/projects/kezjoy/kezjoy_image2.jpg'
+import kezjoyImage3 from '../assets/images/projects/kezjoy/kezjoy_image3.jpg'
+import kezjoyImage4 from '../assets/images/projects/kezjoy/kezjoy_image4.jpg'
+
+// ── LPC Project Images ──────────────────────────────────────────
+import lpcImage1 from '../assets/images/projects/lpc/lpc_image1.jpg'
+import lpcImage2 from '../assets/images/projects/lpc/lpc_image2.jpg'
+import lpcImage3 from '../assets/images/projects/lpc/lpc_image3.jpg'
+import lpcImage4 from '../assets/images/projects/lpc/lpc_image4.jpg'
 
 // ── Graceful Fallback Function ───────────────────────────────────
 const createImageFallback = (title, index) => {
@@ -84,13 +120,8 @@ export const projects = [
     year: '2024',
     tags: ['Branding', 'Identity', 'SAAS'],
     coverImage: emitaCover,
-    heroImage: null,
-    images: [
-      createImageFallback('Emita', 0),
-      createImageFallback('Emita', 1),
-      createImageFallback('Emita', 2),
-      createImageFallback('Emita', 3)
-    ],
+    heroImage: emitaImage1,
+    images: [emitaImage1, emitaImage2, emitaImage3, emitaImage4],
     summary: 'A smart water metering brand — providing efficient workflows through a clean, technology-forward visual identity.',
     brief: 'A pioneering smart water metering company needed a complete brand identity that would communicate efficiency, reliability, and technological innovation. The brand needed to resonate with both corporate clients and government bodies across East Africa.',
     inspiration: 'The circular form of the Emita logo references the water cycle — endless flow and efficiency. The blue palette communicates trust, cleanliness, and water, while the forward-leaning letterforms suggest motion and progress.',
@@ -110,13 +141,8 @@ export const projects = [
     year: '2023',
     tags: ['Branding', 'GIS', 'Research'],
     coverImage: geopsyCover,
-    heroImage: null,
-    images: [
-      createImageFallback('GeoPsy', 0),
-      createImageFallback('GeoPsy', 1),
-      createImageFallback('GeoPsy', 2),
-      createImageFallback('GeoPsy', 3)
-    ],
+    heroImage: geopsyImage1,
+    images: [geopsyImage1, geopsyImage2, geopsyImage3, geopsyImage4],
     summary: 'A bold, geo-inspired identity system for a research company in GIS and remote sensing space.',
     brief: 'GeoPsy Research needed a brand identity that would position them as a credible, forward-thinking research organisation in the competitive GIS and geospatial analytics sector.',
     inspiration: 'The globe-within-G mark directly references geospatial thinking — looking at the world from above. The confident blue palette and bold typography communicate authority and expertise.',
@@ -136,13 +162,8 @@ export const projects = [
     year: '2024',
     tags: ['Branding', 'Logistics', 'Identity'],
     coverImage: gewalCover,
-    heroImage: null,
-    images: [
-      createImageFallback('Gewal', 0),
-      createImageFallback('Gewal', 1),
-      createImageFallback('Gewal', 2),
-      createImageFallback('Gewal', 3)
-    ],
+    heroImage: gewalImage1,
+    images: [gewalImage1, gewalImage2, gewalImage3, gewalImage4],
     summary: 'A premium logistics brand identity — "It\'s a Walk in the Pack" — combining strength and approachability.',
     brief: 'Gewal Limited needed a distinctive brand presence that would set them apart in a crowded logistics market while communicating reliability, scale, and a human touch.',
     inspiration: 'The interlocking G-L lettermark creates a sense of structural strength and interconnection — mirroring the logistics network Gewal operates. Warm greens suggest reliability and growth.',
@@ -162,13 +183,8 @@ export const projects = [
     year: '2024',
     tags: ['Branding', 'Legal', 'Corporate'],
     coverImage: mcdonaldCover,
-    heroImage: null,
-    images: [
-      createImageFallback('McDonald', 0),
-      createImageFallback('McDonald', 1),
-      createImageFallback('McDonald', 2),
-      createImageFallback('McDonald', 3)
-    ],
+    heroImage: mcdonaldImage1,
+    images: [mcdonaldImage1, mcdonaldImage2, mcdonaldImage3, mcdonaldImage4],
     summary: 'A refined, authoritative brand identity for a legal advocacy firm, balancing tradition with modern clarity.',
     brief: 'McDonald & Company Advocates required a brand identity that would command authority in the legal sector while remaining approachable to clients navigating complex legal matters.',
     inspiration: 'The monogram mark draws from classic legal heraldry — structured, deliberate, and authoritative. Deep navy and gold communicate gravitas, heritage, and premium positioning.',
@@ -188,13 +204,8 @@ export const projects = [
     year: '2024',
     tags: ['Branding', 'Retail', 'Floral'],
     coverImage: midasCover,
-    heroImage: null,
-    images: [
-      createImageFallback('Midas', 0),
-      createImageFallback('Midas', 1),
-      createImageFallback('Midas', 2),
-      createImageFallback('Midas', 3)
-    ],
+    heroImage: midasImage1,
+    images: [midasImage1, midasImage2, midasImage3, midasImage4],
     summary: 'An elegant floral brand with warm, earthy tones and an organic mark that communicates luxury and nature.',
     brief: 'Midas Flowers & Gifts needed a brand that would elevate their offering from ordinary flower shop to premium gifting destination, appealing to corporate clients and high-end retail customers alike.',
     inspiration: 'The Midas mark abstracts the petals of a flower into a refined, continuous form. Warm burgundy and cream tones evoke luxury, romance, and the timeless beauty of florals.',
@@ -214,13 +225,8 @@ export const projects = [
     year: '2024',
     tags: ['Branding', 'Construction', 'Identity'],
     coverImage: kezjoyCover,
-    heroImage: null,
-    images: [
-      createImageFallback('Kezjoy', 0),
-      createImageFallback('Kezjoy', 1),
-      createImageFallback('Kezjoy', 2),
-      createImageFallback('Kezjoy', 3)
-    ],
+    heroImage: kezjoyImage1,
+    images: [kezjoyImage1, kezjoyImage2, kezjoyImage3, kezjoyImage4],
     summary: 'A bold, dynamic identity for a construction and ventures company built on strength and forward motion.',
     brief: 'Kezjoy Ventures required a brand that would communicate strength, reliability, and dynamism — positioning them as a serious player in the construction and investment sector.',
     inspiration: 'The angular KJ monogram references structural precision and forward momentum — a nod to the construction world. The orange-and-navy palette communicates energy, reliability, and ambition.',
@@ -240,13 +246,8 @@ export const projects = [
     year: '2024',
     tags: ['Branding', 'Property', 'Logo'],
     coverImage: lpcCover,
-    heroImage: null,
-    images: [
-      createImageFallback('LPC', 0),
-      createImageFallback('LPC', 1),
-      createImageFallback('LPC', 2),
-      createImageFallback('LPC', 3)
-    ],
+    heroImage: lpcImage1,
+    images: [lpcImage1, lpcImage2, lpcImage3, lpcImage4],
     summary: 'A refreshed brand for a land and property company — trust, credibility, and professionalism through a confident circular mark.',
     brief: 'LPC were looking for a refreshed brand identity that would communicate trust, credibility, and professionalism in the land and property sector. As a growing company focused on verified property listings and transparent transactions, they needed a logo and visual system that would reflect their reliability and forward-thinking approach. The goal was to create a mark that feels confident and established.',
     inspiration: 'The LPC identity was inspired by the foundation of its business — connecting people to genuine land and property opportunities. The logo combines two simple but powerful symbols: a house and a stretch of land, representing security, ownership, and growth. Together, they form a balanced mark that communicates trust and stability.',
