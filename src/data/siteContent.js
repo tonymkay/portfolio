@@ -10,24 +10,25 @@
 // (see imagesguide.md) and Vite HMR picks it up instantly.
 // Components use conditional rendering, so a null image shows a styled placeholder.
 
-import homeHero from '../assets/images/home/home_hero.jpg'
+import homeHero from '../assets/images/home/home_hero.webp'
 import homePortrait from '../assets/images/home/home_portrait.jpg'
-import homeCta from '../assets/images/home/cta.jpg'
+import heroPortrait from '../assets/images/home/hero_portrait.webp'
+import heroBg from '../assets/images/home/hero_bg.webp'
+import homeCta from '../assets/images/home/cta.webp'
 import aboutPortrait from '../assets/images/about/about_portrait.jpg'
-import aboutWorkspace from '../assets/images/about/about_workspace.jpg'
-import processHero from '../assets/images/process/process_hero.jpg'
-import contactHero from '../assets/images/contact/contact_hero.jpg'
+import aboutWorkspace from '../assets/images/about/about_workspace.webp'
+import processHero from '../assets/images/process/process_hero.webp'
+import contactHero from '../assets/images/contact/contact_hero.webp'
 import projectsHero from '../assets/images/projects/projects_hero.jpg'
-// Process CTA background photo — see imagesguide.md for naming
-// Set to null until process_cta.jpg is added to src/assets/images/process/
-const processCta = null // import processCta from '../assets/images/process/process_cta.jpg'
+// Process CTA background photo — desk/coffee shot used behind the dark CTA card
+import processCta from '../assets/images/process/process_cta.webp'
 
-import moodboard1 from '../assets/images/process/process_moodboard1.jpg'
-import moodboard2 from '../assets/images/process/process_moodboard2.jpg'
-import moodboard3 from '../assets/images/process/process_moodboard3.jpg'
-import moodboard4 from '../assets/images/process/process_moodboard4.jpg'
-import moodboard5 from '../assets/images/process/process_moodboard5.jpg'
-import moodboard6 from '../assets/images/process/process_moodboard6.jpg'
+import moodboard1 from '../assets/images/process/process_moodboard1.webp'
+import moodboard2 from '../assets/images/process/process_moodboard2.webp'
+import moodboard3 from '../assets/images/process/process_moodboard3.webp'
+import moodboard4 from '../assets/images/process/process_moodboard4.webp'
+import moodboard5 from '../assets/images/process/process_moodboard5.webp'
+import moodboard6 from '../assets/images/process/process_moodboard6.webp'
 
 const moodboard = [moodboard1, moodboard2, moodboard3, moodboard4, moodboard5, moodboard6]
 
@@ -40,6 +41,12 @@ const brandDirection = [
   null, // process_direction3.jpg — automotive / bold brands
 ]
 
+// ── Experience ──────────────────────────────────────────────────────────────
+// One source for "years of experience" everywhere on the site.
+// Started in 2021 — the count updates itself every new year.
+const experienceStartYear = 2021
+const yearsOfExperience = new Date().getFullYear() - experienceStartYear
+
 export const siteContent = {
   // ---------- Global ----------
   siteName: 'Murimi',
@@ -51,6 +58,8 @@ export const siteContent = {
   images: {
     homeHero,
     homePortrait,
+    heroPortrait,
+    heroBg,
     homeCta,
     aboutPortrait,
     aboutWorkspace,
@@ -73,7 +82,7 @@ export const siteContent = {
     title: 'Identity / Product Designer',
     shortBio: "I'm a Digital Product and Identity Designer. I specialise in designing digital products, logos and visual identities with meaning.",
     longBio: "Since 2021 I have been crafting meaningful visual experiences, starting as a graphic designer and evolving into an identity designer in 2023. In 2024, I expanded into UX/UI design for digital products across diverse projects. My focus is on building distinctive brand identities and intuitive user interfaces, delivering thoughtful, cohesive outcomes that elevate brands and enhance user experiences.",
-    yearsExperience: '4Yrs',
+    yearsExperience: `${yearsOfExperience}Yrs`,
     experienceLabel: 'Experience in Design',
     email: 'hello@murimi.me',
     phone: '(+254) 000-000-000',
@@ -97,6 +106,7 @@ export const siteContent = {
     links: [
       { label: 'About', href: '/about' },
       { label: 'Projects', href: '/projects' },
+      { label: 'UI/UX', href: '/ui-ux' },
       { label: 'Process', href: '/process' },
     ],
     cta: { label: 'Book a Call ↗', href: '/contact' },
@@ -118,18 +128,37 @@ export const siteContent = {
       greeting: "Hello, I'm",
       name: 'Antony Murimi',
       subtitle: 'Identity/Product Designer',
-      description: "I'm a Digital Product and Identity Designer. I specialise in designing digital products, logos and visual identities with meaning.\n\nI've designed logos for retailers, small businesses, agencies... you name it! And as a former designer for marketing agencies in Kenya, I have more than 4 years of experience in the world of graphic design.\n\nCheck out some of my work here, and if you need help taking your business to the next level with a stand-out visual identity, you can book a 30-minute call with me here.",
+      description: "I'm a Digital Product and Identity Designer. I specialise in designing digital products, logos and visual identities with meaning.\n\nI've designed logos for retailers, small businesses, agencies... you name it! And as a former designer for marketing agencies in Kenya, I have more than " + yearsOfExperience + " years of experience in the world of graphic design.\n\nCheck out some of my work here, and if you need help taking your business to the next level with a stand-out visual identity, you can book a 30-minute call with me here.",
       ctaLabel: "Let's talk ↗",
       ctaHref: '/contact',
       learnMoreLabel: 'BOOK A CALL',
       learnMoreHref: '/contact',
+      // New split hero (name + tagline + portrait, side-column)
+      verticalLabel: 'Innovating Advertising for the Future',
+      firstName: 'Murimi',
+      tagline: 'is a designer working with corporate and business owners to create great products and brands.',
+      scrollLabel: 'Scroll down',
+      // Centered typewriter hero
+      eyebrow: "Hi, I'm Murimi",
+      lead: 'I design',
+      words: ['products', 'brands', 'identities', 'interfaces'],
+      trail: ['that', 'people love'],
+      contactLabel: 'Get in touch',
+      contactHref: '/contact',
     },
     about: {
       eyebrow: 'About Me',
       heading: 'In My Own Words',
       body: "Since 2021 I have been crafting meaningful visual experiences, starting as a graphic designer and evolving into an identity designer in 2023. In 2024, I expanded into UX/UI design for digital products across diverse projects. My focus is on building distinctive brand identities and intuitive user interfaces, delivering thoughtful, cohesive outcomes that elevate brands and enhance user experiences.",
-      statsLabel: '4Yrs',
+      statsLabel: `${yearsOfExperience}Yrs`,
       statsCaption: 'Experience in Design',
+      // Home page dark "About Me" teaser band (below Projects)
+      teaser: {
+        lead: "… I'm a passionate designer who thrives on the dance between creativity and functionality.",
+        rest: 'With a boundless curiosity to create meaningful experiences, I dive headfirst into the field of product design.',
+        ctaLabel: 'About me',
+        ctaHref: '/about',
+      },
       journey: [
         { text: "My journey started with Identity design — shaping visual systems that bring brands to life. From logos to full brand suites, I learned how storytelling through visual design can communicate purpose and create connection." },
         { text: "As my skills evolved, so did my focus — toward crafting seamless digital experiences. UX/UI design became a natural extension of my creative-solving mindset. From wireframes to polished interfaces, each challenge deepened my passion for designing with empathy and intention." },
@@ -138,7 +167,7 @@ export const siteContent = {
     experience: {
       eyebrow: 'Experiences',
       heading: 'Explore My Journey As A Designer',
-      description: 'Over the past 4+ years, I\'ve had the opportunity to work on a wide range of design projects, collaborating with diverse teams and clients to bring creative visions to life.',
+      description: 'Over the past ' + yearsOfExperience + '+ years, I\'ve had the opportunity to work on a wide range of design projects, collaborating with diverse teams and clients to bring creative visions to life.',
       ctaLabel: 'Book A Call ↗',
       ctaHref: '/contact',
       roles: [
@@ -159,7 +188,7 @@ export const siteContent = {
       ],
     },
     projects: {
-      eyebrow: 'Projects',
+      eyebrow: 'Selected Projects',
       heading: 'Explore My Portfolio',
       viewMoreLabel: 'View More ↗',
       viewMoreHref: '/projects',
@@ -174,10 +203,21 @@ export const siteContent = {
       ],
     },
     cta: {
-      heading: 'Got a Vision? Let\'s Bring It to Life!',
-      description: "I'm always excited to collaborate on new and innovative projects. Whether you're starting from scratch or refining an existing idea.",
-      ctaLabel: 'Book A Call ↗',
+      // Shared by the CtaBanner on other pages
+      heading: 'Ready to Start your Brand Design Process?',
+      description: "Let's build your brand identities today!",
+      ctaLabel: "Let's talk ↗",
       ctaHref: '/contact',
+      // Home page dark CTA: big faded word + button share buttonLabel;
+      // statement is split into white / muted segments.
+      buttonLabel: 'Get in touch',
+      segments: [
+        { text: "If you're looking for a " },
+        { text: 'digital designer', muted: true },
+        { text: ' who can bring your vision to life, ' },
+        { text: 'schedule a call', muted: true },
+        { text: ' now.' },
+      ],
     },
   },
 
@@ -186,6 +226,28 @@ export const siteContent = {
     hero: {
       eyebrow: '● About Me',
       heading: 'In My Own Words',
+      // Dark About hero — segments render white; `muted: true` renders grey.
+      statement: [
+        { text: "I'm Antony Murimi, an " },
+        { text: 'Identity / Product Designer', muted: true },
+        { text: ' based in Nairobi, Kenya.' },
+      ],
+      intro: [
+        { text: `With ${yearsOfExperience}+ years of experience in crafting brilliant and impactful designs, I've been involved in various projects with a focus on user-centered design. ` },
+        { text: "Let's collaborate to bring your ideas to life!", muted: true },
+      ],
+    },
+    // "My Numbers" strip — each value counts up from 0 as it scrolls into view.
+    // Edit the figures and labels freely; `suffix` (optional, e.g. '+') renders
+    // right after the number in the same bold white style.
+    numbers: {
+      eyebrow: 'My Numbers',
+      items: [
+        { value: yearsOfExperience, suffix: '+', label: 'Years of experience' },
+        { value: 50, suffix: '+', label: 'Projects done' },
+        { value: 10, suffix: '+', label: 'Clients' },
+        { value: 3, label: 'UI/UX case studies' },
+      ],
     },
   },
 

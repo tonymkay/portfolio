@@ -1,0 +1,19 @@
+/* Typewriter.module.css */
+.caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.85em;
+  margin-left: 0.06em;
+  vertical-align: baseline;
+  background: currentColor;
+  animation: caretBlink 1s steps(1) infinite;
+}
+
+@keyframes caretBlink {
+  0%, 50%  { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret { animation: none; }
+}

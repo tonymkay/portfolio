@@ -1,84 +1,112 @@
 import { useState, useEffect } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import { siteContent } from '../../../data/siteContent'
+import CubeButton from '../../ui/CubeButton'
 import styles from './Navbar.module.css'
 
-const { nav, siteName } = siteContent
+const { nav } = siteContent
+
+const menuLinks = [{ label: 'Home', href: '/' }, ...nav.links]
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
 
+  // Collapse on route change
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    setOpen(false)
+  }, [pathname])
 
-  // Close mobile menu on route change
-  const closeMenu = () => setMenuOpen(false)
+  // Escape closes the menu
+  useEffect(() => {
+    if (!open) return undefined
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
+  const close = () => setOpen(false)
 
   return (
-    <header className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
+    <header className={styles.navbar}>
       <div className={`container ${styles.inner}`}>
         {/* Logo */}
-        <Link to="/" className={styles.logo} onClick={closeMenu}>
+        <Link to="/" className={styles.logo} onClick={close}>
           <span className={styles.logoMark}>T</span>
           <span className={styles.logoText}>Tony</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className={styles.nav} aria-label="Main navigation">
-          {nav.links.map((link) => (
-            <NavLink
-              key={link.href}
-              to={link.href}
-              className={({ isActive }) =>
-                `${styles.navLink} ${isActive ? styles.active : ''}`
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        {/* Desktop CTA */}
-        <div className={styles.navActions}>
-          <Link to={nav.cta.href} className={styles.ctaBtn}>
-            {nav.cta.label}
-          </Link>
-        </div>
-
-        {/* Hamburger */}
-        <button
-          className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
-          onClick={() => setMenuOpen((o) => !o)}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className={`${styles.mobileMenu} ${menuOpen ? styles.open : ''}`}>
-        {nav.links.map((link) => (
-          <NavLink
-            key={link.href}
-            to={link.href}
-            className={({ isActive }) =>
-              `${styles.mobileNavLink} ${isActive ? styles.active : ''}`
-            }
-            onClick={closeMenu}
+        {/* Pulsing dot → expanding menu */}
+        <div className={styles.menu}>
+          <button
+            type="button"
+            className={`${styles.dotBtn} ${open ? styles.open : ''}`}
+            onClick={() => setOpen((o) => !o)}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="site-menu"
           >
-            {link.label}
-          </NavLink>
-        ))}
-        <Link to={nav.cta.href} className={styles.mobileCta} onClick={closeMenu}>
-          {nav.cta.label}
-        </Link>
+            <span className={styles.dot} />
+            <span className={styles.x} aria-hidden="true">
+              <span />
+              <span />
+            </span>
+          </button>
+
+          <AnimatePresence>
+            {open && (
+              <motion.button
+                key="scrim"
+                type="button"
+                className={styles.scrim}
+                aria-label="Close menu"
+                tabIndex={-1}
+                onClick={close}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+              />
+            )}
+            {open && (
+              <motion.nav
+                key="panel"
+                id="site-menu"
+                className={styles.panel}
+                aria-label="Main navigation"
+                style={{ transformOrigin: 'top right' }}
+                initial={{ opacity: 0, scale: 0.35 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.35 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {menuLinks.map((link) => (
+                  <NavLink
+                    key={link.href}
+                    to={link.href}
+                    end={link.href === '/'}
+                    onClick={close}
+                    className={({ isActive }) =>
+                      `${styles.link} ${isActive ? styles.active : ''}`
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                ))}
+                <CubeButton
+                  to={nav.cta.href}
+                  onClick={close}
+                  rounded
+                  fullWidth
+                  className={styles.cta}
+                >
+                  {nav.cta.label}
+                </CubeButton>
+              </motion.nav>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </header>
   )

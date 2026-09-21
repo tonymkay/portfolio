@@ -69,6 +69,7 @@
   --color-hero-overlay:    rgba(30, 43, 60, 0.55);
   --color-error:           #E53E3E;
   --color-success:         #38A169;
+  --color-page-dark:       #242429;
 
   /* Footer palette */
   --color-footer-white:    #FFFFFF;
@@ -234,3 +235,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+
+/* ---------- Dark page theme ----------
+   A page opts in with usePageTheme('dark') (sets data-page-theme on <html>).
+   Colours the whole document — including the strip behind the transparent
+   navbar and the overscroll area — and the viewport scrollbar. */
+html[data-page-theme='dark'],
+html[data-page-theme='dark'] body {
+  background-color: var(--color-page-dark);
+}
+
+html[data-page-theme='dark']::-webkit-scrollbar-track {
+  background: #2C2C2C;
+}
+html[data-page-theme='dark']::-webkit-scrollbar-thumb {
+  background: #9F9F9F;
+}
+html[data-page-theme='dark']::-webkit-scrollbar-thumb:hover {
+  background: #C4C4C4;
+}

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import CubeButton from './CubeButton'
 import ScrollRevealSection from './ScrollRevealSection'
 import Reveal from './Reveal'
 import styles from './CtaBanner.module.css'
@@ -42,10 +42,14 @@ export default function CtaBanner({ heading, description, ctaLabel, ctaHref, dar
                 {description}
               </Reveal>
             )}
-            <Reveal variant="scaleUp">
-              <Link to={ctaHref} className={dark ? styles.ctaDark : styles.cta}>
+            <Reveal variant="scaleUp" className={styles.ctaWrap}>
+              <CubeButton
+                to={ctaHref}
+                rounded
+                variant={dark || image ? 'light' : 'outline'}
+              >
                 {ctaLabel}
-              </Link>
+              </CubeButton>
             </Reveal>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { motion as motionPresets } from '../../theme/motion'
 import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
 import Reveal from '../../components/ui/Reveal'
 import CtaBanner from '../../components/ui/CtaBanner'
+import CubeButton from '../../components/ui/CubeButton'
 import styles from './Contact.module.css'
 
 const { contact, home, images: pageImages } = siteContent
@@ -173,14 +174,15 @@ export default function Contact() {
               </label>
             </div>
 
-            <button
-              type="button"
-              className={styles.submitBtn}
+            <CubeButton
+              rounded
+              fullWidth
+              size="lg"
               onClick={handleSubmit}
               disabled={!form.agreed}
             >
               {contact.form.submitLabel}
-            </button>
+            </CubeButton>
           </Reveal>
         </div>
       </ScrollRevealSection>

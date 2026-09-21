@@ -1,0 +1,58 @@
+/* UxProjects.module.css — Ralf-style project list, site theme colours */
+.page {
+  --ux-bg: var(--color-white);
+  --ux-surface: var(--color-light-gray);
+  --ux-text: var(--color-text-primary);
+  --ux-muted: var(--color-text-secondary);
+  --ux-line: var(--color-mid-gray);
+
+  background: var(--ux-bg);
+  color: var(--ux-text);
+  overflow-x: clip;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  padding-top: 3.5rem;
+  padding-bottom: 4rem;
+}
+
+.eyebrowRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ux-muted);
+  white-space: nowrap;
+}
+
+.line {
+  flex: 0 1 4.5rem;
+  height: 1px;
+  background: var(--ux-line);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  max-width: 1200px;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 1024px) {
+  .list { gap: 5.5rem; }
+}
+
+.item { width: 100%; }

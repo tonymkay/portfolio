@@ -1,9 +1,8 @@
 import { NavLink, Link } from 'react-router-dom'
 import { siteContent } from '../../../data/siteContent'
-import footerBg from '../../../assets/images/home/footer.png'
 import styles from './Footer.module.css'
 
-const { siteName, siteTagline, siteUrl, copyrightYear, designer, social, footer } = siteContent
+const { siteName, siteUrl, copyrightYear, designer, social, footer } = siteContent
 
 // Social icons as inline SVG for zero dependency
 const SocialIcons = {
@@ -29,61 +28,71 @@ const SocialIcons = {
   ),
 }
 
+const MailIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+    <rect x="3" y="5.5" width="18" height="13" rx="1.5" strokeLinejoin="round" />
+    <path d="M3.5 6.5l8.5 6.5 8.5-6.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+const GlobeIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18" />
+    <path d="M12 3c2.4 2.7 2.4 15.3 0 18M12 3c-2.4 2.7-2.4 15.3 0 18" />
+  </svg>
+)
+
 export default function Footer() {
   return (
-    <footer
-      className={styles.footer}
-      style={{ backgroundImage: `url(${footerBg})` }}
-    >
-      <div className={`container ${styles.inner}`}>
-        {/* Brand */}
-        <div className={styles.brand}>
-          <Link to="/" className={styles.logoRow}>
-            <span className={styles.logoMark}>M</span>
-            <span className={styles.logoText}>Murimi</span>
-          </Link>
-          <p className={styles.tagline}>
-            {designer.fullName},<br />
-            {siteTagline}
-          </p>
-        </div>
+    <footer className={styles.footer}>
 
-        {/* Nav pill */}
-        <nav className={styles.navRow} aria-label="Footer navigation">
-          {footer.links.map((link) => (
-            <NavLink
-              key={link.href}
-              to={link.href}
-              end={link.href === '/'}
-              className={({ isActive }) =>
-                `${styles.navLink} ${isActive ? styles.active : ''}`
-              }
+      {/* Email / website / socials row */}
+      <div className={`container ${styles.contactRow}`}>
+        <a href={`mailto:${designer.email}`} className={styles.contactItem}>
+          <span className={styles.contactIcon}>{MailIcon}</span>
+          {designer.email}
+        </a>
+
+        <a href={siteUrl} target="_blank" rel="noopener noreferrer" className={styles.contactItem}>
+          <span className={styles.contactIcon}>{GlobeIcon}</span>
+          {siteUrl.replace('https://', '')}
+        </a>
+
+        <div className={styles.socialRow} aria-label="Social links">
+          {Object.entries(SocialIcons).map(([key, icon]) => (
+            <a
+              key={key}
+              href={social[key]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialLink}
+              aria-label={key}
             >
-              {link.label}
-            </NavLink>
+              {icon}
+            </a>
           ))}
-        </nav>
-
-        {/* Right: copyright + socials */}
-        <div className={styles.right}>
-          <span className={styles.copyright}>
-            {copyrightYear} · {siteUrl.replace('https://', '')}
-          </span>
-          <div className={styles.socialRow} aria-label="Social links">
-            {Object.entries(SocialIcons).map(([key, icon]) => (
-              <a
-                key={key}
-                href={social[key]}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.socialLink}
-                aria-label={key}
-              >
-                {icon}
-              </a>
-            ))}
-          </div>
         </div>
+      </div>
+
+      <div className={styles.divider} />
+
+      {/* Bottom bar: nav links + copyright */}
+      <div className={`container ${styles.bottomBar}`}>
+        {footer.links.map((link) => (
+          <NavLink
+            key={link.href}
+            to={link.href}
+            end={link.href === '/'}
+            className={styles.bottomLink}
+          >
+            {link.label}
+          </NavLink>
+        ))}
+        <span className={styles.bottomDot}>·</span>
+        <Link to="/" className={styles.bottomLink}>
+          {siteName}. Copyright {copyrightYear}. All rights reserved.
+        </Link>
       </div>
     </footer>
   )

@@ -24,52 +24,52 @@ import mcdonaldCover from '../assets/images/projects/projects_mcdonald-cover.png
 import midasCover from '../assets/images/projects/projects_midas-cover.jpg'
 
 // ── Alumni Project Images ───────────────────────────────────────
-import alumniImage1 from '../assets/images/projects/alumni/alumni_image1.jpg'
-import alumniImage2 from '../assets/images/projects/alumni/alumni_image2.jpg'
-import alumniImage3 from '../assets/images/projects/alumni/alumni_image3.jpg'
-import alumniImage4 from '../assets/images/projects/alumni/alumni_image4.jpg'
+import alumniImage1 from '../assets/images/projects/alumni/alumni_image1.webp'
+import alumniImage2 from '../assets/images/projects/alumni/alumni_image2.webp'
+import alumniImage3 from '../assets/images/projects/alumni/alumni_image3.webp'
+import alumniImage4 from '../assets/images/projects/alumni/alumni_image4.webp'
 
 // ── Geopsy Project Images ──────────────────────────────────────────────────
-import geopsyImage1 from '../assets/images/projects/geopsy/geopsy_image1.jpg'
-import geopsyImage2 from '../assets/images/projects/geopsy/geopsy_image2.jpg'
-import geopsyImage3 from '../assets/images/projects/geopsy/geopsy_image3.jpg'
-import geopsyImage4 from '../assets/images/projects/geopsy/geopsy_image4.jpg'
+import geopsyImage1 from '../assets/images/projects/geopsy/geopsy_image1.webp'
+import geopsyImage2 from '../assets/images/projects/geopsy/geopsy_image2.webp'
+import geopsyImage3 from '../assets/images/projects/geopsy/geopsy_image3.webp'
+import geopsyImage4 from '../assets/images/projects/geopsy/geopsy_image4.webp'
 
 // ── Emita Project Images ────────────────────────────────────────
-import emitaImage1 from '../assets/images/projects/emita/emita_image1.jpg'
-import emitaImage2 from '../assets/images/projects/emita/emita_image2.jpg'
-import emitaImage3 from '../assets/images/projects/emita/emita_image3.jpg'
-import emitaImage4 from '../assets/images/projects/emita/emita_image4.jpg'
+import emitaImage1 from '../assets/images/projects/emita/emita_image1.webp'
+import emitaImage2 from '../assets/images/projects/emita/emita_image2.webp'
+import emitaImage3 from '../assets/images/projects/emita/emita_image3.webp'
+import emitaImage4 from '../assets/images/projects/emita/emita_image4.webp'
 
 // ── Gewal Project Images ────────────────────────────────────────
-import gewalImage1 from '../assets/images/projects/gewal/gewal_image1.jpg'
-import gewalImage2 from '../assets/images/projects/gewal/gewal_image2.jpg'
-import gewalImage3 from '../assets/images/projects/gewal/gewal_image3.jpg'
-import gewalImage4 from '../assets/images/projects/gewal/gewal_image4.jpg'
+import gewalImage1 from '../assets/images/projects/gewal/gewal_image1.webp'
+import gewalImage2 from '../assets/images/projects/gewal/gewal_image2.webp'
+import gewalImage3 from '../assets/images/projects/gewal/gewal_image3.webp'
+import gewalImage4 from '../assets/images/projects/gewal/gewal_image4.webp'
 
 // ── McDonald Project Images ─────────────────────────────────────
-import mcdonaldImage1 from '../assets/images/projects/mcdonald/mcdonald_image1.jpg'
-import mcdonaldImage2 from '../assets/images/projects/mcdonald/mcdonald_image2.jpg'
-import mcdonaldImage3 from '../assets/images/projects/mcdonald/mcdonald_image3.jpg'
-import mcdonaldImage4 from '../assets/images/projects/mcdonald/mcdonald_image4.jpg'
+import mcdonaldImage1 from '../assets/images/projects/mcdonald/mcdonald_image1.webp'
+import mcdonaldImage2 from '../assets/images/projects/mcdonald/mcdonald_image2.webp'
+import mcdonaldImage3 from '../assets/images/projects/mcdonald/mcdonald_image3.webp'
+import mcdonaldImage4 from '../assets/images/projects/mcdonald/mcdonald_image4.webp'
 
 // ── Midas Project Images ────────────────────────────────────────
-import midasImage1 from '../assets/images/projects/midas/midas_image1.jpg'
-import midasImage2 from '../assets/images/projects/midas/midas_image2.jpg'
-import midasImage3 from '../assets/images/projects/midas/midas_image3.jpg'
-import midasImage4 from '../assets/images/projects/midas/midas_image4.jpg'
+import midasImage1 from '../assets/images/projects/midas/midas_image1.webp'
+import midasImage2 from '../assets/images/projects/midas/midas_image2.webp'
+import midasImage3 from '../assets/images/projects/midas/midas_image3.webp'
+import midasImage4 from '../assets/images/projects/midas/midas_image4.webp'
 
 // ── Kezjoy Project Images ───────────────────────────────────────
-import kezjoyImage1 from '../assets/images/projects/kezjoy/kezjoy_image1.jpg'
-import kezjoyImage2 from '../assets/images/projects/kezjoy/kezjoy_image2.jpg'
-import kezjoyImage3 from '../assets/images/projects/kezjoy/kezjoy_image3.jpg'
-import kezjoyImage4 from '../assets/images/projects/kezjoy/kezjoy_image4.jpg'
+import kezjoyImage1 from '../assets/images/projects/kezjoy/kezjoy_image1.webp'
+import kezjoyImage2 from '../assets/images/projects/kezjoy/kezjoy_image2.webp'
+import kezjoyImage3 from '../assets/images/projects/kezjoy/kezjoy_image3.webp'
+import kezjoyImage4 from '../assets/images/projects/kezjoy/kezjoy_image4.webp'
 
 // ── LPC Project Images ──────────────────────────────────────────
-import lpcImage1 from '../assets/images/projects/lpc/lpc_image1.jpg'
-import lpcImage2 from '../assets/images/projects/lpc/lpc_image2.jpg'
-import lpcImage3 from '../assets/images/projects/lpc/lpc_image3.jpg'
-import lpcImage4 from '../assets/images/projects/lpc/lpc_image4.jpg'
+import lpcImage1 from '../assets/images/projects/lpc/lpc_image1.webp'
+import lpcImage2 from '../assets/images/projects/lpc/lpc_image2.webp'
+import lpcImage3 from '../assets/images/projects/lpc/lpc_image3.webp'
+import lpcImage4 from '../assets/images/projects/lpc/lpc_image4.webp'
 
 // ── Graceful Fallback Function ───────────────────────────────────
 const createImageFallback = (title, index) => {
@@ -277,6 +277,18 @@ export const getAdjacentProjects = (currentSlug) => {
     prev: index > 0 ? sorted[index - 1] : sorted[sorted.length - 1],
     next: index < sorted.length - 1 ? sorted[index + 1] : sorted[0],
   }
+}
+
+// The next `limit` projects after the current one (wraps around), used by
+// the "Other Projects" section on the detail page.
+export const getOtherProjects = (currentSlug, limit = 2) => {
+  const sorted = getAllProjects()
+  const index = sorted.findIndex((p) => p.slug === currentSlug)
+  const others = []
+  for (let i = 1; i < sorted.length && others.length < limit; i++) {
+    others.push(sorted[(index + i) % sorted.length])
+  }
+  return others
 }
 
 export const projectCategories = [

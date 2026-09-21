@@ -1,0 +1,65 @@
+/* WordRotator.module.css — text-only cube roll (same motion as CubeButton).
+   --wr-h is the cube height = one line of the surrounding text. */
+
+.wrap {
+  --wr-h: 1.05em;
+  position: relative;
+  display: inline-grid;
+  justify-items: center;
+  align-items: center;
+  perspective: calc(var(--wr-h) * 9);
+}
+
+/* Exact line height where the browser supports the `lh` unit */
+@supports (height: 1lh) {
+  .wrap { --wr-h: 1lh; }
+}
+
+.sizer {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+/* ── Cube ── */
+.cube {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--wr-h) / -2));
+  will-change: transform;
+}
+
+/* Roll up; long ease-out tail = slow-motion settle */
+.rolling {
+  transform: translateZ(calc(var(--wr-h) / -2)) rotateX(90deg);
+  transition: transform var(--wr-duration, 1.1s) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  backface-visibility: hidden;
+}
+
+/* ── Colour ──
+   The two faces carry different colours, like the two faces of a CubeButton:
+   the resting text colour (muted gray, inherited) and the accent (navy, like
+   the rest of the headline). They alternate every roll (.odd), so the arriving
+   word is always in the other colour and keeps it once it settles. Nothing is
+   transitioned, so the silent face swap at the end never flashes. */
+.front { transform: translateZ(calc(var(--wr-h) / 2)); }
+.front { color: inherit; }
+.next  { color: var(--wr-accent, var(--color-text-primary)); }
+
+.odd .front { color: var(--wr-accent, var(--color-text-primary)); }
+.odd .next  { color: inherit; }
+
+/* Next word waits underneath and swings in as the cube rolls up */
+.next {
+  transform: rotateX(-90deg) translateZ(calc(var(--wr-h) / 2));
+}

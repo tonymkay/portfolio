@@ -7,6 +7,8 @@ import Process from './pages/Process/Process'
 import Contact from './pages/Contact/Contact'
 import ProjectDetail from './pages/ProjectDetail/ProjectDetail'
 import NotFound from './pages/NotFound/NotFound'
+import UxProjects from './pages/UxProjects/UxProjects'
+import UxProjectDetail from './pages/UxProjectDetail/UxProjectDetail'
 
 // Wrapper that forces a full remount whenever the slug changes.
 // This resets all useScrollReveal / animation state so reveal
@@ -14,6 +16,11 @@ import NotFound from './pages/NotFound/NotFound'
 function KeyedProjectDetail() {
   const { slug } = useParams()
   return <ProjectDetail key={slug} />
+}
+
+function KeyedUxProjectDetail() {
+  const { slug } = useParams()
+  return <UxProjectDetail key={slug} />
 }
 
 export default function AppRouter() {
@@ -27,6 +34,8 @@ export default function AppRouter() {
           <Route path="/process"       element={<Process />} />
           <Route path="/contact"       element={<Contact />} />
           <Route path="/projects/:slug" element={<KeyedProjectDetail />} />
+          <Route path="/ui-ux"         element={<UxProjects />} />
+          <Route path="/ui-ux/:slug"    element={<KeyedUxProjectDetail />} />
           <Route path="*"              element={<NotFound />} />
         </Route>
       </Routes>

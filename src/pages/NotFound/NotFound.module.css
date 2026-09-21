@@ -36,19 +36,7 @@
   line-height: 1.65;
 }
 
+/* Button = <CubeButton>; only layout lives here */
 .homeBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
   margin-top: 0.5rem;
-  padding: 0.75rem 2rem;
-  background: var(--color-navy);
-  color: var(--color-white);
-  border-radius: var(--radius-full);
-  font-weight: 700;
-  font-size: 0.9375rem;
-  text-decoration: none;
-  transition: background-color var(--transition-fast);
 }
-
-.homeBtn:hover { background: var(--color-teal); }

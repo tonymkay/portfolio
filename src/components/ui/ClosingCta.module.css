@@ -1,0 +1,42 @@
+/* ClosingCta.module.css — homepage-style CTA, dark look via --ux-* tokens */
+.band {
+  padding: 2rem 0 8rem;
+  overflow: hidden;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.bigWord {
+  width: 100%;
+  margin-bottom: 3rem;
+  font-size: clamp(2.5rem, 10.5vw, 9.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.06);
+  user-select: none;
+}
+
+.text {
+  max-width: 40rem;
+  margin-top: 4rem;
+  font-size: clamp(1.375rem, 3.1vw, 2.375rem);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.light { color: var(--ux-text, #FFFFFF); }
+.muted { color: var(--ux-muted, #9C9CA6); }
+
+@media (max-width: 767px) {
+  .band { padding: 1rem 0 5rem; }
+  .bigWord { margin-bottom: 2rem; }
+  .text { margin-top: 2.5rem; }
+}

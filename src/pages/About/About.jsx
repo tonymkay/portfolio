@@ -1,90 +1,117 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { siteContent } from '../../data/siteContent'
-import { getAllProjects } from '../../data/projects'
 import { motion as motionPresets } from '../../theme/motion'
+import usePageTheme from '../../hooks/usePageTheme'
 import Tag from '../../components/ui/Tag'
-import CtaBanner from '../../components/ui/CtaBanner'
+import CubeButton from '../../components/ui/CubeButton'
+import SocialLinks from '../../components/ui/SocialLinks'
+import ClosingCta from '../../components/ui/ClosingCta'
+import CountUp from '../../components/ui/CountUp'
 import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
 import Reveal from '../../components/ui/Reveal'
+import useScrollReveal from '../../hooks/useScrollReveal'
 import styles from './About.module.css'
 
-const { home, designer, images: pageImages } = siteContent
-const allProjects = getAllProjects()
-const carouselProjects = [...allProjects, ...allProjects]
+const { home, designer, about: aboutContent, images: pageImages } = siteContent
+const { hero, numbers } = aboutContent
+
+/** Renders [{ text, muted? }] as inline spans; muted ones turn grey. */
+function Segments({ items }) {
+  return items.map((s, i) => (
+    <span key={i} className={s.muted ? styles.muted : undefined}>{s.text}</span>
+  ))
+}
+
+/**
+ * NumbersBand — "My Numbers" strip.
+ * Uses ONE scroll trigger (isVisible) for both the fadeUp reveal on each
+ * stat AND its CountUp, so the digits start counting in the same instant
+ * the card fades in — not on a separate, later-firing observer with a
+ * guessed delay bolted on top.
+ */
+function NumbersBand({ numbers }) {
+  const { ref, isVisible } = useScrollReveal(0.2)
+
+  return (
+    <motion.section
+      ref={ref}
+      className={styles.numbers}
+      initial="hidden"
+      animate={isVisible ? 'visible' : 'hidden'}
+      variants={motionPresets.staggerContainer}
+    >
+      <div className={`container ${styles.numbersInner}`}>
+        <Reveal variant="fadeIn" className={styles.numbersEyebrowRow}>
+          <span className={styles.rule} aria-hidden="true" />
+          <h2 className={styles.numbersEyebrow}>{numbers.eyebrow}</h2>
+          <span className={styles.rule} aria-hidden="true" />
+        </Reveal>
+
+        <ul className={styles.numbersGrid}>
+          {numbers.items.map((item, i) => (
+            <Reveal key={item.label} variant="fadeUp" as="li" className={styles.stat}>
+              <span className={styles.statValueWrap}>
+                <CountUp
+                  to={item.value}
+                  active={isVisible}
+                  duration={1600}
+                  delay={i * 120}
+                  pad={item.suffix ? 1 : 2}
+                  className={styles.statValue}
+                />
+                {item.suffix && <span className={styles.statSuffix}>{item.suffix}</span>}
+              </span>
+              <span className={styles.statLabel}>{item.label}</span>
+            </Reveal>
+          ))}
+        </ul>
+      </div>
+    </motion.section>
+  )
+}
 
 export default function About() {
+  usePageTheme('dark')
+
   return (
     <div className={styles.page}>
 
-      {/* ══ HERO ══ */}
+      {/* ══ HERO — portrait, statement, intro, socials + button ══ */}
       <motion.section
-        className={styles.hero}
+        className={`container ${styles.hero}`}
         initial="hidden"
         animate="visible"
         variants={motionPresets.staggerContainer}
       >
-        <div
-          className={styles.heroOverlay}
-          style={pageImages.aboutWorkspace ? { backgroundImage: `url(${pageImages.aboutWorkspace})` } : {}}
-        />
-        <div className={`container ${styles.heroContent}`}>
-          <div className={styles.heroLeft}>
-            <Reveal variant="fadeIn" as="p" className={styles.heroGreeting}>Hello There 👋 I'm</Reveal>
-            <Reveal variant="fadeUp" as="h1" className={styles.heroName}>Murimi</Reveal>
-          </div>
-          <div className={styles.heroRight}>
-            <Reveal variant="slideRight" as="p" className={styles.heroDesc}>
-              Hello, I'm Antony Murimi, a passionate Identity and UX/UI Designer with over 4+
-              years of experience in crafting brilliant and impactful designs. I've been involved
-              in various projects with a focus on user-centered design. Let's collaborate to bring
-              your ideas to life!
-            </Reveal>
-            <Reveal variant="fadeUp">
-              <Link to="/contact" className={styles.heroCta}>Let's talk ↗</Link>
-            </Reveal>
-          </div>
-        </div>
+        <Reveal variant="scaleUp" className={styles.portrait}>
+          <span className={styles.portraitInner}>
+            {pageImages.heroPortrait && (
+              <img src={pageImages.heroPortrait} alt={`Portrait of ${designer.fullName}`} />
+            )}
+          </span>
+        </Reveal>
+
+        <Reveal variant="fadeUp" as="h1" className={styles.statement}>
+          <Segments items={hero.statement} />
+        </Reveal>
+
+        <Reveal variant="fadeUp" as="p" className={styles.intro}>
+          <Segments items={hero.intro} />
+        </Reveal>
+
+        <Reveal variant="fadeUp" className={styles.actions}>
+          <SocialLinks />
+          <CubeButton to={home.hero.contactHref} variant="light" spaced>
+            {home.hero.contactLabel}
+          </CubeButton>
+        </Reveal>
       </motion.section>
 
-      {/* ══ IN MY OWN WORDS ══ */}
-      <ScrollRevealSection className={styles.about}>
-        <div className={`container ${styles.aboutGrid}`}>
-          <Reveal variant="slideLeft" className={styles.aboutCol1}>
-            <span className={styles.eyebrow}>● About Me</span>
-            <h2 className={styles.aboutHeading}>In My Own Words</h2>
-            <p className={styles.aboutBody}>{designer.longBio}</p>
-          </Reveal>
-          <Reveal variant="scaleUp" className={styles.aboutCol2}>
-            <div className={styles.statBox}>
-              <span className={styles.statIcon}>⚙</span>
-              <span className={styles.statNumber}>{designer.yearsExperience}</span>
-              <span className={styles.statLabel}>{designer.experienceLabel}</span>
-            </div>
-            <div className={styles.smallPortraitWrapper}>
-              {pageImages.aboutPortrait ? (
-                <img src={pageImages.aboutPortrait} alt="Portrait of Antony Murimi" className={styles.smallPortraitImage} />
-              ) : (
-                <div className={styles.smallPortraitPlaceholder} aria-hidden="true" />
-              )}
-            </div>
-          </Reveal>
-          <Reveal variant="slideRight" className={styles.aboutCol3}>
-            {home.about.journey.map((item, i) => (
-              <div key={i} className={styles.journeyItem}>
-                <span className={styles.journeyDot}>
-                  <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
-                    <circle cx="10" cy="10" r="9" />
-                  </svg>
-                </span>
-                <p className={styles.journeyText}>{item.text}</p>
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </ScrollRevealSection>
+      {/* ══ MY NUMBERS — each figure counts up as it scrolls into view ══ */}
+      <NumbersBand numbers={numbers} />
 
-      {/* ══ EXPERIENCE — hover-expandable rows ══ */}
+      {/* ══ EXPERIENCE ══ */}
       <ScrollRevealSection className={styles.experience}>
         <div className={`container ${styles.expGrid}`}>
 
@@ -116,7 +143,7 @@ export default function About() {
                   <div className={styles.roleRightInfo}>
                     <p className={styles.roleDesc}>{role.description}</p>
                     <div className={styles.roleTags}>
-                      {role.tags.map((t) => <Tag key={t}>{t}</Tag>)}
+                      {role.tags.map((t) => <Tag key={t} variant="outline">{t}</Tag>)}
                     </div>
                   </div>
                 </div>
@@ -127,72 +154,8 @@ export default function About() {
         </div>
       </ScrollRevealSection>
 
-      {/* ══ JOURNEY IN THREE STEPS — hover to reveal description ══ */}
-      <ScrollRevealSection className={styles.journey}>
-        <div className={`container ${styles.journeyGrid}`}>
-
-          <Reveal variant="slideLeft" className={styles.journeyLeft}>
-            <span className={styles.eyebrow}>● My Journey</span>
-            <h2 className={styles.journeyHeading}>{home.journey.heading}</h2>
-          </Reveal>
-
-          <div className={styles.journeySteps}>
-            {home.journey.steps.map((step, i) => (
-              <Reveal key={step.number} variant="fadeUp" className={styles.step}>
-                <div className={styles.stepIndicator}>
-                  <div className={styles.stepCircle}>{step.number}</div>
-                  {i < home.journey.steps.length - 1 && (
-                    <div className={styles.stepConnector} aria-hidden="true" />
-                  )}
-                </div>
-                <div className={styles.stepContent}>
-                  <h3 className={styles.stepTitle}>{step.title}</h3>
-                  {/* Description hidden by default, revealed on hover */}
-                  <p className={styles.stepDesc}>{step.description}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-        </div>
-      </ScrollRevealSection>
-
-      {/* ══ CAROUSEL ══ */}
-      <ScrollRevealSection className={styles.carouselSection} threshold={0.05} aria-label="Featured projects">
-        <div className={styles.carouselViewport}>
-          <div className={styles.carouselTrack}>
-            {carouselProjects.map((project, i) => (
-              <Link
-                key={`${project.id}-${i}`}
-                to={`/projects/${project.slug}`}
-                className={styles.carouselCard}
-                aria-label={`View ${project.title}`}
-                tabIndex={i >= allProjects.length ? -1 : 0}
-              >
-                <div className={styles.carouselImage}>
-                  {project.coverImage ? (
-                    <img src={project.coverImage} alt={project.title} loading="lazy" />
-                  ) : (
-                    <div className={styles.carouselPlaceholder} />
-                  )}
-                  <div className={styles.carouselOverlay}>
-                    <span className={styles.carouselArrow}>↗</span>
-                  </div>
-                </div>
-                <p className={styles.carouselTitle}>{project.title}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </ScrollRevealSection>
-
-      <CtaBanner
-        heading={home.cta.heading}
-        description={home.cta.description}
-        ctaLabel={home.cta.ctaLabel}
-        ctaHref={home.cta.ctaHref}
-        image={pageImages.homeCta}
-      />
+      {/* ══ CTA — same as the homepage ══ */}
+      <ClosingCta />
 
     </div>
   )

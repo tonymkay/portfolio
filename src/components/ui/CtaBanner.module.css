@@ -134,8 +134,12 @@
 
 /* ── Dark variant (Process page — photo card) ── */
 .sectionDark {
-  padding: 4rem 0 0;
+  padding: 4rem 0 3rem;
   margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .sectionDark { padding: 4rem 0 5rem; }
 }
 
 .innerDark {
@@ -216,4 +220,9 @@
 
 .ctaDark:hover {
   color: var(--color-white);
+}
+
+/* CTA button wrapper — the button itself is <CubeButton> */
+.ctaWrap {
+  margin-top: 0.5rem;
 }

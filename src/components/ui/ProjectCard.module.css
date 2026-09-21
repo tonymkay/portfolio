@@ -1,7 +1,7 @@
 .card {
   display: block;
   text-decoration: none;
-  border-radius: var(--radius-lg);
+  border-radius: 0;
   overflow: hidden;
   position: relative;
   transition: transform var(--transition-base);
@@ -17,7 +17,7 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background-color: var(--color-light-gray);
-  border-radius: var(--radius-lg);
+  border-radius: 0;
 }
 
 .image {
@@ -60,7 +60,7 @@
   justify-content: center;
   opacity: 0;
   transition: opacity var(--transition-base);
-  border-radius: var(--radius-lg);
+  border-radius: 0;
 }
 
 .card:hover .overlay {

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { siteContent } from '../../data/siteContent'
 import { motion as motionPresets } from '../../theme/motion'
 import CtaBanner from '../../components/ui/CtaBanner'
+import CubeButton from '../../components/ui/CubeButton'
 import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
 import Reveal from '../../components/ui/Reveal'
 import styles from './Process.module.css'
@@ -59,9 +60,15 @@ export default function Process() {
                   <p className={styles.stepDesc}>{step.description}</p>
                   {/* Book a Call CTA after step 1 only */}
                   {i === 0 && (
-                    <Link to="/contact" className={styles.stepCta}>
+                    <CubeButton
+                      to="/contact"
+                      variant="outline"
+                      size="sm"
+                      rounded
+                      style={{ marginTop: '1rem' }}
+                    >
                       Book a Call ↗
-                    </Link>
+                    </CubeButton>
                   )}
                 </div>
               </Reveal>

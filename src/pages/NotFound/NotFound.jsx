@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import CubeButton from '../../components/ui/CubeButton'
 import styles from './NotFound.module.css'
 
 export default function NotFound() {
@@ -10,9 +10,9 @@ export default function NotFound() {
         <p className={styles.desc}>
           The page you're looking for doesn't exist or has been moved.
         </p>
-        <Link to="/" className={styles.homeBtn}>
+        <CubeButton to="/" rounded className={styles.homeBtn}>
           ← Back to Home
-        </Link>
+        </CubeButton>
       </div>
     </div>
   )

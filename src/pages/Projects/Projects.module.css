@@ -131,7 +131,7 @@
 .gridImage {
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius-lg);
+  border-radius: 0;
   background: var(--color-light-gray);
   aspect-ratio: 4/3;
 }
@@ -180,7 +180,7 @@
   justify-content: center;
   opacity: 0;
   transition: opacity var(--transition-base);
-  border-radius: var(--radius-lg);
+  border-radius: 0;
 }
 
 .gridItem:hover .gridOverlay {

@@ -1,21 +1,18 @@
-/* Navbar.module.css */
+/* Navbar.module.css — logo left, pulsing dot right that expands into a menu */
 
 .navbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
   height: var(--navbar-height);
-  background-color: var(--color-white);
-  border-bottom: 1px solid var(--color-light-gray);
   display: flex;
-  align-items: center;
-  transition: box-shadow var(--transition-base);
-}
-
-.navbar.scrolled {
-  box-shadow: var(--shadow-sm);
+  align-items: flex-start;
+  padding-top: 1.5rem;
+  /* Transparent and click-through so the page reads as one continuous surface */
+  background: transparent;
+  pointer-events: none;
 }
 
 .inner {
@@ -32,6 +29,7 @@
   gap: 0.5rem;
   text-decoration: none;
   flex-shrink: 0;
+  pointer-events: auto;
 }
 
 .logoMark {
@@ -56,241 +54,173 @@
   letter-spacing: -0.01em;
 }
 
-/* Desktop nav */
-.nav {
-  display: none;
-  align-items: center;
-  gap: 2rem;
-}
-
-@media (min-width: 768px) {
-  .nav {
-    display: flex;
-  }
-}
-
-.navLink {
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--color-text-primary);
-  text-decoration: none;
+/* ── Menu wrapper ── */
+.menu {
   position: relative;
-  padding-bottom: 2px;
-  transition: color var(--transition-fast);
+  pointer-events: auto;
 }
 
-.navLink::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-teal);
-  transition: width var(--transition-base);
-}
-
-.navLink:hover {
-  color: var(--color-teal);
-}
-
-.navLink:hover::after {
-  width: 100%;
-}
-
-.navLink.active {
-  color: var(--color-teal);
-}
-
-.navLink.active::after {
-  width: 100%;
-}
-
-/* Nav Actions (Dark Mode Toggle + CTA) */
-.navActions {
-  display: none;
-  align-items: center;
-  gap: 1rem;
-}
-
-@media (min-width: 768px) {
-  .navActions {
-    display: flex;
-  }
-}
-
-/* Dark Mode Toggle */
-.darkModeToggle {
+/* ── Dot button ── */
+.dotBtn {
+  position: relative;
+  z-index: 3;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--color-light-gray);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: none;
-  background: transparent;
-  border-radius: var(--radius-lg);
-  color: var(--color-text-primary);
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.darkModeToggle:hover {
-  background-color: var(--color-light-gray);
-}
-
-.darkModeToggle svg {
-  transition: transform 0.3s ease;
-}
-
-.darkModeToggle:hover svg {
-  transform: rotate(15deg) scale(1.1);
-}
-
-/* CTA Button */
-.ctaBtn {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.5rem 1.125rem;
-  border: 1.5px solid var(--color-text-primary);
-  border-radius: var(--radius-full);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  background: transparent;
-  cursor: pointer;
-  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
-  white-space: nowrap;
-  text-decoration: none;
-}
-
-.ctaBtn:hover {
-  background-color: var(--color-text-primary);
-  color: var(--color-white);
-}
-
-/* Hamburger */
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 36px;
-  height: 36px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-}
-
-@media (min-width: 768px) {
-  .hamburger {
-    display: none;
-  }
-}
-
-.hamburger span {
-  display: block;
-  height: 2px;
-  background-color: var(--color-text-primary);
-  border-radius: 2px;
-  transition: transform var(--transition-base), opacity var(--transition-base);
-  transform-origin: center;
-}
-
-.hamburger.open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-
-.hamburger.open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Mobile menu */
-.mobileMenu {
-  display: none;
-  position: absolute;
-  top: var(--navbar-height);
-  left: 0;
-  right: 0;
-  background-color: var(--color-white);
-  border-bottom: 1px solid var(--color-light-gray);
-  padding: 1.5rem var(--container-x);
-  flex-direction: column;
-  gap: 1.25rem;
-  box-shadow: var(--shadow-md);
-}
-
-.mobileMenu.open {
-  display: flex;
-}
-
-@media (min-width: 768px) {
-  .mobileMenu {
-    display: none !important;
-  }
-}
-
-.mobileNavLink {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  text-decoration: none;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--color-light-gray);
-  transition: color var(--transition-fast);
-}
-
-.mobileNavLink:hover,
-.mobileNavLink.active {
-  color: var(--color-teal);
-}
-
-/* Mobile Dark Mode Toggle */
-.mobileDarkModeToggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  background-color: var(--color-light-gray);
-  border: none;
-  border-radius: var(--radius-lg);
-  color: var(--color-text-primary);
-  font-weight: 600;
-  font-size: 0.9375rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.mobileDarkModeToggle:hover {
-  background-color: var(--color-mid-gray);
-}
-
-.mobileDarkModeToggle svg {
-  flex-shrink: 0;
-}
-
-.mobileCta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--color-navy);
-  color: var(--color-white);
-  border-radius: var(--radius-full);
-  font-weight: 600;
-  font-size: 0.9375rem;
-  text-decoration: none;
-  margin-top: 0.5rem;
   transition: background-color var(--transition-fast);
 }
 
-.mobileCta:hover {
-  background-color: var(--color-teal);
+.dotBtn:hover {
+  background: var(--color-mid-gray);
+}
+
+/* Pulsing ring */
+.dotBtn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color-teal);
+  opacity: 0;
+  animation: ringPulse 2.2s ease-out infinite;
+  pointer-events: none;
+}
+
+.dotBtn.open::after {
+  animation: none;
+}
+
+@keyframes ringPulse {
+  0%   { transform: scale(0.85); opacity: 0.55; }
+  100% { transform: scale(1.6);  opacity: 0; }
+}
+
+/* Pulsing dot */
+.dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--color-navy);
+  animation: dotPulse 2.2s ease-in-out infinite;
+  transition: opacity var(--transition-fast), transform var(--transition-base);
+}
+
+.dotBtn.open .dot {
+  animation: none;
+  opacity: 0;
+  transform: scale(0);
+}
+
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(0.7); }
+}
+
+/* Close (X) — shown when open */
+.x {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  opacity: 0;
+  transform: scale(0.4) rotate(-90deg);
+  transition: opacity var(--transition-fast), transform var(--transition-base);
+}
+
+.x span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  margin-top: -1px;
+  border-radius: 2px;
+  background: var(--color-navy);
+}
+
+.x span:first-child { transform: rotate(45deg); }
+.x span:last-child  { transform: rotate(-45deg); }
+
+.dotBtn.open .x {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* ── Dimmed page behind the panel (full screen) ── */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  border: none;
+  cursor: default;
+  background: color-mix(in srgb, var(--color-navy) 45%, transparent);
+}
+
+/* ── Expanded panel ── */
+.panel {
+  position: absolute;
+  top: calc(100% + 1.25rem);
+  right: 0;
+  z-index: 2;
+  width: min(20rem, calc(100vw - 2 * var(--container-x)));
+  padding: 2rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--color-white);
+  border-radius: 2rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.link {
+  padding: 0.85rem 1rem;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.link:hover,
+.link.active {
+  color: var(--color-teal);
+}
+
+/* Menu CTA = <CubeButton>; only layout lives here */
+.cta {
+  align-self: stretch;
+  margin-top: 0.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .dotBtn::after { animation: none; }
+}
+
+/* ── Dark pages — html[data-page-theme='dark'] (see hooks/usePageTheme) ──
+   The navbar floats over the page, so logo + menu button must flip.
+   The white dropdown panel keeps its own light styling. */
+:global(html[data-page-theme='dark']) .logoText {
+  color: var(--color-white);
+}
+
+:global(html[data-page-theme='dark']) .dotBtn {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+:global(html[data-page-theme='dark']) .dotBtn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+:global(html[data-page-theme='dark']) .dot {
+  background: var(--color-mid-gray);
+}
+
+:global(html[data-page-theme='dark']) .x span {
+  background: var(--color-white);
 }

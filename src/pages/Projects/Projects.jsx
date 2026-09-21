@@ -5,8 +5,10 @@ import { siteContent } from '../../data/siteContent'
 import { getAllProjects, projectCategories } from '../../data/projects'
 import { motion as motionPresets } from '../../theme/motion'
 import CtaBanner from '../../components/ui/CtaBanner'
+import CubeButton from '../../components/ui/CubeButton'
 import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
 import Reveal from '../../components/ui/Reveal'
+import WorkTabs from '../../components/ui/WorkTabs'
 import styles from './Projects.module.css'
 
 const { projects: projectsContent, images: pageImages } = siteContent
@@ -47,15 +49,21 @@ export default function Projects() {
       {/* ── Filter Tabs — fade in as a row ── */}
       <ScrollRevealSection className={styles.filterSection}>
         <div className="container">
+          <Reveal variant="fadeUp">
+            <WorkTabs />
+          </Reveal>
           <Reveal variant="fadeUp" className={styles.filterRow}>
             {projectCategories.map((cat) => (
-              <button
+              <CubeButton
                 key={cat}
-                className={`${styles.filterBtn} ${activeFilter === cat ? styles.active : ''}`}
+                size="sm"
+                rounded
+                variant={activeFilter === cat ? 'active' : 'solid'}
                 onClick={() => setActiveFilter(cat)}
+                aria-pressed={activeFilter === cat}
               >
                 {cat}
-              </button>
+              </CubeButton>
             ))}
           </Reveal>
         </div>

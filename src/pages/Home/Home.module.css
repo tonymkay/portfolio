@@ -1,10 +1,24 @@
 /* ═══════════════════════════════════════════════
    Home.module.css
-   Matches inspo: dark full-width hero → two-col
-   intro → centered projects → testimonials → CTA
+   Centered typewriter hero → projects → process
+   steps → testimonials → CTA
    ═══════════════════════════════════════════════ */
 
-.page { overflow-x: hidden; }
+/* Dark theme — driven by these tokens. The document background (behind the
+   navbar / overscroll) comes from usePageTheme('dark'). Same set as the
+   project detail page, so UxProjectCard picks them up automatically. */
+.page {
+  --ux-bg: var(--color-page-dark);            /* #242429 */
+  --ux-surface: #2E2E34;                      /* image placeholders */
+  --ux-text: #FFFFFF;
+  --ux-body: rgba(255, 255, 255, 0.82);
+  --ux-muted: #9C9CA6;
+  --ux-line: rgba(255, 255, 255, 0.2);
+
+  background: var(--ux-bg);
+  color: var(--ux-text);
+  overflow-x: hidden;
+}
 
 /* ── Shared eyebrow ── */
 .eyebrow {
@@ -33,204 +47,309 @@
 .viewMore:hover { color: var(--color-teal); }
 
 /* ══════════════════════════════════════════════
-   HERO — full-width, dark overlay, centered text
-   Large name on one line, gold subtitle below
+   HERO — centered statement, circular portrait,
+   typewriter word, socials + CTA. Plain theme
+   background, no image.
    ══════════════════════════════════════════════ */
 .hero {
-  position: relative;
-  background: var(--color-navy);
-  min-height: 42vh;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
+  background: transparent;
+  /* Fixed headroom and bottom room at every width: the eyebrow never moves,
+     only content below it shifts down when text wraps. */
+  padding: 6rem 0 2rem;
 }
 
-/* Background image overlay — backgroundImage applied inline when image exists */
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  /* Gradient fallback — shows when home_hero.jpg isn't present yet */
-  background: linear-gradient(160deg, #2a3e52 0%, #1a2b3a 50%, #2e3d30 100%);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Dark scrim ensures text stays readable over any photo */
-.heroOverlay::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 25, 38, 0.45);
-}
-
-.heroContent {
-  position: relative;
-  z-index: 1;
+.heroInner {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 2rem;
   text-align: center;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-  gap: 0.625rem;
 }
 
-/* "Antony Murimi" — the big headline */
-.heroName {
-  font-size: clamp(2.75rem, 7vw, 5.5rem);
-  font-weight: 800;
-  color: var(--color-white);
-  letter-spacing: -0.03em;
-  line-height: 1.0;
+.heroEyebrowRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.875rem;
 }
 
-/* "Identity/Product Designer" — gold subtitle */
-.heroSubtitle {
-  font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+.heroRule {
+  flex: none;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--ux-muted);
+  opacity: 0.7;
+}
+
+.heroEyebrow {
+  font-size: 0.75rem;
   font-weight: 500;
-  color: var(--color-gold);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-teal-light);
+  white-space: nowrap;
 }
 
-/* ══════════════════════════════════════════════
-   INTRO — two columns
-   LEFT: Hello + bio + LEARN MORE
-   RIGHT: portrait photo square
-   ══════════════════════════════════════════════ */
-.intro {
-  padding: 4rem 0 5rem;
-  background: var(--color-white);
-}
-
-.introGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-@media (min-width: 768px) {
-  .introGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-}
-
-/* LEFT side */
-.introLeft {
+.heroTitle {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  font-size: 3.5rem;
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--ux-text);
+  --wr-accent: var(--ux-text);   /* WordRotator's alternate colour (default is navy) */
 }
 
-.introGreeting {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 800;
-  color: var(--color-text-primary);
-  line-height: 1.1;
-}
-
-.introBio {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  line-height: 1.5;
-}
-
-.introBioDetail {
-  font-size: 0.9rem;
-  color: var(--color-text-secondary);
-  line-height: 1.75;
-  white-space: pre-line;
-}
-
-.learnMoreBtn {
+.heroRow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.625rem 1.75rem;
-  border: 1.5px solid var(--color-text-primary);
-  border-radius: var(--radius-full);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--color-text-primary);
-  background: transparent;
-  width: fit-content;
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  flex-wrap: wrap;
+  gap: 0.25em;
+  min-height: 1.04em;
 }
 
-.learnMoreBtn:hover {
-  background: var(--color-navy);
-  border-color: var(--color-navy);
-  color: var(--color-white);
+.heroMuted { color: var(--ux-muted); }
+
+/* Circular portrait sitting beside "I design" */
+.heroAvatar {
+  width: 0.7em;
+  height: 0.7em;
+  flex: none;
+  border-radius: 50%;
+  border: 0.07em solid var(--color-mid-gray);
+  background: var(--color-light-gray);
+  overflow: hidden;
 }
 
-/* RIGHT side — portrait */
-.introRight {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.portraitWrapper {
+.heroAvatar img {
   width: 100%;
-  max-width: 420px;
-}
-
-.portraitImage {
-  width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-xl);
+  object-position: 51% 50%;
+  transform: scale(1.4);
+  transform-origin: 51% 44%;
+  mix-blend-mode: multiply;
 }
 
-.portraitPlaceholder {
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  background: linear-gradient(145deg, #c4b5a0 0%, #8a7a6a 100%);
-  border-radius: var(--radius-xl);
-}  /* When portrait image is added, replace with <img> in JSX */
+.heroActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.heroSocials {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.heroSocial {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ux-line);
+  border-radius: 50%;
+  color: var(--ux-muted);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.heroSocial:hover {
+  border-color: var(--ux-text);
+  color: var(--ux-text);
+}
+
+.heroSocial svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.behance {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Hero button = <CubeButton>; look lives in components/ui/CubeButton.
+   Only the phone-size tweak (sizing vars) stays here. */
+
+/* Mobile-only trail words ("people" / "love" as separate items) */
+.trailMobile { display: none; }
+
+/* ── Hero, up to 767px: fixed-size headline (no width scaling), words reflow ── */
+@media (max-width: 767px) {
+  .heroRow { row-gap: 0; }
+  .trailDesktop { display: none; }
+  .trailMobile { display: inline; }
+  .trailLast { text-align: center; }
+}
+
+/* Small mobile: "love" always on its own line */
+@media (max-width: 599px) {
+  .trailLast { flex-basis: 100%; }
+}
+
+/* Two headline sizes only: 3.5rem below 768px (fits "that people" down to 320px), 5.75rem from 768px */
+@media (min-width: 768px) {
+  .heroTitle { font-size: 5.75rem; }
+}
+
+/* ── Hero, phones (<480px): socials + CTA in one row under the headline ── */
+@media (max-width: 479px) {
+  .heroActions {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .heroSocials {
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .heroSocial {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+
+  .heroSocial svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .behance { font-size: 0.8rem; }
+
+  .heroCta {
+    --h: 2.75rem;
+    --px: 0.65rem;
+    --fs: 0.625rem;
+    --ls: 0.12em;
+  }
+}
 
 /* ══════════════════════════════════════════════
-   PROJECTS — off-white bg, center header,
-   3-col × 2-row grid
+   PROJECTS — white bg, "Selected Projects" label,
+   2-col grid of large cards
    ══════════════════════════════════════════════ */
 .projects {
-  padding: 5rem 0 6rem;
-  background: var(--color-off-white);
+  padding: 4rem 0 6rem;
+  background: transparent;
 }
 
-.projectsHeader {
+/* Centered column shared by Projects + Testimonials — same centering
+   approach as the About band so every eyebrow lines up on one axis */
+.sectionInner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 0.5rem;
-  margin-bottom: 2.5rem;
 }
 
-.projectsHeading {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800;
-  color: var(--color-text-primary);
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+.sectionInner > .projectsGrid,
+.sectionInner > .testimonialGrid {
+  width: 100%;
+}
+
+/* — SELECTED PROJECTS — */
+.sectionEyebrowRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 4rem;
+}
+
+.rule {
+  flex: none;
+  width: clamp(2.5rem, 6vw, 4.5rem);
+  height: 1px;
+  background: var(--ux-muted);
+  opacity: 0.7;
+}
+
+.sectionEyebrow {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ux-muted);
+  white-space: nowrap;
 }
 
 .projectsGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
-}
-
-@media (min-width: 640px) {
-  .projectsGrid { grid-template-columns: repeat(2, 1fr); }
+  gap: 3rem 2.5rem;
 }
 
 @media (min-width: 1024px) {
-  .projectsGrid { grid-template-columns: repeat(3, 1fr); }
+  .projectsGrid { grid-template-columns: repeat(2, 1fr); gap: 4rem 2.5rem; }
+}
+
+/* ══════════════════════════════════════════════
+   ABOUT TEASER — dark band below Projects.
+   Eyebrow with side rules, light-weight statement
+   (white lead + gray rest), outlined button.
+   ══════════════════════════════════════════════ */
+.aboutBand {
+  padding: 6rem 0 7rem;
+}
+
+.aboutInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.aboutEyebrowRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 4rem;
+}
+
+.aboutRule {
+  flex: none;
+  width: clamp(2.5rem, 6vw, 4.5rem);
+  height: 1px;
+  background: var(--ux-muted);
+  opacity: 0.7;
+}
+
+.aboutEyebrow {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ux-muted);
+  white-space: nowrap;
+}
+
+.aboutText {
+  max-width: 58rem;
+  font-size: clamp(1.5rem, 3.3vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  margin-bottom: 3rem;
+}
+
+.aboutLead { color: var(--ux-text); }
+.aboutRest { color: var(--ux-muted); }
+
+@media (max-width: 767px) {
+  .aboutBand { padding: 4.5rem 0 5rem; }
+  .aboutEyebrowRow { margin-bottom: 2.5rem; }
+  .aboutText { margin-bottom: 2.25rem; }
 }
 
 /* ══════════════════════════════════════════════
@@ -238,25 +357,8 @@
    two cards side by side
    ══════════════════════════════════════════════ */
 .testimonials {
-  padding: 5rem 0 6rem;
-  background: var(--color-white);
-}
-
-.testimonialsHeader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.5rem;
-  margin-bottom: 3rem;
-}
-
-.testimonialsHeading {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  font-weight: 800;
-  color: var(--color-text-primary);
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  padding: 4rem 0 6rem;
+  background: transparent;
 }
 
 .testimonialGrid {
@@ -266,16 +368,15 @@
 }
 
 @media (min-width: 768px) {
-  .testimonialGrid { grid-template-columns: 1fr 1fr; }
+  .testimonialGrid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
 }
 
 .testimonialCard {
-  background: var(--color-off-white);
-  border-radius: var(--radius-xl);
-  padding: 2rem;
+  border: 1px solid var(--ux-line);
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .testimonialAuthorRow {
@@ -290,25 +391,202 @@
   height: 52px;
   min-width: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8a9bb0, #4a6070);
+  background: var(--ux-surface);
+  border: 1px solid var(--ux-line);
   overflow: hidden;
 }
 
 .testimonialName {
   font-size: 0.9375rem;
   font-weight: 700;
-  color: var(--color-text-primary);
+  color: var(--ux-text);
   line-height: 1.2;
 }
 
 .testimonialRole {
   font-size: 0.8rem;
-  color: var(--color-text-secondary);
+  color: var(--ux-muted);
   margin-top: 0.125rem;
 }
 
 .testimonialQuote {
   font-size: 0.875rem;
-  color: var(--color-text-secondary);
+  color: var(--ux-muted);
   line-height: 1.75;
+}
+/* ══════════════════════════════════════════════
+   PROCESS STEPS — "Design Process in Three Steps"
+   Same pattern as the Process page: label + heading
+   on the left, numbered list with dashed connector
+   on the right.
+   ══════════════════════════════════════════════ */
+.eyebrowDark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+.steps {
+  padding: 5rem 0 6rem;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .stepsGrid {
+    grid-template-columns: 4fr 7fr;
+    gap: 5rem;
+    align-items: start;
+  }
+}
+
+.stepsLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stepsHeading {
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.stepsRight {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.stepIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.stepNumber {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  background: var(--color-navy);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.0625rem;
+  flex-shrink: 0;
+}
+
+.stepConnector {
+  display: block;
+  width: 0;
+  flex: 1;
+  min-height: 3rem;
+  border-left: 2px dashed var(--color-mid-gray);
+  margin-top: 0.375rem;
+}
+
+.stepContent {
+  flex: 1;
+  padding-top: 0.25rem;
+  padding-bottom: 2.5rem;
+}
+
+.step:last-child .stepContent {
+  padding-bottom: 0;
+}
+
+.stepTitle {
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.stepDesc {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-top: 0.625rem;
+}
+
+.stepCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.875rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+.stepCta:hover {
+  color: var(--color-teal);
+}
+
+/* ══════════════════════════════════════════════
+   CTA — dark band. Oversized faded word behind
+   the flow, filled button, light-weight statement
+   with muted highlights.
+   ══════════════════════════════════════════════ */
+.ctaBand {
+  padding: 2rem 0 8rem;
+  overflow: hidden;
+}
+
+.ctaInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ctaBigWord {
+  width: 100%;
+  margin-bottom: 3rem;
+  font-size: clamp(2.5rem, 10.5vw, 9.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.06);
+  user-select: none;
+}
+
+.ctaText {
+  max-width: 40rem;
+  margin-top: 4rem;
+  font-size: clamp(1.375rem, 3.1vw, 2.375rem);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.ctaLight { color: var(--ux-text); }
+.ctaMuted { color: var(--ux-muted); }
+
+@media (max-width: 767px) {
+  .ctaBand { padding: 1rem 0 5rem; }
+  .ctaBigWord { margin-bottom: 2rem; }
+  .ctaText { margin-top: 2.5rem; }
 }

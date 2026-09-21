@@ -1,0 +1,69 @@
+/* UxProjectCard.module.css — Ralf-style stacked project card */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  width: 100%;
+}
+
+.shot {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--ux-surface, var(--color-light-gray));
+}
+
+@media (min-width: 768px) {
+  .shot { aspect-ratio: 16 / 10; }
+}
+
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease, filter 400ms ease;
+}
+
+.card:hover .shot img {
+  transform: scale(1.03);
+  filter: brightness(1.06);
+}
+
+/* Position of the button over the photo */
+.buttonWrap {
+  position: absolute;
+  left: 50%;
+  bottom: 2.5rem;
+  transform: translateX(-50%);
+}
+
+/* Look = <CubeButton variant="surface">; sizing vars only */
+.button {
+  --h: 4rem;
+  --px: 2.5rem;
+  --fs: 0.6875rem;
+  --fw: 500;
+  --ls: 0.28em;
+  --tt: uppercase;
+}
+
+.meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ux-text, var(--color-text-primary));
+}
+
+.info {
+  font-size: 0.875rem;
+  color: var(--ux-muted, var(--color-text-secondary));
+  white-space: nowrap;
+}
