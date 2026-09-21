@@ -253,7 +253,7 @@
 }
 
 .sectionInner > .projectsGrid,
-.sectionInner > .testimonialGrid {
+.sectionInner > .testimonialWrap {
   width: 100%;
 }
 
@@ -353,67 +353,14 @@
 }
 
 /* ══════════════════════════════════════════════
-   TESTIMONIALS — white bg, center header,
-   two cards side by side
+   TESTIMONIALS — eyebrow + <TestimonialLoop>
+   (card + loop styles live in the component)
    ══════════════════════════════════════════════ */
 .testimonials {
   padding: 4rem 0 6rem;
   background: transparent;
 }
 
-.testimonialGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .testimonialGrid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-}
-
-.testimonialCard {
-  border: 1px solid var(--ux-line);
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.testimonialAuthorRow {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* Circular avatar — replace with <img> when portraits are added */
-.avatarCircle {
-  width: 52px;
-  height: 52px;
-  min-width: 52px;
-  border-radius: 50%;
-  background: var(--ux-surface);
-  border: 1px solid var(--ux-line);
-  overflow: hidden;
-}
-
-.testimonialName {
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: var(--ux-text);
-  line-height: 1.2;
-}
-
-.testimonialRole {
-  font-size: 0.8rem;
-  color: var(--ux-muted);
-  margin-top: 0.125rem;
-}
-
-.testimonialQuote {
-  font-size: 0.875rem;
-  color: var(--ux-muted);
-  line-height: 1.75;
-}
 /* ══════════════════════════════════════════════
    PROCESS STEPS — "Design Process in Three Steps"
    Same pattern as the Process page: label + heading

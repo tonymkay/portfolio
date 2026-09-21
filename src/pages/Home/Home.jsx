@@ -7,6 +7,7 @@ import CubeButton from '../../components/ui/CubeButton'
 import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
 import Reveal from '../../components/ui/Reveal'
 import WordRotator from '../../components/ui/WordRotator'
+import TestimonialLoop from '../../components/ui/TestimonialLoop'
 import usePageTheme from '../../hooks/usePageTheme'
 import styles from './Home.module.css'
 
@@ -201,25 +202,21 @@ export default function Home() {
       </ScrollRevealSection>
 
       {/* ══════════════════════════════════════
-          TESTIMONIALS — cards slide up
+          TESTIMONIALS — vertical seamless loop,
+          pauses on hover
           ══════════════════════════════════════ */}
       <ScrollRevealSection className={styles.testimonials}>
         <div className={`container ${styles.sectionInner}`}>
 
-          <div className={styles.testimonialGrid}>
-            {home.testimonials.items.map((t, i) => (
-              <Reveal key={i} variant="fadeUp" className={styles.testimonialCard}>
-                <div className={styles.testimonialAuthorRow}>
-                  <div className={styles.avatarCircle} />
-                  <div>
-                    <p className={styles.testimonialName}>{t.name}</p>
-                    <p className={styles.testimonialRole}>{t.role}</p>
-                  </div>
-                </div>
-                <p className={styles.testimonialQuote}>{t.quote}</p>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal variant="fadeIn" className={styles.sectionEyebrowRow}>
+            <span className={styles.rule} aria-hidden="true" />
+            <h2 className={styles.sectionEyebrow}>{home.testimonials.eyebrow}</h2>
+            <span className={styles.rule} aria-hidden="true" />
+          </Reveal>
+
+          <Reveal variant="fadeUp" className={styles.testimonialWrap}>
+            <TestimonialLoop items={home.testimonials.items} />
+          </Reveal>
 
         </div>
       </ScrollRevealSection>
