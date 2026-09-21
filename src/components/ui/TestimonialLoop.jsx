@@ -22,6 +22,9 @@ function initials(name) {
 function Card({ item }) {
   return (
     <figure className={styles.card}>
+      <svg className={styles.quoteIcon} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
+      </svg>
       <blockquote className={styles.quote}>{item.quote}</blockquote>
       <figcaption className={styles.author}>
         <span className={styles.avatar}>
