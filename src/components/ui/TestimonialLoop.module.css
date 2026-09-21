@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════
-   TestimonialLoop — vertical seamless loop.
+   TestimonialLoop — horizontal seamless loop, right → left.
    Colours come from the --ux-* tokens set on the page.
    ═══════════════════════════════════════════════ */
 
@@ -8,18 +8,16 @@
 
   position: relative;
   width: 100%;
-  max-width: 46rem;
-  height: clamp(28rem, 72vh, 40rem);
-  margin: 0 auto;
   overflow: hidden;
   outline: none;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
 }
 
 .track {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  width: max-content;
   animation: testimonialLoop var(--loop-duration, 54s) linear infinite;
   will-change: transform;
 }
@@ -30,25 +28,29 @@
   animation-play-state: paused;
 }
 
-/* Each set carries its own bottom padding equal to the card gap, so the
-   two sets are identical in height and the -50% jump is invisible. */
+/* Each set carries its own right padding equal to the card gap, so the
+   two sets are identical in width and the -50% jump is invisible. */
 .set {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex: none;
   gap: var(--gap);
-  padding-bottom: var(--gap);
+  padding-right: var(--gap);
 }
 
 @keyframes testimonialLoop {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-50%); }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 .card {
+  flex: none;
+  width: 28rem;
   margin: 0;
   padding: 2.25rem 2.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 1.75rem;
   border: 1px solid var(--ux-line);
   background: var(--ux-bg);
@@ -56,9 +58,9 @@
 
 .quote {
   margin: 0;
-  font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
+  font-size: 1.0625rem;
   font-weight: 300;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--ux-text);
 }
 
@@ -110,13 +112,13 @@
 }
 
 @media (max-width: 767px) {
-  .card { padding: 1.5rem; gap: 1.25rem; }
+  .card { width: 82vw; padding: 1.5rem; gap: 1.25rem; }
 }
 
-/* No motion: static, manually scrollable list (duplicate set hidden) */
+/* No motion: static, manually scrollable row (duplicate set hidden) */
 @media (prefers-reduced-motion: reduce) {
   .viewport {
-    overflow-y: auto;
+    overflow-x: auto;
     -webkit-mask-image: none;
     mask-image: none;
   }

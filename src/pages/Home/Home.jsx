@@ -202,8 +202,8 @@ export default function Home() {
       </ScrollRevealSection>
 
       {/* ══════════════════════════════════════
-          TESTIMONIALS — vertical seamless loop,
-          pauses on hover
+          TESTIMONIALS — horizontal seamless loop,
+          right to left, pauses on hover
           ══════════════════════════════════════ */}
       <ScrollRevealSection className={styles.testimonials}>
         <div className={`container ${styles.sectionInner}`}>
