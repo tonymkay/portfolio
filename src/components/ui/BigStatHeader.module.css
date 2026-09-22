@@ -1,0 +1,49 @@
+/* BigStatHeader.module.css — same look as the About page's stat headers */
+.bigStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(3rem, 11vw, 8rem);
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--ux-text, #FFFFFF);
+}
+
+.value {
+  display: inline;
+  font-variant-numeric: tabular-nums;
+}
+
+.eyebrowRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.rule {
+  flex: none;
+  width: clamp(2.5rem, 9vw, 7rem);
+  height: 1px;
+  background: var(--ux-line, rgba(255, 255, 255, 0.2));
+}
+
+.eyebrow {
+  font-size: clamp(1rem, 1.8vw, 1.375rem);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ux-muted, #9C9CA6);
+  opacity: 0.7;
+}
+
+@media (max-width: 639px) {
+  .eyebrowRow { gap: 1rem; }
+}

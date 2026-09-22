@@ -1,0 +1,29 @@
+/* CaseStudyPage.module.css — dark editorial case-study theme.
+   The whole look is driven by the tokens below. The document background
+   (behind the navbar / overscroll) comes from usePageTheme('dark'). */
+.page {
+  --ux-bg: var(--color-page-dark);            /* #242429 */
+  --ux-surface: #2E2E34;                      /* image placeholders */
+  --ux-text: #FFFFFF;
+  --ux-body: rgba(255, 255, 255, 0.82);
+  --ux-muted: #9C9CA6;
+  --ux-line: rgba(255, 255, 255, 0.2);
+  --ux-accent: #FFFFFF;                       /* step circles */
+  --ux-on-accent: var(--color-page-dark);
+
+  background: var(--ux-bg);
+  color: var(--ux-text);
+  overflow-x: clip;
+}
+
+/* ── Story ── */
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem;
+  max-width: 1200px;
+  padding-bottom: 5rem;
+}
+
+/* Story block that follows the Process band */
+.storyAfter { padding-top: 5rem; }

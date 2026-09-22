@@ -34,6 +34,11 @@ import lpcImage4 from '../assets/images/projects/lpc/lpc_image4.webp'
 
 export const uxPageContent = {
   eyebrow: 'Selected Projects',
+  // Dark page header: big thin title, then a — 03 CASE STUDIES — rule row
+  header: {
+    title: 'Designed',
+    label: 'Case studies',
+  },
   cta: {
     heading: 'Have a Product to Design?',
     description: 'From first sketch to shipped interface — let’s build something people enjoy using.',
@@ -47,7 +52,6 @@ export const uxPageContent = {
 const story = (imgs, c) => [
   { type: 'text', heading: 'Overview', paragraphs: c.overview, bullets: c.overviewBullets },
   { type: 'image', src: imgs[1] },
-  { type: 'text', heading: 'Challenge', paragraphs: [c.challenge], dashes: c.challengeDashes },
   { type: 'pair', images: [imgs[2], imgs[3]] },
   { type: 'text', heading: 'Results', paragraphs: [c.results], bullets: c.resultsBullets },
   { type: 'quote', text: c.quote },
@@ -72,9 +76,6 @@ export const uxProjects = [
         'The work covered research, information architecture, a component library and the full set of dashboard screens.',
       ],
       overviewBullets: ['Network-wide summary', 'Zone investigation view', 'Meter-level actions', 'Alert-first hierarchy'],
-      challenge:
-        'The existing portal exposed every reading but answered no questions. Operators needed to know what was wrong, where, and what to do next — without digging through tables.',
-      challengeDashes: ['Too many tables, no priorities', 'Alerts buried in menus', 'No path from insight to action', 'Inconsistent components'],
       results:
         'Usability tests showed operators locating the source of an alert in a fraction of the previous time, with far fewer hand-offs between teams.',
       resultsBullets: ['Faster alert triage', 'Fewer escalations', 'One shared component system', 'Ready for developer hand-off'],
@@ -82,6 +83,8 @@ export const uxProjects = [
       closing:
         'A restrained colour system and consistent components keep dense data readable, and the three levels of detail scale as the network grows.',
     }),
+    processNote:
+      'Operator research shaped the information architecture first, then the component system, then the screens — each stage tested before the next began.',
     order: 1,
   },
   {
@@ -101,9 +104,6 @@ export const uxProjects = [
         'Drivers use it one-handed and in motion, so tap targets, contrast and glanceability were tested in real vehicles.',
       ],
       overviewBullets: ['One primary action per stop', 'Automatic status updates', 'Two-tap proof of delivery', 'Live fleet view'],
-      challenge:
-        'Every delay meant another call. Drivers were interrupted mid-route and dispatchers had no reliable picture of the day.',
-      challengeDashes: ['Status lived in phone calls', 'No shared view of the route', 'Manual proof of delivery', 'Interrupted drivers'],
       results:
         'Dispatch call volume dropped sharply and proof-of-delivery completion became consistent across the fleet.',
       resultsBullets: ['Fewer status calls', 'Consistent proof of delivery', 'Clear day-plan for dispatch', 'Calmer routes for drivers'],
@@ -111,6 +111,8 @@ export const uxProjects = [
       closing:
         'The interface stays out of the way: the next stop and one obvious action, with everything else a swipe away.',
     }),
+    processNote:
+      'The driver flow was prototyped and tested in real vehicles first; the dispatcher view was then built around what drivers actually did.',
     order: 2,
   },
   {
@@ -130,9 +132,6 @@ export const uxProjects = [
         'We audited competing platforms and interviewed recent buyers to find which trust signals actually mattered.',
       ],
       overviewBullets: ['Verification badges', 'Structured listing details', 'Guided enquiry flow', 'Consistent photo standards'],
-      challenge:
-        'Buyers hesitated because nothing on the page proved a listing was real. The design needed to earn confidence before asking for contact details.',
-      challengeDashes: ['No visible proof of ownership', 'Inconsistent listing quality', 'Unclear next steps', 'Low-trust enquiry forms'],
       results:
         'Enquiry quality improved and the team spent less time filtering out unserious leads.',
       resultsBullets: ['More confident enquiries', 'Less lead filtering', 'Higher-quality listings', 'A reusable trust component set'],
@@ -140,6 +139,8 @@ export const uxProjects = [
       closing:
         'Verification and next steps sit above the fold on every listing, so trust is established before the first click.',
     }),
+    processNote:
+      'Competitor audits and buyer interviews came first; the trust patterns were prototyped and tested before the full listing flow was designed.',
     order: 3,
   },
 ]

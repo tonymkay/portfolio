@@ -171,11 +171,11 @@ export const siteContent = {
       ctaLabel: 'Book A Call ↗',
       ctaHref: '/contact',
       roles: [
-        { year: '2025–', company: 'MediaPal Net', period: 'April 2025 – Present', description: 'Designing Creatives for Programmatic Ads, Layout designs for Pitch Decks', tags: ['UX/UI', 'Keynote'] },
-        { year: '2024–', company: 'Strategic Technologies', period: 'August 2024 – March 2025', description: 'Lead UI/UX Designer, The Joma Project', tags: ['UX', 'Product'] },
-        { year: '2024–', company: 'Didupa Holdings Limited', period: 'February 2024 – July 2025', description: 'Visual designer for Social Media campaigns', tags: ['Branding', 'Comms'] },
-        { year: '2023–', company: 'GeoPsy Research', period: 'August 2023 – January 2024', description: 'Researcher/Designer in GIS and Remote Sensing', tags: ['GIS/RS', 'Branding'] },
-        { year: '2021–', company: 'Mkay Technologies', period: 'February 2021 – August 2023', description: 'Visual designer for Social Media campaigns', tags: ['Layout', 'Branding'] },
+        { year: '2025–', company: 'MediaPal Net', period: 'April 2025 – Present', start: [2025, 4], end: null, description: 'Designing Creatives for Programmatic Ads, Layout designs for Pitch Decks', tags: ['UX/UI', 'Keynote'] },
+        { year: '2024–', company: 'Strategic Technologies', period: 'August 2024 – March 2025', start: [2024, 8], end: [2025, 3], description: 'Lead UI/UX Designer, The Joma Project', tags: ['UX', 'Product'] },
+        { year: '2024–', company: 'Didupa Holdings Limited', period: 'February 2024 – July 2025', start: [2024, 2], end: [2025, 7], description: 'Visual designer for Social Media campaigns', tags: ['Branding', 'Comms'] },
+        { year: '2023–', company: 'GeoPsy Research', period: 'August 2023 – January 2024', start: [2023, 8], end: [2024, 1], description: 'Researcher/Designer in GIS and Remote Sensing', tags: ['GIS/RS', 'Branding'] },
+        { year: '2021–', company: 'Mkay Technologies', period: 'February 2021 – August 2023', start: [2021, 2], end: [2023, 8], description: 'Visual designer for Social Media campaigns', tags: ['Layout', 'Branding'] },
       ],
     },
     journey: {
@@ -202,7 +202,7 @@ export const siteContent = {
         { name: 'Yvonne Okwara', role: 'Communications Officer', company: 'HERI Africa', avatar: null, quote: "HERI is built around education research, and the site had to show that. Antony took the time to understand our research focus and turned it into a site that makes our initiatives easy to find and easy to trust." },
         { name: 'Francis Oloo', role: 'Project Lead & Founder', company: 'GeoPsy Research', avatar: null, quote: "Antony researched environmental conservation projects with us, including the Kakamega West management project. The communication materials he delivered helped people understand how they can conserve the environment, and act on it." },
         { name: 'David Mabiria', role: 'Lead Developer', company: 'Strategic Technologies', avatar: null, quote: "On ESSA, we built a website to pull education researchers into one pool to create research materials together. Antony understood the problem before opening the design tool, and his designs were clean and easy to build from." },
-        { name: 'Evelyn Askuku', role: 'Lead of Communications', company: 'Alumni Social Network', avatar: null, quote: "Antony created the materials that tell who we are and why the network exists. They reached our alumni in a way that made them want to be part of it, and our story finally felt consistent." },
+        { name: 'Eveline Askuku', role: 'Lead of Communications', company: 'Alumni Social Network', avatar: null, quote: "Antony created the materials that tell who we are and why the network exists. They reached our alumni in a way that made them want to be part of it, and our story finally felt consistent." },
         { name: 'Frida Mwangi', role: 'Founder', company: 'Adili Real Estate', avatar: null, quote: "Most of what Antony designed for us were Meta ads on Facebook and Instagram. The creatives held attention, matched the promise on the ad to the landing page, and converted." },
       ],
     },
@@ -241,22 +241,42 @@ export const siteContent = {
         { text: "Let's collaborate to bring your ideas to life!", muted: true },
       ],
     },
-    // "My Numbers" strip — each value counts up from 0 as it scrolls into view.
-    // Edit the figures and labels freely; `suffix` (optional, e.g. '+') renders
-    // right after the number in the same bold white style.
+    // Stat cards — each value counts up from 0 as it scrolls into view.
+    // `suffix` (e.g. '+') renders right after the number.
     numbers: {
-      eyebrow: 'My Numbers',
-      items: [
-        { value: yearsOfExperience, suffix: '+', label: 'Years of experience' },
-        { value: 50, suffix: '+', label: 'Projects done' },
-        { value: 10, suffix: '+', label: 'Clients' },
-        { value: 3, label: 'UI/UX case studies' },
-      ],
+      years: { value: yearsOfExperience, suffix: '+', label: 'Experience' },
+      clients: { value: 10, suffix: '+', label: 'Clients' },
+      projects: { value: 50, suffix: '+', label: 'Projects' },
     },
+    // Logo row between Experience and Projects. Swap `logo: null` for an
+    // imported image (e.g. logo: boma) to replace the placeholder mark.
+    clients: [
+      { name: 'Boma', logo: null },
+      { name: 'HERI Africa', logo: null },
+      { name: 'GeoPsy Research', logo: null },
+      { name: 'Strategic Technologies', logo: null },
+      { name: 'Alumni Social Network', logo: null },
+      { name: 'Adili Real Estate', logo: null },
+      { name: 'MediaPal Net', logo: null },
+      { name: 'Didupa Holdings', logo: null },
+      { name: 'Mkay Technologies', logo: null },
+      { name: 'ESSA', logo: null },
+    ],
+    projects: [
+      { index: '01', name: 'Kaya Connect Project', description: 'Conservation of mangrove forest in Kilifi', tags: ['Conservation'] },
+      { index: '02', name: 'Kakamega Environment Conservation Project', description: 'Research and communication materials on environmental conservation', tags: ['Research', 'Comms'] },
+      { index: '03', name: 'ESSA Project', description: 'Research platform bringing education researchers into one pool', tags: ['Research', 'Web'] },
+      { index: '04', name: 'HERI Africa', description: 'Website for education research initiatives', tags: ['Research', 'Web'] },
+    ],
   },
 
   // ---------- Projects Page ----------
   projects: {
+    // Dark page header: big thin title, then a — 08 PROJECTS — rule row
+    header: {
+      title: 'Crafted',
+      label: 'Projects',
+    },
     hero: {
       eyebrow: '● Portfolio',
       heading: 'Exploring My Design Portfolio\nCreative Solutions',

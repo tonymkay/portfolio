@@ -1,0 +1,12 @@
+/* OtherProjects.module.css */
+.others { padding: 3rem 0 6rem; }
+
+.othersInner {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 1200px;
+}
+
+/* Shared case-study heading style */
+.heading { composes: heading from './TextSection.module.css'; }

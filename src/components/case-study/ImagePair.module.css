@@ -1,0 +1,23 @@
+/* ImagePair.module.css */
+.pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .pair { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+}
+
+.pairCell {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--ux-surface);
+}
+
+.pairCell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

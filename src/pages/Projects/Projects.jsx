@@ -1,19 +1,23 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { siteContent } from '../../data/siteContent'
 import { getAllProjects, projectCategories } from '../../data/projects'
 import { motion as motionPresets } from '../../theme/motion'
-import CtaBanner from '../../components/ui/CtaBanner'
-import CubeButton from '../../components/ui/CubeButton'
-import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
+import BigStatHeader from '../../components/ui/BigStatHeader'
+import ClosingCta from '../../components/ui/ClosingCta'
+import ProjectGrid from '../../components/ui/ProjectGrid'
 import Reveal from '../../components/ui/Reveal'
-import WorkTabs from '../../components/ui/WorkTabs'
 import styles from './Projects.module.css'
 
-const { projects: projectsContent, images: pageImages } = siteContent
+const { header } = siteContent.projects
 const allProjects = getAllProjects()
 
+// Only offer filters that actually have projects ("All" always stays)
+const categories = projectCategories.filter(
+  (cat) => cat === 'All' || allProjects.some((p) => p.category === cat),
+)
+
+// The section tabs and the dark theme come from <WorkLayout>.
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState('All')
 
@@ -22,102 +26,48 @@ export default function Projects() {
       ? allProjects
       : allProjects.filter((p) => p.category === activeFilter)
 
+  const label = activeFilter === 'All' ? header.label : activeFilter
+
   return (
     <div className={styles.page}>
 
-      {/* ── Hero — animated on mount ── */}
-      <motion.section
-        className={styles.hero}
+      {/* ══ HEADER — big thin title, — 08 PROJECTS — rule row, filters ══ */}
+      <motion.header
+        className={`container ${styles.header}`}
         initial="hidden"
         animate="visible"
         variants={motionPresets.staggerContainer}
       >
-        <div
-          className={styles.heroOverlay}
-          style={pageImages.projectsHero ? { backgroundImage: `url(${pageImages.projectsHero})` } : {}}
-        />
-        <div className={`container ${styles.heroContent}`}>
-          <Reveal variant="popIn" as="span" className={styles.eyebrow}>
-            {projectsContent.hero.eyebrow}
-          </Reveal>
-          <Reveal variant="fadeUp" as="h1" className={styles.heroHeading}>
-            {projectsContent.hero.heading}
-          </Reveal>
-        </div>
-      </motion.section>
+        <Reveal variant="fadeUp">
+          <BigStatHeader title={header.title} count={filtered.length} label={label} />
+        </Reveal>
 
-      {/* ── Filter Tabs — fade in as a row ── */}
-      <ScrollRevealSection className={styles.filterSection}>
-        <div className="container">
-          <Reveal variant="fadeUp">
-            <WorkTabs />
-          </Reveal>
-          <Reveal variant="fadeUp" className={styles.filterRow}>
-            {projectCategories.map((cat) => (
-              <CubeButton
-                key={cat}
-                size="sm"
-                rounded
-                variant={activeFilter === cat ? 'active' : 'solid'}
-                onClick={() => setActiveFilter(cat)}
-                aria-pressed={activeFilter === cat}
-              >
-                {cat}
-              </CubeButton>
-            ))}
-          </Reveal>
-        </div>
-      </ScrollRevealSection>
+        <Reveal variant="fadeUp" className={styles.filterRow}>
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              className={`${styles.filterBtn} ${activeFilter === cat ? styles.active : ''}`}
+              onClick={() => setActiveFilter(cat)}
+              aria-pressed={activeFilter === cat}
+            >
+              {cat}
+            </button>
+          ))}
+        </Reveal>
+      </motion.header>
 
-      {/* ── Masonry Grid — cards stagger in ── */}
-      <ScrollRevealSection className={styles.gridSection}>
-        <div className="container">
-          <div className={styles.masonryGrid}>
-            {filtered.map((project, i) => {
-              const isWide = i === 3 || i === 6
-              return (
-                <Reveal
-                  key={project.id}
-                  variant="scaleUp"
-                  className={isWide ? styles.wideCell : ''}
-                >
-                  <Link
-                    to={`/projects/${project.slug}`}
-                    className={styles.gridItem}
-                    aria-label={`View ${project.title} project`}
-                  >
-                    <div className={styles.gridImage}>
-                      {project.coverImage ? (
-                        <img src={project.coverImage} alt={project.title} loading="lazy" />
-                      ) : (
-                        <div className={styles.placeholder}>
-                          <span>{project.title}</span>
-                        </div>
-                      )}
-                      <div className={styles.gridOverlay}>
-                        <span className={styles.arrowCircle}>↗</span>
-                      </div>
-                    </div>
-                    <p className={styles.gridTitle}>{project.title}</p>
-                  </Link>
-                </Reveal>
-              )
-            })}
-          </div>
+      {/* ══ PROJECT LIST — same cards as the homepage, each reveals on scroll ══ */}
+      <div className={`container ${styles.list}`}>
+        <ProjectGrid projects={filtered} basePath="/projects" scrollEach />
 
-          {filtered.length === 0 && (
-            <p className={styles.empty}>No projects in this category yet.</p>
-          )}
-        </div>
-      </ScrollRevealSection>
+        {filtered.length === 0 && (
+          <p className={styles.empty}>No projects in this category yet.</p>
+        )}
+      </div>
 
-      <CtaBanner
-        heading={projectsContent.cta.heading}
-        description={projectsContent.cta.description}
-        ctaLabel={projectsContent.cta.ctaLabel}
-        ctaHref={projectsContent.cta.ctaHref}
-        image={pageImages.homeCta}
-      />
+      {/* ══ CTA — same closing banner as About / Home ══ */}
+      <ClosingCta />
 
     </div>
   )

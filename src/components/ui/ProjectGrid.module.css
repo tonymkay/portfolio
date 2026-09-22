@@ -1,0 +1,28 @@
+/* ProjectGrid.module.css — the one project-card grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+
+.grid > * { min-width: 0; }
+
+/* list — Home, Projects, UI/UX: 1 column, 2 from 1024px */
+.list { gap: 3rem 2.5rem; }
+
+@media (min-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem 2.5rem;
+  }
+}
+
+/* compact — "Other Projects": 2 columns from 768px */
+.compact { gap: 3rem; }
+
+@media (min-width: 768px) {
+  .compact {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}

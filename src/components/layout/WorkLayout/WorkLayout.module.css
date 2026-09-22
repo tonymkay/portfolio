@@ -1,0 +1,35 @@
+/* WorkLayout.module.css — dark shell for the Projects + UI/UX listings.
+   Same token set as Home / About. The document background (behind the
+   navbar / overscroll) and the footer come from usePageTheme('dark'). */
+
+.layout {
+  --ux-bg: var(--color-page-dark);            /* #242429 */
+  --ux-surface: #2E2E34;
+  --ux-text: #FFFFFF;
+  --ux-body: rgba(255, 255, 255, 0.82);
+  --ux-muted: #9C9CA6;
+  --ux-line: rgba(255, 255, 255, 0.2);
+
+  /* <WorkTabs> reads these; without them it keeps its light look */
+  --tabs-bg: rgba(255, 255, 255, 0.08);
+  --tabs-text: var(--ux-muted);
+  --tabs-text-hover: var(--ux-text);
+  --tabs-active-bg: var(--ux-text);
+  --tabs-active-text: var(--ux-bg);
+
+  background: var(--ux-bg);
+  color: var(--ux-text);
+}
+
+.tabsRow {
+  display: flex;
+  justify-content: center;
+  padding-top: 3.5rem;
+}
+
+/* Clips the sideways travel of the swipe so the page never gets a horizontal
+   scrollbar mid-transition (clip, not hidden: no scroll container is created) */
+.viewport {
+  overflow-x: hidden;
+  overflow-x: clip;
+}

@@ -1,0 +1,22 @@
+/* Quote.module.css */
+.quote {
+  margin: 0;
+  padding: 1.25rem 0 1.25rem 2rem;
+  border-left: 4px solid var(--color-teal-light);
+}
+
+.quoteText {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+  line-height: 1.5;
+  color: var(--ux-text);
+}
+
+.quoteBy {
+  display: block;
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  color: var(--ux-muted);
+}

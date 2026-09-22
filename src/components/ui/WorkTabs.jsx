@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import styles from './WorkTabs.module.css'
 
 const tabs = [
@@ -8,7 +9,8 @@ const tabs = [
 
 /**
  * WorkTabs — switches between the two portfolio sections.
- * Rendered at the top of both listing pages.
+ * Lives in WorkLayout, so it stays put while the page below swipes.
+ * The highlight pill is shared (layoutId) so it glides to the new tab.
  */
 export default function WorkTabs() {
   return (
@@ -21,7 +23,19 @@ export default function WorkTabs() {
           role="tab"
           className={({ isActive }) => `${styles.tab} ${isActive ? styles.active : ''}`}
         >
-          {tab.label}
+          {({ isActive }) => (
+            <>
+              {isActive && (
+                <motion.span
+                  layoutId="work-tab-pill"
+                  className={styles.pill}
+                  style={{ borderRadius: 9999 }}
+                  transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                />
+              )}
+              <span className={styles.label}>{tab.label}</span>
+            </>
+          )}
         </NavLink>
       ))}
     </div>

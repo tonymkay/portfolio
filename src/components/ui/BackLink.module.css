@@ -1,0 +1,33 @@
+/* BackLink.module.css — reads the page's --ux-* colour tokens */
+.back {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ux-muted, #9C9CA6);
+  transition: color var(--transition-fast);
+}
+
+.icon {
+  flex: none;
+  transition: transform var(--transition-base);
+}
+
+.back:hover {
+  color: var(--ux-text, #FFFFFF);
+}
+
+.back:hover .icon {
+  transform: translateX(-4px);
+}
+
+.back:focus-visible {
+  outline: 2px solid var(--ux-text, #FFFFFF);
+  outline-offset: 4px;
+  border-radius: 2px;
+}

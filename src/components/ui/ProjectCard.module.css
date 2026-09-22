@@ -1,107 +1,69 @@
+/* ProjectCard.module.css — Ralf-style stacked project card */
 .card {
-  display: block;
-  text-decoration: none;
-  border-radius: 0;
-  overflow: hidden;
-  position: relative;
-  transition: transform var(--transition-base);
-}
-
-.card:hover {
-  transform: translateY(-4px);
-}
-
-.imageWrapper {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background-color: var(--color-light-gray);
-  border-radius: 0;
 }
 
-.image {
+.shot {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--ux-surface, var(--color-light-gray));
+}
+
+@media (min-width: 768px) {
+  .shot { aspect-ratio: 16 / 10; }
+}
+
+.shot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-slow);
+  transition: transform 600ms ease, filter 400ms ease;
 }
 
-.card:hover .image {
-  transform: scale(1.04);
+.card:hover .shot img {
+  transform: scale(1.03);
+  filter: brightness(1.06);
 }
 
-/* Placeholder when no image */
-.placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-navy) 100%);
-  padding: 1.5rem;
-}
-
-.placeholderText {
-  color: var(--color-white);
-  font-size: 1.125rem;
-  font-weight: 700;
-  text-align: center;
-  line-height: 1.3;
-}
-
-/* Hover overlay */
-.overlay {
+/* Position of the button over the photo */
+.buttonWrap {
   position: absolute;
-  inset: 0;
-  background-color: rgba(30, 43, 60, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity var(--transition-base);
-  border-radius: 0;
+  left: 50%;
+  bottom: 2.5rem;
+  transform: translateX(-50%);
 }
 
-.card:hover .overlay {
-  opacity: 1;
+/* Look = <CubeButton variant="surface">; sizing vars only */
+.button {
+  --h: 4rem;
+  --px: 2.5rem;
+  --fs: 0.6875rem;
+  --fw: 500;
+  --ls: 0.28em;
+  --tt: uppercase;
 }
 
-.arrowIcon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: var(--color-white);
-  color: var(--color-navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-/* Meta below image */
 .meta {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding: 0.625rem 0.125rem 0;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .title {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ux-text, var(--color-text-primary));
 }
 
-.category {
-  font-size: 0.8125rem;
-  color: var(--color-text-secondary);
+.info {
+  font-size: 0.875rem;
+  color: var(--ux-muted, var(--color-text-secondary));
   white-space: nowrap;
-}
-
-/* Size variants */
-.lg .imageWrapper {
-  aspect-ratio: 16 / 9;
 }

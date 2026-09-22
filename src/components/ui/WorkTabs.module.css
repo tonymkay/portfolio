@@ -1,28 +1,42 @@
-/* WorkTabs.module.css — segmented switch between portfolio sections */
+/* WorkTabs.module.css — segmented switch between portfolio sections.
+   Colours read optional --tabs-* tokens from the parent (WorkLayout sets them
+   for the dark look); without them the light defaults below apply. */
 .tabs {
   display: inline-flex;
   padding: 0.25rem;
   gap: 0.25rem;
-  background: var(--color-light-gray);
+  background: var(--tabs-bg, var(--color-light-gray));
   border-radius: var(--radius-full);
   margin-bottom: 1.25rem;
 }
 
 .tab {
+  position: relative;
   padding: 0.55rem 1.25rem;
   border-radius: var(--radius-full);
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--tabs-text, var(--color-text-secondary));
   white-space: nowrap;
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  transition: color var(--transition-fast);
 }
 
 .tab:hover {
-  color: var(--color-text-primary);
+  color: var(--tabs-text-hover, var(--color-text-primary));
 }
 
 .tab.active {
-  background: var(--color-navy);
-  color: var(--color-white);
+  color: var(--tabs-active-text, var(--color-white));
+}
+
+/* Sliding highlight behind the active label */
+.pill {
+  position: absolute;
+  inset: 0;
+  background: var(--tabs-active-bg, var(--color-navy));
+}
+
+.label {
+  position: relative;
+  z-index: 1;
 }

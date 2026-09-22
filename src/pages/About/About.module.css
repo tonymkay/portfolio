@@ -15,7 +15,9 @@
 
   background: var(--ux-bg);
   color: var(--ux-text);
+  /* `clip` (not `hidden`) so the pinned experience timeline can stick */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Grey segments inside the hero statement / intro */
@@ -124,50 +126,8 @@
 }
 
 /* ══════════════════════════════════════════════
-   MY NUMBERS — big figures that count up on scroll
+   STAT FIGURES — big numbers that count up on scroll
    ══════════════════════════════════════════════ */
-.numbers {
-  padding: 9rem 0;
-}
-
-.numbersInner {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-}
-
-.numbersEyebrowRow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-}
-
-.numbersEyebrow {
-  font-size: 0.8125rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ux-muted);
-  white-space: nowrap;
-}
-
-.numbersGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 3rem 5rem;
-  list-style: none;
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  text-align: center;
-}
-
 .statValueWrap {
   display: inline-flex;
   align-items: center;
@@ -176,8 +136,8 @@
 
 .statValue {
   display: inline-flex;
-  font-size: clamp(3.25rem, 8vw, 6.5rem);
-  font-weight: 800;
+  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+  font-weight: 300;
   line-height: 1;
   letter-spacing: -0.03em;
   /* Equal-width digits so the number doesn't jitter while it counts */
@@ -186,86 +146,63 @@
 }
 
 .statSuffix {
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  font-weight: 800;
+  font-size: clamp(1.125rem, 2.2vw, 1.75rem);
+  font-weight: 300;
   line-height: 1;
   color: var(--ux-text);
 }
 
 .statLabel {
-  font-size: 0.9375rem;
-  letter-spacing: 0.04em;
+  /* Left padding cancels the trailing letter-spacing so the label is truly centered */
+  padding-left: 0.14em;
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ux-muted);
 }
 
 /* ══════════════════════════════════════════════
-   EXPERIENCE — heading + intro on the left,
-   role rows on the right
+   EXPERIENCE / CLIENTS / PROJECTS — each opens with a centered
+   — count / label — header; rows and logos follow.
    ══════════════════════════════════════════════ */
-.experience {
-  padding: 3rem 0 6rem;
-}
-
-.expGrid {
-  display: grid;
-  grid-template-columns: 1fr;
+.block {
+  display: flex;
+  flex-direction: column;
   gap: 3rem;
 }
 
-@media (min-width: 1024px) {
-  .expGrid {
-    grid-template-columns: 4fr 8fr;
-    gap: 5rem;
-    align-items: start;
-  }
-}
-
-.expLeft {
+/* — 5+ — : rules sit on the number's line, label centered below */
+.statHeader {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-}
-
-@media (min-width: 1024px) {
-  .expLeft {
-    position: sticky;
-    top: calc(var(--navbar-height) + 2rem);
-  }
-}
-
-.expHeading {
-  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
-  color: var(--ux-text);
-}
-
-.expDesc {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--ux-muted);
-}
-
-.expCta {
-  display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  width: fit-content;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--ux-text);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color var(--transition-fast);
+  gap: 0.875rem;
 }
 
-.expCta:hover { color: var(--color-teal-light); }
+.statRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+}
 
-.expRight {
+.listRight {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.clients {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 3rem 0 9rem;
+}
+
+.projects {
+  padding: 3rem 0 6rem;
 }
 
 /* Each role row is always expanded */
@@ -339,11 +276,6 @@
   .roleCompany { font-size: 0.875rem; }
   .rolePeriod { font-size: 0.75rem; }
   .roleDesc { font-size: 0.8125rem; }
-
-  .expLeft {
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--ux-line);
-  }
 }
 
 /* ══════════════════════════════════════════════

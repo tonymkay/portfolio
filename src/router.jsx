@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom'
 import PageWrapper from './components/layout/PageWrapper/PageWrapper'
+import WorkLayout from './components/layout/WorkLayout/WorkLayout'
 import Home from './pages/Home/Home'
 import About from './pages/About/About'
 import Projects from './pages/Projects/Projects'
@@ -30,11 +31,14 @@ export default function AppRouter() {
         <Route element={<PageWrapper />}>
           <Route path="/"              element={<Home />} />
           <Route path="/about"         element={<About />} />
-          <Route path="/projects"      element={<Projects />} />
           <Route path="/process"       element={<Process />} />
           <Route path="/contact"       element={<Contact />} />
           <Route path="/projects/:slug" element={<KeyedProjectDetail />} />
-          <Route path="/ui-ux"         element={<UxProjects />} />
+          {/* Both listings share the tab switch and swipe between each other */}
+          <Route element={<WorkLayout />}>
+            <Route path="/projects"    element={<Projects />} />
+            <Route path="/ui-ux"       element={<UxProjects />} />
+          </Route>
           <Route path="/ui-ux/:slug"    element={<KeyedUxProjectDetail />} />
           <Route path="*"              element={<NotFound />} />
         </Route>

@@ -1,0 +1,96 @@
+/* ProcessSteps.module.css — stepper borrowed from the Process page.
+   Same background as the rest of the page; the spacing above and below
+   comes from the neighbouring story blocks (Story / Story after). */
+.process {
+  padding: 0;
+}
+
+.processInner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+}
+
+@media (min-width: 768px) {
+  .processInner {
+    grid-template-columns: 4fr 7fr;
+    gap: 5rem;
+    align-items: start;
+  }
+}
+
+.processLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Shared type styles live in TextSection.module.css */
+.heading { composes: heading from './TextSection.module.css'; }
+.body { composes: body from './TextSection.module.css'; }
+
+.steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* Number circle + dashed vertical connector */
+.stepIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.stepNumber {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  background: var(--ux-accent);
+  color: var(--ux-on-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.0625rem;
+}
+
+.stepConnector {
+  display: block;
+  width: 0;
+  flex: 1;
+  min-height: 3rem;
+  border-left: 2px dashed var(--ux-line);
+  margin-top: 0.375rem;
+}
+
+.stepContent {
+  flex: 1;
+  padding-top: 0.25rem;
+  padding-bottom: 2.5rem;
+}
+
+.step:last-child .stepContent { padding-bottom: 0; }
+
+.stepTitle {
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ux-text);
+}
+
+.stepDesc {
+  margin-top: 0.625rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--ux-muted);
+}
