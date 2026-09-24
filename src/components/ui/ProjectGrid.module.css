@@ -17,12 +17,19 @@
   }
 }
 
-/* compact — "Other Projects": 2 columns from 768px */
-.compact { gap: 3rem; }
+/* compact — "Other Projects": 2 columns from 768px, 3 from 1024px */
+.compact { gap: 2.5rem; }
 
 @media (min-width: 768px) {
   .compact {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .compact {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
   }
 }

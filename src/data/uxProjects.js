@@ -2,35 +2,58 @@
  * uxProjects.js — UI/UX Design case studies (separate from projects.js,
  * which holds Logos & Identities and is left untouched).
  *
- * The detail page renders `sections` top-to-bottom. Block types:
- *   { type: 'text',  heading?, paragraphs?: [], bullets?: [], dashes?: [] }
- *   { type: 'image', src }
- *   { type: 'pair',  images: [src, src] }
- *   { type: 'quote', text }
+ * The detail page (UxProjectDetail.jsx) is image-only: header (title,
+ * client, category, service, year, website link) followed by `panels` —
+ * a stack of full-container-width images with zero gap, no text, no
+ * rounded corners. See components/case-study/PanelStory.jsx.
  *
- * PLACEHOLDER: titles, copy and images below are stand-ins built from
- * existing assets. Replace the image imports and text per project when the
- * real UI/UX screens are ready — no component changes needed.
- * `website` is optional; when set, the meta grid shows a "See live" link.
+ * panels: [{ id, src, alt, background? }]
+ *
+ * "Test Project", "AERD Database System" and "Klima-Harvest Platform"
+ * have their real panel flow (Test/AERD: cover, problem, product, scope
+ * of work, research, product, success story, thanks; Klima: cover,
+ * problem, scope, product x3, success). The other projects don't have
+ * their real panel screens yet, so each just repeats its own cover image
+ * across all 8 panel slots as a placeholder — swap them out for real
+ * screens one at a time whenever they're ready, no component changes
+ * needed.
  */
 
-import emitaCover from '../assets/images/projects/projects_emita-cover.jpg'
-import emitaImage1 from '../assets/images/projects/emita/emita_image1.webp'
-import emitaImage2 from '../assets/images/projects/emita/emita_image2.webp'
-import emitaImage3 from '../assets/images/projects/emita/emita_image3.webp'
-import emitaImage4 from '../assets/images/projects/emita/emita_image4.webp'
+// ── Test Project (Genova AI) — real panel flow ──
+import testCover from '../assets/images/ux/test-project/cover.webp'
+import testProblem from '../assets/images/ux/test-project/problem.webp'
+import testProduct1 from '../assets/images/ux/test-project/product1.webp'
+import testScope from '../assets/images/ux/test-project/scope.webp'
+import testResearch from '../assets/images/ux/test-project/research.webp'
+import testProduct2 from '../assets/images/ux/test-project/product2.webp'
+import testSuccess from '../assets/images/ux/test-project/successstories.webp'
+import testThanks from '../assets/images/ux/test-project/thanks.webp'
 
-import gewalCover from '../assets/images/projects/projects_gewal-cover.jpg'
-import gewalImage1 from '../assets/images/projects/gewal/gewal_image1.webp'
-import gewalImage2 from '../assets/images/projects/gewal/gewal_image2.webp'
-import gewalImage3 from '../assets/images/projects/gewal/gewal_image3.webp'
-import gewalImage4 from '../assets/images/projects/gewal/gewal_image4.webp'
+// ── AERD Database System — real panel flow ──
+import aerdCover from '../assets/images/ux/aerd-database/cover.webp'
+import aerdProblem from '../assets/images/ux/aerd-database/problem.webp'
+import aerdProduct1 from '../assets/images/ux/aerd-database/product1.webp'
+import aerdScope from '../assets/images/ux/aerd-database/scope.webp'
+import aerdResearch from '../assets/images/ux/aerd-database/research.webp'
+import aerdProduct2 from '../assets/images/ux/aerd-database/product2.webp'
+import aerdSuccess from '../assets/images/ux/aerd-database/success.webp'
+import aerdThanks from '../assets/images/ux/aerd-database/thanks.webp'
 
-import lpcCover from '../assets/images/projects/projects_lpc-cover.jpg'
-import lpcImage1 from '../assets/images/projects/lpc/lpc_image1.webp'
-import lpcImage2 from '../assets/images/projects/lpc/lpc_image2.webp'
-import lpcImage3 from '../assets/images/projects/lpc/lpc_image3.webp'
-import lpcImage4 from '../assets/images/projects/lpc/lpc_image4.webp'
+// ── Klima-Harvest Platform — real panel flow ──
+import klimaCover from '../assets/images/ux/klima-harvest/cover.webp'
+import klimaProblem from '../assets/images/ux/klima-harvest/problem.webp'
+import klimaProduct11 from '../assets/images/ux/klima-harvest/product11.webp'
+import klimaProduct2 from '../assets/images/ux/klima-harvest/product2.webp'
+import klimaProduct22 from '../assets/images/ux/klima-harvest/product22.webp'
+import klimaScope from '../assets/images/ux/klima-harvest/scope.webp'
+import klimaSuccess from '../assets/images/ux/klima-harvest/success.webp'
+
+// ── Real projects — cover images only, for now ──
+import pataskillsLmsCover from '../assets/images/ux/ux_pataskills-lms-cover.webp'
+import pataskillsAppCover from '../assets/images/ux/ux_pataskills-app-cover.webp'
+import essaCover from '../assets/images/ux/ux_essa-website-cover.webp'
+import heriCover from '../assets/images/ux/ux_heri-africa-cover.webp'
+import bomaCover from '../assets/images/ux/ux_boma-ngo-cover.webp'
 
 export const uxPageContent = {
   eyebrow: 'Selected Projects',
@@ -47,101 +70,157 @@ export const uxPageContent = {
   },
 }
 
-// Builds the story from four images + short copy. Swap per project once
-// real content exists.
-const story = (imgs, c) => [
-  { type: 'text', heading: 'Overview', paragraphs: c.overview, bullets: c.overviewBullets },
-  { type: 'image', src: imgs[1] },
-  { type: 'pair', images: [imgs[2], imgs[3]] },
-  { type: 'text', heading: 'Results', paragraphs: [c.results], bullets: c.resultsBullets },
-  { type: 'quote', text: c.quote },
-  { type: 'text', paragraphs: [c.closing] },
+/** Cover duplicated across all 8 panel slots — placeholder until real
+ * per-step screens exist for this project. */
+const placeholderPanels = (cover, title) => [
+  { id: 'cover', src: cover, alt: `${title} — cover` },
+  { id: 'problem', src: cover, alt: `${title} — problem` },
+  { id: 'product-1', src: cover, alt: `${title} — product` },
+  { id: 'scope', src: cover, alt: `${title} — scope of work` },
+  { id: 'research', src: cover, alt: `${title} — UX research` },
+  { id: 'product-2', src: cover, alt: `${title} — product` },
+  { id: 'success', src: cover, alt: `${title} — success story` },
+  { id: 'thanks', src: cover, alt: `${title} — thanks` },
 ]
 
 export const uxProjects = [
   {
-    id: 'ux-metering',
-    slug: 'smart-metering-dashboard',
-    title: 'Smart Metering Dashboard',
-    subtitle: 'A utility dashboard that turns raw meter data into decisions.',
+    id: 'ux-test-project',
+    slug: 'test-project',
+    title: 'Test Project',
+    subtitle: 'Get found faster, through AI search — a real-time asset and OPEX visibility SaaS.',
+    client: 'Genova AI',
     category: 'SaaS',
     service: 'Product Design',
-    year: '2025',
+    year: '2026',
     website: null,
-    coverImage: emitaCover,
-    heroImage: emitaImage1,
-    sections: story([emitaImage1, emitaImage2, emitaImage3, emitaImage4], {
-      overview: [
-        'Operators were switching between spreadsheets and a dated portal to track consumption, spot leaks and raise work orders. The redesign brings live usage, alerts and field actions into one calm, scannable workspace.',
-        'The work covered research, information architecture, a component library and the full set of dashboard screens.',
-      ],
-      overviewBullets: ['Network-wide summary', 'Zone investigation view', 'Meter-level actions', 'Alert-first hierarchy'],
-      results:
-        'Usability tests showed operators locating the source of an alert in a fraction of the previous time, with far fewer hand-offs between teams.',
-      resultsBullets: ['Faster alert triage', 'Fewer escalations', 'One shared component system', 'Ready for developer hand-off'],
-      quote: 'For the first time I open the dashboard and immediately know where to go.',
-      closing:
-        'A restrained colour system and consistent components keep dense data readable, and the three levels of detail scale as the network grows.',
-    }),
-    processNote:
-      'Operator research shaped the information architecture first, then the component system, then the screens — each stage tested before the next began.',
+    coverImage: testCover,
+    panels: [
+      { id: 'cover', src: testCover, alt: 'Genova AI — cover' },
+      { id: 'problem', src: testProblem, alt: 'Genova AI — problem statement' },
+      { id: 'product-1', src: testProduct1, alt: 'Genova AI — product' },
+      { id: 'scope', src: testScope, alt: 'Genova AI — scope of work' },
+      { id: 'research', src: testResearch, alt: 'Genova AI — UX research' },
+      { id: 'product-2', src: testProduct2, alt: 'Genova AI — product' },
+      { id: 'success', src: testSuccess, alt: 'Genova AI — success story' },
+      { id: 'thanks', src: testThanks, alt: 'Genova AI — thanks' },
+    ],
+    order: 0,
+  },
+  {
+    id: 'ux-pataskills-lms',
+    slug: 'pataskills-lms',
+    title: 'PataSkills LMS System',
+    subtitle: 'An admin and learning-management dashboard for the PataSkills platform.',
+    client: 'PataProducts',
+    category: 'SaaS',
+    service: 'Product Design',
+    year: '2026',
+    website: 'https://lms.pataproducts.com',
+    coverImage: pataskillsLmsCover,
+    panels: placeholderPanels(pataskillsLmsCover, 'PataSkills LMS System'),
     order: 1,
   },
   {
-    id: 'ux-logistics',
-    slug: 'logistics-tracking-app',
-    title: 'Logistics Tracking App',
-    subtitle: 'A driver and dispatcher app that keeps every delivery visible.',
+    id: 'ux-pataskills-app',
+    slug: 'pataskills-app',
+    title: 'PataSkills Learning App',
+    subtitle: 'The learner-facing app for PataProducts, from onboarding to progress.',
+    client: 'PataProducts',
     category: 'Mobile App',
     service: 'UX & UI Design',
-    year: '2025',
-    website: null,
-    coverImage: gewalCover,
-    heroImage: gewalImage1,
-    sections: story([gewalImage1, gewalImage2, gewalImage3, gewalImage4], {
-      overview: [
-        'Dispatchers relied on phone calls to chase status updates. The app gives drivers a one-thumb flow for each stop and gives dispatchers a live view of the whole fleet.',
-        'Drivers use it one-handed and in motion, so tap targets, contrast and glanceability were tested in real vehicles.',
-      ],
-      overviewBullets: ['One primary action per stop', 'Automatic status updates', 'Two-tap proof of delivery', 'Live fleet view'],
-      results:
-        'Dispatch call volume dropped sharply and proof-of-delivery completion became consistent across the fleet.',
-      resultsBullets: ['Fewer status calls', 'Consistent proof of delivery', 'Clear day-plan for dispatch', 'Calmer routes for drivers'],
-      quote: 'I stopped getting calls asking where I am. The app just shows it.',
-      closing:
-        'The interface stays out of the way: the next stop and one obvious action, with everything else a swipe away.',
-    }),
-    processNote:
-      'The driver flow was prototyped and tested in real vehicles first; the dispatcher view was then built around what drivers actually did.',
+    year: '2026',
+    website: 'https://pataskills.com',
+    coverImage: pataskillsAppCover,
+    panels: placeholderPanels(pataskillsAppCover, 'PataSkills Learning App'),
     order: 2,
   },
   {
-    id: 'ux-property',
-    slug: 'property-listings-platform',
-    title: 'Property Listings Platform',
-    subtitle: 'A verified-listings marketplace where trust is part of every screen.',
+    id: 'ux-aerd',
+    slug: 'aerd-database',
+    title: 'AERD Database System',
+    subtitle: 'A research discovery platform for the African Education Research Database.',
+    client: 'ESSA Org',
     category: 'Web Platform',
     service: 'UX & UI Design',
-    year: '2024',
-    website: null,
-    coverImage: lpcCover,
-    heroImage: lpcImage1,
-    sections: story([lpcImage1, lpcImage2, lpcImage3, lpcImage4], {
-      overview: [
-        'Buyers struggled to tell genuine listings from unreliable ones. The platform makes verification visible at every step, from search results to the enquiry form.',
-        'We audited competing platforms and interviewed recent buyers to find which trust signals actually mattered.',
-      ],
-      overviewBullets: ['Verification badges', 'Structured listing details', 'Guided enquiry flow', 'Consistent photo standards'],
-      results:
-        'Enquiry quality improved and the team spent less time filtering out unserious leads.',
-      resultsBullets: ['More confident enquiries', 'Less lead filtering', 'Higher-quality listings', 'A reusable trust component set'],
-      quote: 'The verified badge changed how confidently people reached out.',
-      closing:
-        'Verification and next steps sit above the fold on every listing, so trust is established before the first click.',
-    }),
-    processNote:
-      'Competitor audits and buyer interviews came first; the trust patterns were prototyped and tested before the full listing flow was designed.',
+    year: '2026',
+    website: 'https://aerd.africa',
+    coverImage: aerdCover,
+    panels: [
+      { id: 'cover', src: aerdCover, alt: 'AERD Database System — cover' },
+      { id: 'problem', src: aerdProblem, alt: 'AERD Database System — problem statement' },
+      { id: 'product-1', src: aerdProduct1, alt: 'AERD Database System — product' },
+      { id: 'scope', src: aerdScope, alt: 'AERD Database System — scope of work' },
+      { id: 'research', src: aerdResearch, alt: 'AERD Database System — UX research' },
+      { id: 'product-2', src: aerdProduct2, alt: 'AERD Database System — product' },
+      { id: 'success', src: aerdSuccess, alt: 'AERD Database System — success story' },
+      { id: 'thanks', src: aerdThanks, alt: 'AERD Database System — thanks' },
+    ],
     order: 3,
+  },
+  {
+    id: 'ux-essa',
+    slug: 'essa-website',
+    title: 'ESSA Website',
+    subtitle: 'A full site rebuild for ESSA Org, from requirements to development hand-off.',
+    client: 'ESSA Org',
+    category: 'Website',
+    service: 'UI Design',
+    year: '2025',
+    website: 'https://essa-africa.org',
+    coverImage: essaCover,
+    panels: placeholderPanels(essaCover, 'ESSA Website'),
+    order: 4,
+  },
+  {
+    id: 'ux-heri',
+    slug: 'heri-africa',
+    title: 'HERI Africa Website',
+    subtitle: 'A profile-driven website built around HERI Africa’s different audiences.',
+    client: 'HERI Africa',
+    category: 'Website',
+    service: 'UX & UI Design',
+    year: '2025',
+    website: 'https://heriafrica.org',
+    coverImage: heriCover,
+    panels: placeholderPanels(heriCover, 'HERI Africa Website'),
+    order: 5,
+  },
+  {
+    id: 'ux-klima',
+    slug: 'klima-harvest',
+    title: 'Klima-Harvest Platform',
+    subtitle: 'A carbon marketplace connecting project developers with buyers.',
+    client: 'MediaPal Net',
+    category: 'Web Platform',
+    service: 'Product Design',
+    year: '2025',
+    website: 'https://www.figma.com/design/a1ASZjs8JGxItcfNWkEmCB/Klima-Harvest?node-id=3090-434&t=6pQckzKrvEVbSzXq-1',
+    coverImage: klimaCover,
+    panels: [
+      { id: 'cover', src: klimaCover, alt: 'Klima-Harvest Platform — cover' },
+      { id: 'problem', src: klimaProblem, alt: 'Klima-Harvest Platform — problem statement' },
+      { id: 'scope', src: klimaScope, alt: 'Klima-Harvest Platform — scope of work' },
+      { id: 'product-1', src: klimaProduct11, alt: 'Klima-Harvest Platform — product' },
+      { id: 'product-2', src: klimaProduct2, alt: 'Klima-Harvest Platform — product' },
+      { id: 'product-3', src: klimaProduct22, alt: 'Klima-Harvest Platform — product' },
+      { id: 'success', src: klimaSuccess, alt: 'Klima-Harvest Platform — success story' },
+    ],
+    order: 6,
+  },
+  {
+    id: 'ux-boma',
+    slug: 'boma-ngo',
+    title: 'BOMA NGO Website',
+    subtitle: 'A revamped site and six new product pages for BOMA NGO.',
+    client: 'BOMA NGO',
+    category: 'Website',
+    service: 'UX & UI Design',
+    year: '2024',
+    website: 'https://boma.ngo',
+    coverImage: bomaCover,
+    panels: placeholderPanels(bomaCover, 'BOMA NGO Website'),
+    order: 7,
   },
 ]
 

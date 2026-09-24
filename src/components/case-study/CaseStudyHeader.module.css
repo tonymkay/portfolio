@@ -58,6 +58,11 @@ a.metaValue:hover {
   text-underline-offset: 4px;
 }
 
+.websiteBtn {
+  align-self: flex-start;
+  margin-top: 0.15rem;
+}
+
 .hero { margin-top: 4rem; }
 
 .hero img {

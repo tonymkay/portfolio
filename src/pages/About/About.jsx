@@ -6,7 +6,6 @@ import Tag from '../../components/ui/Tag'
 import CubeButton from '../../components/ui/CubeButton'
 import SocialLinks from '../../components/ui/SocialLinks'
 import ClosingCta from '../../components/ui/ClosingCta'
-import ClientLogos from '../../components/ui/ClientLogos'
 import BigStatHeader from '../../components/ui/BigStatHeader'
 import ExperienceTimeline from '../../components/ui/ExperienceTimeline'
 import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
@@ -14,7 +13,7 @@ import Reveal from '../../components/ui/Reveal'
 import styles from './About.module.css'
 
 const { home, designer, about: aboutContent, images: pageImages } = siteContent
-const { hero, numbers, clients, projects } = aboutContent
+const { hero, numbers, projects } = aboutContent
 
 /** Renders [{ text, muted? }] as inline spans; muted ones turn grey. */
 function Segments({ items }) {
@@ -62,24 +61,6 @@ export default function About() {
 
       {/* ══ EXPERIENCE — pinned; scrolling steps through months and companies ══ */}
       <ExperienceTimeline roles={home.experience.roles} years={numbers.years.value} />
-
-      {/* ══ CLIENTS — count + swiping logo row, separates Experience from Projects ══ */}
-      <ScrollRevealSection className={styles.clients}>
-        <Reveal variant="fadeUp">
-          <BigStatHeader
-            title="Trusted by"
-            count={numbers.clients.value}
-            suffix={numbers.clients.suffix}
-            label={numbers.clients.label}
-            as="h2"
-            duration={1600}
-            pad={1}
-          />
-        </Reveal>
-        <Reveal variant="fadeIn">
-          <ClientLogos items={clients} />
-        </Reveal>
-      </ScrollRevealSection>
 
       {/* ══ PROJECTS — centered count header, project list below ══ */}
       <ScrollRevealSection className={styles.projects}>

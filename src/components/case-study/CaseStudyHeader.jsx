@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
 import { motion as motionPresets } from '../../theme/motion'
 import Reveal from '../ui/Reveal'
+import CubeButton from '../ui/CubeButton'
 import Breadcrumbs from '../ui/Breadcrumbs'
 import styles from './CaseStudyHeader.module.css'
 
@@ -44,14 +46,10 @@ export default function CaseStudyHeader({
         {website && (
           <div className={styles.metaItem}>
             <span className={styles.metaLabel}>Website</span>
-            <a
-              href={website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.metaValue}
-            >
-              See live ↗
-            </a>
+            <CubeButton href={website} external variant="light" size="sm" className={styles.websiteBtn}>
+              See live
+              <ArrowUpRight size={16} strokeWidth={2.25} />
+            </CubeButton>
           </div>
         )}
       </Reveal>

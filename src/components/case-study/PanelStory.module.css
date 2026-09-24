@@ -1,0 +1,14 @@
+/* PanelStory.module.css — stacked, full-container-width images.
+   Zero gap between panels, no rounded corners, height follows the image. */
+.panelStory {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 5rem;
+}
+
+.panel img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+}

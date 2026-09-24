@@ -64,7 +64,6 @@ export default function ProjectDetail() {
         meta={[
           { label: 'Category', value: project.category },
           { label: 'Client', value: project.client },
-          { label: 'Year', value: project.year },
         ]}
         website={externalUrl}
         heroImage={heroImage}
