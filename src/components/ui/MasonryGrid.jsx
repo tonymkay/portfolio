@@ -252,7 +252,7 @@ export default function MasonryGrid({ projects, basePath, linkable = true, pinte
           className={styles.column}
           style={widths ? { flex: `0 0 ${widths[c]}px` } : undefined}
         >
-          {column.map((project) =>
+          {column.map((project, i) =>
             linkable ? (
               <Link
                 key={project.id}
@@ -261,7 +261,7 @@ export default function MasonryGrid({ projects, basePath, linkable = true, pinte
                 aria-label={`View ${project.title} project`}
                 data-nav-hover={project.title}
               >
-                <img src={project.coverImage} alt={project.title} loading="eager" />
+                <img src={project.coverImage} alt={project.title} loading={i === 0 ? 'eager' : 'lazy'} />
                 <span className={styles.overlay} aria-hidden="true">
                   <span className={styles.button}>View Project</span>
                 </span>
@@ -272,7 +272,7 @@ export default function MasonryGrid({ projects, basePath, linkable = true, pinte
                 className={`${styles.tile} ${styles.static}`}
                 data-nav-hover={project.title}
               >
-                <img src={project.coverImage} alt={project.title} loading="eager" />
+                <img src={project.coverImage} alt={project.title} loading={i === 0 ? 'eager' : 'lazy'} />
               </div>
             )
           )}
