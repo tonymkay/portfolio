@@ -31,6 +31,7 @@ export default function About() {
       {/* ══ HERO — portrait, statement, intro, socials + button ══ */}
       <motion.section
         className={`container ${styles.hero}`}
+        data-nav-title="About Me"
         initial="hidden"
         animate="visible"
         variants={motionPresets.staggerContainer}
@@ -60,10 +61,12 @@ export default function About() {
       </motion.section>
 
       {/* ══ EXPERIENCE — pinned; scrolling steps through months and companies ══ */}
-      <ExperienceTimeline roles={home.experience.roles} years={numbers.years.value} />
+      <div data-nav-title="Experience">
+        <ExperienceTimeline roles={home.experience.roles} years={numbers.years.value} />
+      </div>
 
       {/* ══ PROJECTS — centered count header, project list below ══ */}
-      <ScrollRevealSection className={styles.projects}>
+      <ScrollRevealSection className={styles.projects} data-nav-title="Projects">
         <div className={`container ${styles.block}`}>
 
           <Reveal variant="fadeUp">

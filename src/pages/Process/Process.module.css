@@ -1,296 +1,126 @@
-/* Process.module.css */
+/* Process.module.css — dark theme, same tokens as Home / About / Projects / Contact.
+   The document background (behind the navbar / overscroll) and the footer
+   come from usePageTheme('dark'). */
+
 .page {
+  --ux-bg: var(--color-page-dark);            /* #242429 */
+  --ux-surface: #2E2E34;
+  --ux-text: #FFFFFF;
+  --ux-body: rgba(255, 255, 255, 0.82);
+  --ux-muted: #9C9CA6;
+  --ux-line: rgba(255, 255, 255, 0.2);
+
+  background: var(--ux-bg);
+  color: var(--ux-text);
   overflow-x: hidden;
+  overflow-x: clip; /* clip (not hidden) so the pinned steps section can stick */
+}
+
+/* ── Eyebrow with side rules ── */
+.eyebrowRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.rule {
+  flex: none;
+  width: clamp(2.5rem, 6vw, 4.5rem);
+  height: 1px;
+  background: var(--ux-muted);
+  opacity: 0.7;
 }
 
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
   font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 400;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--ux-muted);
+  white-space: nowrap;
 }
 
-.eyebrowDark {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--color-text-secondary);
-}
-
-/* Hero — matches Home hero pattern: dark navy, centered text, bg image overlay */
+/* ── Hero — plain background, centered ── */
 .hero {
-  position: relative;
-  background: var(--color-navy);
-  min-height: 40vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding: 5rem 0 4rem;
-}
-
-/* Background photo layer — backgroundImage applied inline when process_hero.webp exists */
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: var(--color-navy);
-}
-
-/* Dark scrim so text stays readable */
-.heroOverlay::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 25, 38, 0.5);
+  background: transparent;
+  padding: 4rem 0 1rem;
 }
 
 .heroContent {
-  position: relative;
-  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 2rem;
   align-items: center;
   text-align: center;
 }
 
 .heroHeading {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800;
-  color: var(--color-white);
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-}
-
-/* Steps */
-.steps {
-  padding: var(--section-y) 0;
-  background: var(--color-off-white);
-}
-
-.stepsGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-}
-
-@media (min-width: 768px) {
-  .stepsGrid {
-    grid-template-columns: 4fr 7fr;
-    gap: 5rem;
-    align-items: start;
-  }
-}
-
-.stepsLeft {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.stepsHeading {
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-  font-weight: 700;
+  /* same size / weight as .sectionHeading so the two headings read as a pair */
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+  font-weight: 300;
+  color: var(--ux-text);
+  letter-spacing: -0.02em;
   line-height: 1.15;
+  max-width: 20ch;
 }
 
-.stepsRight {
+/* ── Section header (Moodboard / Direction / Workflow) ── */
+.sectionHeader {
   display: flex;
   flex-direction: column;
-}
-
-.step {
-  display: flex;
+  align-items: center;
   gap: 1.5rem;
-  align-items: flex-start;
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
-/* Left col: circle + dashed vertical connector */
-.stepIndicator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
+.sectionHeading {
+  /* same size / weight as .heroHeading */
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ux-text);
 }
 
-.stepNumber {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  border-radius: 50%;
-  background: var(--color-navy);
-  color: var(--color-white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 1.0625rem;
-  flex-shrink: 0;
+/* ── Shared image placeholder (until photos are added) ── */
+.placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--ux-surface);
 }
 
-/* Dashed vertical line connecting circles */
-.stepConnector {
-  display: block;
-  width: 0;
-  flex: 1;
-  min-height: 3rem;
-  border-left: 2px dashed var(--color-mid-gray);
-  margin-top: 0.375rem;
-}
-
-/* Right col */
-.stepContent {
-  flex: 1;
-  padding-top: 0.25rem;
-  padding-bottom: 2.5rem;
-}
-
-.step:last-child .stepContent {
-  padding-bottom: 0;
-}
-
-.stepTitle {
-  font-size: clamp(1.25rem, 2vw, 1.625rem);
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--color-text-primary);
-  letter-spacing: -0.01em;
-}
-
-.stepDesc {
-  font-size: 0.9375rem;
-  color: var(--color-text-secondary);
-  line-height: 1.7;
-  margin-top: 0.625rem;
-}
-
-/* Book a Call link — appears only after step 1 */
-.stepCta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin-top: 0.875rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color var(--transition-fast);
-}
-
-.stepCta:hover {
-  color: var(--color-teal);
-}
-
-/* Moodboard */
-.moodboard {
-  padding: var(--section-y) 0;
-  background: var(--color-white);
-}
-
-.moodHeader {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.moodHeading {
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-  font-weight: 700;
-}
-
-.viewMore {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-
+/* ── Moodboard (shown inside step 2 of the timeline) ──
+   Even 3 × 2 grid: equal square tiles, so the columns line up and the
+   bottoms are level — no staggering. */
 .moodGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.875rem;
 }
 
-@media (min-width: 768px) {
-  .moodGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.moodCell {
-  aspect-ratio: 4/3;
+.moodTile {
+  aspect-ratio: 1;
   overflow: hidden;
-  border-radius: var(--radius-lg);
-  background: var(--color-light-gray);
-  position: relative;
+  border-radius: 1.25rem;
+  /* white behind each image so semi-transparent logos don't pick up the dark page */
+  background: #fff;
+  isolation: isolate;
 }
 
-.moodCellWide {
-  grid-column: span 2;
-  aspect-ratio: 16/9;
-}
-
-/* Actual photo — fills the cell */
-.moodImg {
+.moodTileImg {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  transition: transform var(--transition-slow);
 }
 
-.moodCell:hover .moodImg {
-  transform: scale(1.03);
+@media (max-width: 639px) {
+  .moodGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* Graceful placeholder — shown until image is dropped in assets folder */
-.moodPlaceholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--color-light-gray) 0%, var(--color-mid-gray) 100%);
-  border-radius: var(--radius-lg);
-  transition: background-color var(--transition-fast);
-}
-
-.moodPlaceholder:hover {
-  background: linear-gradient(135deg, var(--color-mid-gray) 0%, var(--color-light-gray) 100%);
-}
-
-/* Brand Direction */
-.direction {
-  padding: var(--section-y) 0;
-  background: var(--color-off-white);
-}
-
-.dirHeader {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.dirHeading {
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-  font-weight: 700;
-}
-
-/* 3-panel image grid */
+/* ── Brand Direction panels (shown inside step 3 of the timeline) ── */
 .dirGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -298,16 +128,14 @@
 }
 
 @media (max-width: 640px) {
-  .dirGrid {
-    grid-template-columns: 1fr;
-  }
+  .dirGrid { grid-template-columns: 1fr; }
 }
 
 .dirPanel {
   border-radius: var(--radius-xl);
   overflow: hidden;
   aspect-ratio: 3 / 4;
-  background: var(--color-light-gray);
+  background: var(--ux-surface);
   position: relative;
 }
 
@@ -319,88 +147,91 @@
   transition: transform 0.4s ease;
 }
 
-.dirPanel:hover .dirPanelImg {
-  transform: scale(1.03);
-}
+.dirPanel:hover .dirPanelImg { transform: scale(1.03); }
 
-/* Graceful placeholder until images are added */
-.dirPanelPlaceholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(160deg, var(--color-light-gray) 0%, var(--color-mid-gray) 100%);
-  display: flex;
-  align-items: flex-end;
-  padding: 1.25rem;
-}
-
-.dirPanelLabel {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--color-text-secondary);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-/* Workflow */
+/* ── Workflow ── */
 .workflow {
-  padding: var(--section-y) 0;
-  background: var(--color-white);
+  /* first section on the page now — extra top room to clear the navbar;
+     small bottom padding so the next heading isn't far from the cards */
+  padding: max(var(--section-y), 7rem) 0 1rem;
+  background: transparent;
 }
 
-.wfHeader {
+/* more headroom between the heading and the floating cards */
+.workflow .sectionHeader { margin-bottom: clamp(4rem, 8vw, 6rem); }
+
+/* Floating tilted cards — one row, wraps to a second row when tight */
+.cards {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.wfHeading {
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-  font-weight: 700;
-}
-
-.wfDiagram {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
   flex-wrap: wrap;
-}
-
-.wfStepWrapper {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 0.75rem;
+  gap: 2rem 1.25rem;
+  padding: 1.5rem 0;
 }
 
-.wfStep {
+.cardSlot { flex: 0 1 auto; }
+
+.card {
+  --rot: -4deg;
+  --lift: 0px;
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--color-light-gray);
+  gap: 0.75rem;
+  min-width: 11.5rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+  border: 1px solid var(--ux-line);
   border-radius: var(--radius-xl);
-  padding: 1.5rem 2rem;
-  min-width: 140px;
+  background: var(--ux-surface);
+  transform: translateY(var(--lift)) rotate(var(--rot));
+  animation: cardFloat 6s ease-in-out infinite;
 }
 
-.wfStepLabel {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+/* Different tilt + offset per card so they look scattered */
+.cardSlot:nth-child(6n+1) .card { --rot: -6deg; --lift: 0.5rem;  animation-delay: 0s; }
+.cardSlot:nth-child(6n+2) .card { --rot: 5deg;  --lift: -0.75rem; animation-delay: -1s; }
+.cardSlot:nth-child(6n+3) .card { --rot: -3deg; --lift: 0.75rem;  animation-delay: -2s; }
+.cardSlot:nth-child(6n+4) .card { --rot: 6deg;  --lift: -0.5rem;  animation-delay: -3s; }
+.cardSlot:nth-child(6n+5) .card { --rot: -5deg; --lift: 0.5rem;   animation-delay: -4s; }
+.cardSlot:nth-child(6n+6) .card { --rot: 4deg;  --lift: -0.75rem; animation-delay: -5s; }
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(var(--lift)) rotate(var(--rot)); }
+  50% { transform: translateY(calc(var(--lift) - 0.5rem)) rotate(var(--rot)); }
 }
 
-.wfStepValue {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--color-text-primary);
+@media (prefers-reduced-motion: reduce) {
+  .card { animation: none; }
 }
 
-.wfArrow {
-  font-size: 1.5rem;
-  color: var(--color-text-secondary);
-  flex-shrink: 0;
+.cardBadge {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--ux-text);
+  color: var(--ux-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
-/* Dark CTA styles removed — CtaBanner with dark={true} used instead */
+.cardLabel {
+  font-size: 0.6875rem;
+  font-weight: 300;
+  color: var(--ux-muted);
+}
+
+.cardTitle {
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--ux-text);
+  white-space: nowrap;
+}

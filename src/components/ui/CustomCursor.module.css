@@ -1,1 +1,36 @@
-/* This file is intentionally empty - no custom cursor */
+/* CustomCursor.module.css — name tag that trails the mouse over project tiles. */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 300;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.tag {
+  display: inline-block;
+  /* Sits just below-right of the pointer so the tile stays visible */
+  transform: translate(14px, 14px) scale(0.85);
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-navy);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transition: opacity var(--transition-fast), transform var(--transition-base);
+}
+
+.visible {
+  opacity: 1;
+  transform: translate(14px, 14px) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tag { transition: none; }
+}

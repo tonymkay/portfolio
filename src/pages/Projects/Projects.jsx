@@ -1,21 +1,22 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { siteContent } from '../../data/siteContent'
-import { getAllProjects, projectCategories } from '../../data/projects'
+import { logoProjects } from '../../data/logos'
 import { motion as motionPresets } from '../../theme/motion'
 import BigStatHeader from '../../components/ui/BigStatHeader'
+import GlassHeader from '../../components/ui/GlassHeader'
 import ClosingCta from '../../components/ui/ClosingCta'
-import ProjectGrid from '../../components/ui/ProjectGrid'
+import MasonryGrid from '../../components/ui/MasonryGrid'
 import Reveal from '../../components/ui/Reveal'
 import styles from './Projects.module.css'
 
 const { header } = siteContent.projects
-const allProjects = getAllProjects()
+const allProjects = logoProjects
 
-// Only offer filters that actually have projects ("All" always stays)
-const categories = projectCategories.filter(
-  (cat) => cat === 'All' || allProjects.some((p) => p.category === cat),
-)
+// Filters come from the categories actually present ("All" always first).
+// With only one category there is nothing to filter, so the row is hidden.
+const categories = ['All', ...new Set(allProjects.map((p) => p.category))]
+const showFilters = categories.length > 2
 
 // The section tabs and the dark theme come from <WorkLayout>.
 export default function Projects() {
@@ -31,35 +32,43 @@ export default function Projects() {
   return (
     <div className={styles.page}>
 
-      {/* ══ HEADER — big thin title, — 08 PROJECTS — rule row, filters ══ */}
-      <motion.header
-        className={`container ${styles.header}`}
-        initial="hidden"
-        animate="visible"
-        variants={motionPresets.staggerContainer}
-      >
-        <Reveal variant="fadeUp">
-          <BigStatHeader title={header.title} count={filtered.length} label={label} />
-        </Reveal>
+      {/* ══ HEADER — compact title + rule row (+ filters); pins to the top as liquid glass ══ */}
+      <GlassHeader>
+        <motion.header
+          className={`container ${styles.header}`}
+          data-nav-title="Selected Projects"
+          initial="hidden"
+          animate="visible"
+          variants={motionPresets.staggerContainer}
+        >
+          <Reveal variant="fadeUp">
+            <BigStatHeader compact title={header.title} count={filtered.length} label={label} />
+          </Reveal>
 
-        <Reveal variant="fadeUp" className={styles.filterRow}>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              className={`${styles.filterBtn} ${activeFilter === cat ? styles.active : ''}`}
-              onClick={() => setActiveFilter(cat)}
-              aria-pressed={activeFilter === cat}
-            >
-              {cat}
-            </button>
-          ))}
-        </Reveal>
-      </motion.header>
+          {showFilters && (
+            <Reveal variant="fadeUp" className={styles.filterRow}>
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  className={`${styles.filterBtn} ${activeFilter === cat ? styles.active : ''}`}
+                  onClick={() => setActiveFilter(cat)}
+                  aria-pressed={activeFilter === cat}
+                >
+                  {cat}
+                </button>
+              ))}
+            </Reveal>
+          )}
+        </motion.header>
+      </GlassHeader>
 
-      {/* ══ PROJECT LIST — same cards as the homepage, each reveals on scroll ══ */}
+      {/* ══ LOGO GRID — staggered masonry, rounded tiles, hover overlay ══ */}
       <div className={`container ${styles.list}`}>
-        <ProjectGrid projects={filtered} basePath="/projects" scrollEach />
+        {/* linkable={false}: detail pages are switched off for now.
+            Remove the prop (or set it to true) to bring the links and the
+            "View Project" hover overlay back. */}
+        <MasonryGrid projects={filtered} basePath="/projects" linkable={false} />
 
         {filtered.length === 0 && (
           <p className={styles.empty}>No projects in this category yet.</p>

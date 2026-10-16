@@ -1,0 +1,130 @@
+/* MasonryGrid.module.css — staggered logo grid.
+   Same width per tile, height follows the image, rounded corners,
+   black overlay + "View Project" button on hover. */
+
+.masonry {
+  --gap: 0.875rem;
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap);
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gap);
+  min-width: 0;
+}
+
+/* While covers load (to measure heights), keep the grid invisible so the
+   tiles don't visibly shuffle when the balanced layout kicks in. */
+.pending { visibility: hidden; }
+
+.column > * { min-width: 0; }
+
+.tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  /* white behind each image so semi-transparent logos don't pick up the dark page */
+  background: #fff;
+  /* keeps the rounded clip crisp while the image scales */
+  isolation: isolate;
+}
+
+.tile img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 600ms ease;
+}
+
+.tile:hover img,
+.tile:focus-visible img {
+  transform: scale(1.03);
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--ux-text, #fff);
+  outline-offset: 3px;
+}
+
+/* Non-clickable tile (linkable={false}): no zoom on hover */
+.static:hover img { transform: none; }
+
+/* ── Hover overlay ── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.tile:hover .overlay,
+.tile:focus-visible .overlay {
+  opacity: 1;
+}
+
+.button {
+  padding: 0.9rem 1.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #111;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: translateY(10px) scale(0.96);
+  transition: transform 350ms ease, background-color 200ms ease, box-shadow 200ms ease;
+}
+
+.tile:hover .button,
+.tile:focus-visible .button {
+  transform: translateY(0) scale(1);
+}
+
+/* subtle hover on the button itself */
+.tile .button:hover {
+  background: #fff;
+  transform: translateY(0) scale(1.06);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Touch screens have no hover — tapping a tile just opens it */
+@media (hover: none) {
+  .overlay { display: none; }
+  .tile:hover img { transform: none; }
+}
+
+/* ── Pinterest look (pinterest prop) ──
+   Smaller tiles in more columns, an even 20px gutter both ways, softer
+   corners, no white backing and no hover movement — just the image. */
+.pinterest {
+  --gap: 0.75rem;
+}
+
+.pinterest .tile {
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pinterest .tile:hover img { transform: none; }
+
+@media (min-width: 768px) {
+  .pinterest { --gap: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile img,
+  .overlay,
+  .button { transition: none; }
+}

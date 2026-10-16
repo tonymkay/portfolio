@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
+import CustomCursor from '../../ui/CustomCursor'
 import styles from './PageWrapper.module.css'
 
 export default function PageWrapper() {
@@ -15,6 +16,7 @@ export default function PageWrapper() {
   return (
     <div className={styles.wrapper}>
       <Navbar />
+      <CustomCursor />
       <main className={styles.main}>
         <Outlet />
       </main>

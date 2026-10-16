@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import { siteContent } from '../../data/siteContent'
-import { getFeaturedProjects } from '../../data/projects'
+import { logoProjects } from '../../data/logos'
 import { motion as motionPresets } from '../../theme/motion'
-import ProjectGrid from '../../components/ui/ProjectGrid'
+import MasonryGrid from '../../components/ui/MasonryGrid'
 import CubeButton from '../../components/ui/CubeButton'
 import SocialLinks from '../../components/ui/SocialLinks'
 import ClosingCta from '../../components/ui/ClosingCta'
@@ -15,7 +15,9 @@ import styles from './Home.module.css'
 
 const { home, designer, images: pageImages } = siteContent
 const about = home.about
-const featuredProjects = getFeaturedProjects()
+// A small sample of the logo grid — change HOME_LOGO_COUNT to show more/fewer.
+const HOME_LOGO_COUNT = 8
+const sampleLogos = logoProjects.slice(0, HOME_LOGO_COUNT)
 
 export default function Home() {
   usePageTheme('dark')
@@ -30,6 +32,7 @@ export default function Home() {
           ══════════════════════════════════════ */}
       <motion.section
         className={styles.hero}
+        data-nav-title={home.hero.eyebrow}
         initial="hidden"
         animate="visible"
         variants={motionPresets.staggerContainer}
@@ -76,7 +79,7 @@ export default function Home() {
           PROJECTS — header fades in, cards
           stagger up one by one
           ══════════════════════════════════════ */}
-      <ScrollRevealSection className={styles.projects}>
+      <ScrollRevealSection className={styles.projects} data-nav-title={home.projects.eyebrow}>
         <div className={`container ${styles.sectionInner}`}>
 
           <Reveal variant="fadeIn" className={styles.sectionEyebrowRow}>
@@ -85,7 +88,17 @@ export default function Home() {
             <span className={styles.rule} aria-hidden="true" />
           </Reveal>
 
-          <ProjectGrid projects={featuredProjects.slice(0, 6)} basePath="/projects" />
+          {/* Sample of the logo grid; linkable={false} while detail pages are off */}
+          <MasonryGrid projects={sampleLogos} basePath="/projects" linkable={false} />
+
+          <Reveal
+            variant="fadeUp"
+            style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}
+          >
+            <CubeButton to={home.projects.viewMoreHref} variant="light" spaced>
+              {home.projects.viewMoreLabel}
+            </CubeButton>
+          </Reveal>
 
         </div>
       </ScrollRevealSection>
@@ -94,7 +107,7 @@ export default function Home() {
           ABOUT TEASER — dark band: eyebrow, statement
           (white lead + gray rest), outlined button
           ══════════════════════════════════════ */}
-      <ScrollRevealSection className={styles.aboutBand}>
+      <ScrollRevealSection className={styles.aboutBand} data-nav-title={about.eyebrow}>
         <div className={`container ${styles.aboutInner}`}>
 
           <Reveal variant="fadeIn" className={styles.aboutEyebrowRow}>
@@ -121,7 +134,7 @@ export default function Home() {
           TESTIMONIALS — horizontal seamless loop,
           right to left, pauses on hover
           ══════════════════════════════════════ */}
-      <ScrollRevealSection className={styles.testimonials}>
+      <ScrollRevealSection className={styles.testimonials} data-nav-title={home.testimonials.eyebrow}>
         <div className={`container ${styles.sectionInner}`}>
 
           <Reveal variant="fadeIn" className={styles.sectionEyebrowRow}>

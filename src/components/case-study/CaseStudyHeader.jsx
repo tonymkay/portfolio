@@ -29,7 +29,7 @@ export default function CaseStudyHeader({
         </div>
       </div>
 
-      <header className={`container ${styles.header}`}>
+      <header className={`container ${styles.header}`} data-nav-title={title}>
         <h1 className={styles.title}>{title}</h1>
 
         <div className={styles.divider} />

@@ -2,6 +2,7 @@ import { useParams, Navigate } from 'react-router-dom'
 import { getUxProjectBySlug, getOtherUxProjects } from '../../data/uxProjects'
 import usePageTheme from '../../hooks/usePageTheme'
 import ClosingCta from '../../components/ui/ClosingCta'
+import ScrollProgress from '../../components/ui/ScrollProgress'
 import CaseStudyPage from '../../components/case-study/CaseStudyPage'
 import CaseStudyHeader from '../../components/case-study/CaseStudyHeader'
 import PanelStory from '../../components/case-study/PanelStory'
@@ -25,6 +26,7 @@ export default function UxProjectDetail() {
 
   return (
     <CaseStudyPage>
+      <ScrollProgress />
       <CaseStudyHeader
         breadcrumbs={[
           { label: 'Home', to: '/' },

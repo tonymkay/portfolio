@@ -27,6 +27,9 @@
   padding-top: 3.5rem;
 }
 
+/* Space under the navbar now that the tab row is gone */
+.layout { padding-top: 4rem; }
+
 /* Clips the sideways travel of the swipe so the page never gets a horizontal
    scrollbar mid-transition (clip, not hidden: no scroll container is created) */
 .viewport {

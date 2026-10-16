@@ -17,29 +17,20 @@ import heroBg from '../assets/images/home/hero_bg.webp'
 import homeCta from '../assets/images/home/cta.webp'
 import aboutPortrait from '../assets/images/about/about_portrait.jpg'
 import aboutWorkspace from '../assets/images/about/about_workspace.webp'
-import processHero from '../assets/images/process/process_hero.webp'
 import contactHero from '../assets/images/contact/contact_hero.webp'
 import projectsHero from '../assets/images/projects/projects_hero.jpg'
-// Process CTA background photo — desk/coffee shot used behind the dark CTA card
-import processCta from '../assets/images/process/process_cta.webp'
+// Navbar "Work" dropdown card image for the Logos & Identities entry
+import navLogosCover from '../assets/images/logos/ORION.webp'
+// Navbar "Work" dropdown card image for the UI/UX entry
+import navUxCover from '../assets/images/ux/ux_pataskills-app-cover.webp'
+// Navbar "Work" dropdown card image for the Posters entry
+import navPostersCover from '../assets/images/posters/AdiliRealEstate.webp'
+import brandBold from '../assets/images/process/bold.webp'
+import brandRetro from '../assets/images/process/retro.webp'
+import brandModern from '../assets/images/process/modern.webp'
 
-import moodboard1 from '../assets/images/process/process_moodboard1.webp'
-import moodboard2 from '../assets/images/process/process_moodboard2.webp'
-import moodboard3 from '../assets/images/process/process_moodboard3.webp'
-import moodboard4 from '../assets/images/process/process_moodboard4.webp'
-import moodboard5 from '../assets/images/process/process_moodboard5.webp'
-import moodboard6 from '../assets/images/process/process_moodboard6.webp'
-
-const moodboard = [moodboard1, moodboard2, moodboard3, moodboard4, moodboard5, moodboard6]
-
-// Brand Direction — 3 panel images (each shows a group of logos)
-// See imagesguide.md → process/brand-direction for naming + sizes
-// Leave as null until images are added; panels show a styled placeholder
-const brandDirection = [
-  null, // process_direction1.jpg — serif / heritage brands
-  null, // process_direction2.jpg — modern tech / social brands
-  null, // process_direction3.jpg — automotive / bold brands
-]
+// Brand Direction — 3 image-only panels (bold / retro / modern)
+const brandDirection = [brandBold, brandRetro, brandModern]
 
 // ── Experience ──────────────────────────────────────────────────────────────
 // One source for "years of experience" everywhere on the site.
@@ -63,14 +54,9 @@ export const siteContent = {
     homeCta,
     aboutPortrait,
     aboutWorkspace,
-    processHero,
     contactHero,
     projectsHero,
-    // Process CTA card background — dark photo behind "Ready to Start..." card
-    processCta,
-    // Array of 6 moodboard images — null entries show a styled placeholder
-    moodboard,
-    // Array of 3 brand direction panel images — null entries show placeholder
+    // Array of 3 brand direction panel images (bold / retro / modern)
     brandDirection,
   },
 
@@ -103,6 +89,18 @@ export const siteContent = {
 
   // ---------- Navigation ----------
   nav: {
+    about: { label: 'About Us', href: '/about' },
+    process: { label: 'Process', href: '/process' },
+    contact: { label: "Let's talk", href: '/contact' },
+    work: {
+      label: 'Work',
+      items: [
+        { label: 'UI/UX Projects', short: 'UI/UX', cta: 'View UI/UX', href: '/ui-ux', image: navUxCover },
+        { label: 'Logos & Identities', short: 'Logos & Identities', cta: 'View Identities', href: '/projects', image: navLogosCover },
+        { label: 'Posters', short: 'Posters', cta: 'View Posters', href: '/posters', image: navPostersCover },
+        { label: 'Blogs', short: 'Blogs', cta: 'Read Blogs', href: '/blogs' },
+      ],
+    },
     links: [
       { label: 'About', href: '/about' },
       { label: 'Projects', href: '/projects' },
@@ -274,7 +272,7 @@ export const siteContent = {
   projects: {
     // Dark page header: big thin title, then a — 08 PROJECTS — rule row
     header: {
-      title: 'Crafted',
+      title: 'Logos & Identities',
       label: 'Projects',
     },
     hero: {
@@ -286,6 +284,15 @@ export const siteContent = {
       description: "I'm always excited to collaborate on new and innovative projects. Whether you're starting from scratch or refining an existing idea.",
       ctaLabel: 'Book A Call ↗',
       ctaHref: '/contact',
+    },
+  },
+
+  // ---------- Posters Page ----------
+  // Same dark header as Logos & Identities: big thin title + a — 30 POSTERS — rule row
+  posters: {
+    header: {
+      title: 'Posters',
+      label: 'Posters',
     },
   },
 
@@ -313,15 +320,19 @@ export const siteContent = {
     direction: {
       eyebrow: '● Setting Direction',
       heading: 'Establishing a Brand Direction',
+      description: 'From the moodboard, I narrow things down to a few clear directions. You pick the one that feels right before any real designing begins.',
       viewMoreLabel: 'View Traditions ↗',
     },
     workflow: {
       eyebrow: '● Designing',
       heading: 'Concept Design Process',
-      steps: [
-        { label: 'Design', value: '1/' },
-        { label: 'Revision', value: '1x' },
-        { label: 'Presentation', value: '▶' },
+      cards: [
+        { label: 'Nice to meet u', title: 'Discovery' },
+        { label: 'Welcome', title: 'Onboarding' },
+        { label: 'It all starts with an idea', title: 'Strategy & Concept' },
+        { label: "Let's get creative", title: 'Design Phase' },
+        { label: 'Goodbye', title: 'Offboarding' },
+        { label: 'This is (not) the end', title: '*Support' },
       ],
     },
     cta: {

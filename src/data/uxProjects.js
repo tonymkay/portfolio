@@ -9,8 +9,8 @@
  *
  * panels: [{ id, src, alt, background? }]
  *
- * "Test Project", "AERD Database System" and "Klima-Harvest Platform"
- * have their real panel flow (Test/AERD: cover, problem, product, scope
+ * "AERD Database System" and "Klima-Harvest Platform"
+ * have their real panel flow (AERD: cover, problem, product, scope
  * of work, research, product, success story, thanks; Klima: cover,
  * problem, scope, product x3, success). The other projects don't have
  * their real panel screens yet, so each just repeats its own cover image
@@ -18,15 +18,6 @@
  * screens one at a time whenever they're ready, no component changes
  * needed.
  */
-
-// ── Test Project (Genova AI) — real panel flow ──
-import testCover from '../assets/images/ux/test-project/cover.webp'
-import testProblem from '../assets/images/ux/test-project/problem.webp'
-import testProduct1 from '../assets/images/ux/test-project/product1.webp'
-import testScope from '../assets/images/ux/test-project/scope.webp'
-import testResearch from '../assets/images/ux/test-project/research.webp'
-import testProduct2 from '../assets/images/ux/test-project/product2.webp'
-import testSuccess from '../assets/images/ux/test-project/successstories.webp'
 
 // ── PataSkills LMS System — real panel flow ──
 import lmsCover from '../assets/images/ux/pataskills-lms/cover.webp'
@@ -87,7 +78,7 @@ export const uxPageContent = {
   eyebrow: 'Selected Projects',
   // Dark page header: big thin title, then a — 03 CASE STUDIES — rule row
   header: {
-    title: 'Designed',
+    title: 'UX/UI Projects',
     label: 'Case studies',
   },
   cta: {
@@ -112,29 +103,6 @@ const placeholderPanels = (cover, title) => [
 ]
 
 export const uxProjects = [
-  {
-    id: 'ux-test-project',
-    slug: 'test-project',
-    title: 'Test Project',
-    subtitle: 'Get found faster, through AI search — a real-time asset and OPEX visibility SaaS.',
-    client: 'Genova AI',
-    category: 'SaaS',
-    service: 'Product Design',
-    year: '2026',
-    website: null,
-    coverImage: testCover,
-    panels: [
-      { id: 'cover', src: testCover, alt: 'Genova AI — cover' },
-      { id: 'problem', src: testProblem, alt: 'Genova AI — problem statement' },
-      { id: 'product-1', src: testProduct1, alt: 'Genova AI — product' },
-      { id: 'scope', src: testScope, alt: 'Genova AI — scope of work' },
-      { id: 'research', src: testResearch, alt: 'Genova AI — UX research' },
-      { id: 'product-2', src: testProduct2, alt: 'Genova AI — product' },
-      { id: 'success', src: testSuccess, alt: 'Genova AI — success story' },
-      { id: 'thanks', src: lmsThanks, alt: 'Genova AI — thanks' },
-    ],
-    order: 0,
-  },
   {
     id: 'ux-pataskills-lms',
     slug: 'pataskills-lms',

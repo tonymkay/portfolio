@@ -17,9 +17,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  padding-top: 2rem;
-  padding-bottom: 3rem;
+  gap: 1rem;
+  /* tighter than before — this header pins to the top as a glass bar */
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
   text-align: center;
 }
 
@@ -69,7 +70,7 @@
    PROJECT LIST — grid + card look live in <ProjectGrid> / <ProjectCard>.
    ══════════════════════════════════════════════ */
 .list {
-  padding-top: 1rem;
+  padding-top: 2.5rem;
   padding-bottom: 6rem;
 }
 

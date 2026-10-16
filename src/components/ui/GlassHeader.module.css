@@ -1,0 +1,6 @@
+/* GlassHeader.module.css — static listing header (no pinning) */
+
+.bar {
+  position: relative;
+  z-index: 1;
+}

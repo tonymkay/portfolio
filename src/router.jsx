@@ -9,6 +9,7 @@ import Contact from './pages/Contact/Contact'
 import ProjectDetail from './pages/ProjectDetail/ProjectDetail'
 import NotFound from './pages/NotFound/NotFound'
 import UxProjects from './pages/UxProjects/UxProjects'
+import Posters from './pages/Posters/Posters'
 import UxProjectDetail from './pages/UxProjectDetail/UxProjectDetail'
 
 // Wrapper that forces a full remount whenever the slug changes.
@@ -38,6 +39,7 @@ export default function AppRouter() {
           <Route element={<WorkLayout />}>
             <Route path="/projects"    element={<Projects />} />
             <Route path="/ui-ux"       element={<UxProjects />} />
+            <Route path="/posters"     element={<Posters />} />
           </Route>
           <Route path="/ui-ux/:slug"    element={<KeyedUxProjectDetail />} />
           <Route path="*"              element={<NotFound />} />

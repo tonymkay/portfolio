@@ -7,11 +7,14 @@ import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
 import Reveal from '../../components/ui/Reveal'
 import CtaBanner from '../../components/ui/CtaBanner'
 import CubeButton from '../../components/ui/CubeButton'
+import usePageTheme from '../../hooks/usePageTheme'
 import styles from './Contact.module.css'
 
-const { contact, home, images: pageImages } = siteContent
+const { contact, home } = siteContent
 
 export default function Contact() {
+  usePageTheme('dark')
+
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -39,17 +42,16 @@ export default function Contact() {
       {/* ── Hero ── */}
       <motion.section
         className={styles.hero}
+        data-nav-title={contact.hero.eyebrow.replace('●', '').trim()}
         initial="hidden"
         animate="visible"
         variants={motionPresets.staggerContainer}
       >
-        <div
-          className={styles.heroOverlay}
-          style={pageImages.contactHero ? { backgroundImage: `url(${pageImages.contactHero})` } : {}}
-        />
         <div className={`container ${styles.heroContent}`}>
-          <Reveal variant="popIn" as="span" className={styles.eyebrow}>
-            {contact.hero.eyebrow}
+          <Reveal variant="fadeIn" className={styles.eyebrowRow}>
+            <span className={styles.rule} aria-hidden="true" />
+            <span className={styles.eyebrow}>{contact.hero.eyebrow.replace('●', '').trim()}</span>
+            <span className={styles.rule} aria-hidden="true" />
           </Reveal>
           <Reveal variant="fadeUp" as="h1" className={styles.heroHeading}>
             {contact.hero.heading}
@@ -175,9 +177,9 @@ export default function Contact() {
             </div>
 
             <CubeButton
-              rounded
+              variant="light"
+              spaced
               fullWidth
-              size="lg"
               onClick={handleSubmit}
               disabled={!form.agreed}
             >

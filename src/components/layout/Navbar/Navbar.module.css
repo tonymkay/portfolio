@@ -1,35 +1,113 @@
-/* Navbar.module.css — logo left, pulsing dot right that expands into a menu */
+/* Navbar.module.css — centered floating pill.
+   Top of page: logo | About Us | Work (hover expands into cards) | Contact Us.
+   Scrolled: glass pill — hamburger | adaptive content area | Contact Us. */
 
 .navbar {
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 1.5rem;
   left: 0;
   right: 0;
   z-index: 100;
-  height: var(--navbar-height);
   display: flex;
-  align-items: flex-start;
-  padding-top: 1.5rem;
-  /* Transparent and click-through so the page reads as one continuous surface */
-  background: transparent;
+  justify-content: center;
+  padding: 0 var(--container-x);
   pointer-events: none;
+  transform: translateY(0);
+  transition:
+    top 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.inner {
+/* First-visit intro: pill centered in the viewport. Anchored by its own
+   center, so expanding the Work menu grows it equally up and down. */
+.intro {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(20, 22, 28, 0.45);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* ── Pill ── */
+.pill {
+  --nav-bg: var(--color-white);
+  --nav-fg: var(--color-text-primary);
+  --nav-edge: transparent;
+  --nav-cta-bg: var(--color-navy);
+  --nav-cta-fg: var(--color-white);
+  --nav-cta-bg-hover: #000000;
+  --nav-active-bg: var(--color-navy);
+  --nav-active-fg: var(--color-white);
+  --nav-card-bg: var(--color-off-white);
+  --nav-card-bg-hover: var(--color-light-gray);
+  --nav-card-surface: #e1e4ea;
+  --nav-card-surface-hover: #d5d9e1;
+  --nav-card-edge: #b4bbc8;
+  --nav-preview-bg: #f7f8fa;
+
+  pointer-events: auto;
+  position: relative;
+  width: min(40rem, 100%);
+  min-height: 3.75rem;
+  overflow: hidden;
+  background: var(--nav-bg);
+  color: var(--nav-fg);
+  border-radius: 1.875rem;
+  box-shadow: var(--shadow-lg), inset 0 0 0 1px var(--nav-edge);
+  transition:
+    width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color var(--transition-slow),
+    box-shadow var(--transition-slow),
+    backdrop-filter var(--transition-slow);
+}
+
+.compact {
+  width: min(30rem, 100%);
+}
+
+.glass {
+  --nav-bg: rgba(255, 255, 255, 0.55);
+  --nav-edge: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+}
+
+.glass.expanded {
+  --nav-bg: rgba(255, 255, 255, 0.82);
+}
+
+/* ── Bars ── */
+.bar,
+.barCompact {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  min-height: 3.75rem;
+  box-sizing: border-box;
 }
 
-/* Logo */
+.bar {
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+}
+
+.barCompact {
+  gap: 0.75rem;
+  padding: 0.5rem;
+}
+
 .logo {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
   flex-shrink: 0;
-  pointer-events: auto;
 }
 
 .logoMark {
@@ -50,177 +128,330 @@
 .logoText {
   font-weight: 600;
   font-size: 1rem;
-  color: var(--color-text-primary);
+  color: var(--nav-fg);
   letter-spacing: -0.01em;
 }
 
-/* ── Menu wrapper ── */
-.menu {
-  position: relative;
-  pointer-events: auto;
-}
-
-/* ── Dot button ── */
-.dotBtn {
-  position: relative;
-  z-index: 3;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background: var(--color-light-gray);
+/* ── Links (top-of-page bar) ── */
+.links {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color var(--transition-fast);
-}
-
-.dotBtn:hover {
-  background: var(--color-mid-gray);
-}
-
-/* Pulsing ring */
-.dotBtn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2px solid var(--color-teal);
-  opacity: 0;
-  animation: ringPulse 2.2s ease-out infinite;
-  pointer-events: none;
-}
-
-.dotBtn.open::after {
-  animation: none;
-}
-
-@keyframes ringPulse {
-  0%   { transform: scale(0.85); opacity: 0.55; }
-  100% { transform: scale(1.6);  opacity: 0; }
-}
-
-/* Pulsing dot */
-.dot {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-  background: var(--color-navy);
-  animation: dotPulse 2.2s ease-in-out infinite;
-  transition: opacity var(--transition-fast), transform var(--transition-base);
-}
-
-.dotBtn.open .dot {
-  animation: none;
-  opacity: 0;
-  transform: scale(0);
-}
-
-@keyframes dotPulse {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(0.7); }
-}
-
-/* Close (X) — shown when open */
-.x {
-  position: absolute;
-  width: 1rem;
-  height: 1rem;
-  opacity: 0;
-  transform: scale(0.4) rotate(-90deg);
-  transition: opacity var(--transition-fast), transform var(--transition-base);
-}
-
-.x span {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  margin-top: -1px;
-  border-radius: 2px;
-  background: var(--color-navy);
-}
-
-.x span:first-child { transform: rotate(45deg); }
-.x span:last-child  { transform: rotate(-45deg); }
-
-.dotBtn.open .x {
-  opacity: 1;
-  transform: scale(1) rotate(0deg);
-}
-
-/* ── Dimmed page behind the panel (full screen) ── */
-.scrim {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  border: none;
-  cursor: default;
-  background: color-mix(in srgb, var(--color-navy) 45%, transparent);
-}
-
-/* ── Expanded panel ── */
-.panel {
-  position: absolute;
-  top: calc(100% + 1.25rem);
-  right: 0;
-  z-index: 2;
-  width: min(20rem, calc(100vw - 2 * var(--container-x)));
-  padding: 2rem 1.5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 0.25rem;
-  background: var(--color-white);
-  border-radius: 2rem;
-  box-shadow: var(--shadow-lg);
 }
 
 .link {
-  padding: 0.85rem 1rem;
-  font-size: 1.0625rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1rem;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  font: inherit;
+  font-size: 0.9375rem;
   font-weight: 500;
-  color: var(--color-text-primary);
+  color: var(--nav-fg);
   text-decoration: none;
-  transition: color var(--transition-fast);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .link:hover,
 .link.active {
-  color: var(--color-teal);
+  background: var(--nav-card-bg);
+  color: var(--nav-fg);
 }
 
-/* Menu CTA = <CubeButton>; only layout lives here */
-.cta {
-  align-self: stretch;
-  margin-top: 0.75rem;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dot,
-  .dotBtn::after { animation: none; }
-}
-
-/* ── Dark pages — html[data-page-theme='dark'] (see hooks/usePageTheme) ──
-   The navbar floats over the page, so logo + menu button must flip.
-   The white dropdown panel keeps its own light styling. */
-:global(html[data-page-theme='dark']) .logoText {
+.workBtn.open {
+  background: var(--color-navy);
   color: var(--color-white);
 }
 
-:global(html[data-page-theme='dark']) .dotBtn {
-  background: rgba(255, 255, 255, 0.12);
+.chev {
+  width: 0.9rem;
+  height: 0.9rem;
+  transition: transform var(--transition-base);
 }
 
-:global(html[data-page-theme='dark']) .dotBtn:hover {
-  background: rgba(255, 255, 255, 0.22);
+.workBtn.open .chev {
+  transform: rotate(180deg);
 }
 
-:global(html[data-page-theme='dark']) .dot {
-  background: var(--color-mid-gray);
+.contact {
+  margin-left: 0.5rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--radius-full);
+  background: var(--nav-cta-bg);
+  color: var(--nav-cta-fg);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
-:global(html[data-page-theme='dark']) .x span {
+.contact:hover {
+  background: var(--nav-cta-bg-hover);
+  color: var(--nav-cta-fg);
+}
+
+.barCompact .contact {
+  margin-left: 0;
+}
+
+/* ── Hamburger ── */
+.hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--nav-cta-bg);
+  color: var(--nav-cta-fg);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.hamburger:hover {
+  background: var(--nav-cta-bg-hover);
+  color: var(--nav-cta-fg);
+}
+
+.hamburger svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+/* ── Adaptive content area (scrolled bar) ── */
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5rem;
+  overflow: hidden;
+}
+
+.contentText {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--nav-fg);
+}
+
+/* ── Expanding drop area ── */
+.drop {
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0.5rem 1rem 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cardImgWrap {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  background: var(--nav-preview-bg);
+  border: 1px solid var(--nav-card-edge);
+}
+
+.cardImg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Miniature of the destination page's grid (no zoom, it's a preview) */
+.preview {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: 0.375rem;
+  padding: 0.5rem;
+  overflow: hidden;
+  background: var(--color-light-gray);
+  pointer-events: none;
+}
+
+.previewCol {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.previewImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+
+/* Placeholder blog preview: 2×2 mock story cards */
+.blogMock {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--color-light-gray);
+  pointer-events: none;
+}
+
+.blogCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-height: 0;
+  padding: 0.3rem;
+  border-radius: 4px;
   background: var(--color-white);
+}
+
+.blogCover {
+  display: block;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 3px;
+}
+
+.blogLine {
+  display: block;
+  flex: 0 0 auto;
+  height: 4px;
+  border-radius: 2px;
+  background: #c9ced8;
+}
+
+.cardTitle {
+  padding: 0.25rem 0.125rem 0;
+  font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ── Hamburger menu list ── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem 0.75rem;
+}
+
+.listLink {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--nav-fg);
+  text-decoration: none;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.listLink:hover {
+  background: var(--nav-card-bg);
+}
+
+.listActive,
+.listActive:hover {
+  background: var(--nav-active-bg);
+  color: var(--nav-active-fg);
+}
+
+.listCta {
+  margin-top: 0.5rem;
+  padding: 0.95rem 1rem;
+  border-radius: var(--radius-full);
+  background: var(--nav-cta-bg);
+  color: var(--nav-cta-fg);
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .pill,
+  .compact {
+    width: 100%;
+  }
+
+  .links {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: flex;
+  }
+
+  .grid {
+    display: none;
+  }
+
+  .barCompact .contact {
+    padding: 0.75rem 1.1rem;
+  }
+}
+
+/* ── Dark pages — html[data-page-theme='dark'] (see hooks/usePageTheme) ──
+   The white pill needs nothing; only the glass state sits on the dark page. */
+:global(html[data-page-theme='dark']) .glass {
+  --nav-bg: rgba(36, 36, 41, 0.55);
+  --nav-fg: var(--color-white);
+  --nav-edge: rgba(255, 255, 255, 0.14);
+  --nav-cta-bg: var(--color-white);
+  --nav-cta-fg: var(--color-navy);
+  --nav-cta-bg-hover: var(--color-mid-gray);
+  --nav-active-bg: var(--color-white);
+  --nav-active-fg: var(--color-navy);
+  --nav-card-bg: rgba(255, 255, 255, 0.08);
+  --nav-card-bg-hover: rgba(255, 255, 255, 0.14);
+}
+
+:global(html[data-page-theme='dark']) .glass.expanded {
+  --nav-bg: rgba(36, 36, 41, 0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardImg,
+  .chev,
+  .navbar,
+  .pill { transition: none; }
 }

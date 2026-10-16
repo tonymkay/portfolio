@@ -1,0 +1,198 @@
+/* ═══════════════════════════════════════════════
+   StepsArc — pinned section; a small dial turns beside the active step.
+   One number per step lives on the dial and grows as it reaches the pointer.
+   The dial + text group is centred on the page.
+   Colours come from the --ux-* tokens set on the page.
+   ═══════════════════════════════════════════════ */
+
+.section {
+  /* --reach: how far the pointer sits from the dial's left edge (sets the layout).
+     --r: the real circle radius — much bigger, so the curve near the pointer is gentle. */
+  --reach: clamp(8.5rem, 22vh, 12rem);
+  --r: clamp(20rem, 52vh, 30rem);
+  --num: clamp(3.5rem, 7vw, 6rem);       /* font size of the number when it's big */
+
+  /* one screen for the pinned stage + a bit of scroll per extra step */
+  height: calc(100vh + (var(--n) - 1) * 70vh);
+  position: relative;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+}
+
+/* ── Dial: the pointer sits --reach from its left edge, level with the text.
+   Wide enough for the big number to sit between the pointer and the text. ── */
+.dial {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: calc(var(--reach) + var(--num) * 1.5 + 3rem);
+  height: calc(var(--reach) * 2);
+}
+
+/* Box around the pointer that crops the big circle to a short, fading arc */
+.clip {
+  position: absolute;
+  left: calc(var(--reach) * -0.5);
+  top: calc(var(--reach) * -0.5);
+  width: calc(var(--reach) * 3);
+  height: calc(var(--reach) * 3);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Circle + dots, and the numbers: each a 2r box rotated from JS about its centre.
+   The circle's rightmost point lands exactly on the pointer. */
+.wheel {
+  position: absolute;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  will-change: transform;
+}
+
+/* inside .clip — the pointer is at the clip's centre (1.5 × reach) */
+.dotsWheel {
+  left: calc(var(--reach) * 1.5 - var(--r) * 2);
+  top: calc(var(--reach) * 1.5 - var(--r));
+}
+
+/* inside .dial — the pointer is at (reach, reach) */
+.labelsWheel {
+  left: calc(var(--reach) - var(--r) * 2);
+  top: calc(var(--reach) - var(--r));
+  pointer-events: none;
+}
+
+.circle {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--ux-line, rgba(255, 255, 255, 0.2));
+  border-radius: 50%;
+}
+
+/* One arm per step: runs from the centre to the rim, rotated into place */
+.arm {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--r);
+  height: 0;
+  transform-origin: 0 0;
+}
+
+.dot {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ux-line, rgba(255, 255, 255, 0.2));
+  transform: translate(50%, -50%);
+}
+
+.dotReal { background: var(--ux-muted, #9C9CA6); }
+
+/* Paints the page colour over the far ends of the arc so it melts away around
+   the pointer (the centre of the clip box). Above the circle, below the numbers. */
+.fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent calc(var(--reach) * 0.7),
+    var(--ux-bg, #242429) calc(var(--reach) * 1.45)
+  );
+}
+
+/* The number. Drawn at its BIG size and scaled down from JS when it is away
+   from the pointer, so it grows smoothly as it arrives. */
+.label {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin-left: 1.5rem;
+  transform-origin: left center;
+  font-size: var(--num);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ux-text, #fff);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  will-change: transform, opacity;
+}
+
+/* Fixed dot on the rim, level with the text */
+.pointer {
+  position: absolute;
+  left: var(--reach);
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ux-text, #fff);
+  transform: translate(-50%, -50%);
+}
+
+/* ── Active step text ── */
+.content {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 min(26rem, 36vw);
+  animation: stepIn 0.5s ease both;
+}
+
+@keyframes stepIn {
+  from { opacity: 0; transform: translateY(1rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.title {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ux-text, #fff);
+}
+
+.desc {
+  margin-top: 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--ux-muted, #9C9CA6);
+}
+
+/* ── Phones: dial on top, text underneath, both centred ── */
+@media (max-width: 760px) {
+  .section { --reach: 7rem; --r: 16rem; --num: 3.5rem; }
+  .stage {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .content { flex: none; width: 100%; max-width: 22rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content { animation: none; }
+}

@@ -1,0 +1,155 @@
+/* ═══════════════════════════════════════════════
+   ProcessTimeline — pinned step-number wheel + scrolling steps.
+   Same layout language as ExperienceTimeline (About page).
+   Colours come from the --ux-* tokens set on the page.
+   ═══════════════════════════════════════════════ */
+
+.section {
+  --row: 2.75rem;
+  /* Wheel height: 5 rows, the 3rd is the highlighted one */
+  --tl-h: calc(var(--row) * var(--visible));
+  /* How far the line runs past the wheel, above and below */
+  --ext: clamp(7rem, 20vh, 13rem);
+
+  /* Room for the line's faded ends, so it never reaches the sections above / below */
+  padding: calc(var(--ext) * 0.5) 0 calc(var(--ext) * 0.7 + 5rem);
+  /* `clip` (not `hidden`) keeps position: sticky working; anything that would
+     spill out of this section is cut off instead of overlapping its neighbours */
+  overflow: clip;
+}
+
+/* Pinned rail on the left, steps on the right */
+.layout {
+  display: grid;
+  grid-template-columns: auto minmax(0, 60rem);
+  justify-content: center;
+  gap: clamp(1.25rem, 6vw, 5rem);
+}
+
+/* As tall as the step list, so the rail inside has room to stay pinned */
+.railCol { min-width: 0; }
+
+.rail {
+  position: sticky;
+  top: calc(50vh - var(--tl-h) / 2);
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 1.25rem;
+  align-items: start;
+}
+
+/* ── Number wheel ── */
+.viewport {
+  height: var(--tl-h);
+  overflow: hidden;
+  /* Room for the highlighted number to grow leftwards without being cropped.
+     The negative margin cancels the padding so the layout doesn't shift. */
+  padding-left: 1.25rem;
+  margin-left: -1.25rem;
+}
+
+/* --pos (fractional step index) is written from JS every frame.
+   Item i sits on the highlighted row when i === --pos. */
+.numberList {
+  list-style: none;
+  transform: translate3d(0, calc(var(--row) * (var(--center) - var(--pos, 0))), 0);
+  will-change: transform;
+}
+
+/* Opacity + scale are set from JS by distance to the highlighted row */
+.number {
+  height: var(--row);
+  line-height: var(--row);
+  text-align: right;
+  transform-origin: right center;
+  font-size: 1.1875rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ux-text);
+  will-change: transform, opacity;
+}
+
+/* ── Line with a marker on the highlighted row ── */
+.track {
+  position: relative;
+  width: 9px;
+  height: var(--tl-h);
+}
+
+.line {
+  /* Longer than the number wheel: runs --ext (set on .section) past it above and below */
+  position: absolute;
+  left: 50%;
+  top: calc(var(--ext) * -1);
+  bottom: calc(var(--ext) * -1);
+  width: 1px;
+  background: var(--ux-line);
+  transform: translateX(-50%);
+  /* melt away at both ends, like the arc did */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+}
+
+.dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ux-text);
+  transform: translate(-50%, -50%);
+}
+
+/* ── Steps ── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5rem, 14vh, 9rem);
+  min-width: 0;
+  list-style: none;
+}
+
+/* The first step's heading starts level with the rail's highlighted row */
+.block:first-child {
+  padding-top: calc(var(--tl-h) / 2 - 1.5rem);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 34rem;
+}
+
+.title {
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  font-weight: 300;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--ux-text);
+}
+
+.desc {
+  margin-top: 1rem;
+  font-size: clamp(1rem, 1.4vw, 1.1875rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ux-body);
+}
+
+.cta { margin-top: 1.75rem; }
+
+/* Moodboard / brand direction panels — revealed as they scroll into view */
+.media {
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+  min-width: 0;
+}
+
+@media (max-width: 639px) {
+  .section { --row: 2.25rem; }
+  .layout { gap: 1rem; }
+  .rail { column-gap: 0.75rem; }
+  .number { font-size: 1rem; }
+}

@@ -9,6 +9,7 @@
 .shot {
   position: relative;
   overflow: hidden;
+  border-radius: var(--radius-xl);
   aspect-ratio: 4 / 3;
   background: var(--ux-surface, var(--color-light-gray));
 }
@@ -27,24 +28,6 @@
 .card:hover .shot img {
   transform: scale(1.03);
   filter: brightness(1.06);
-}
-
-/* Position of the button over the photo */
-.buttonWrap {
-  position: absolute;
-  left: 50%;
-  bottom: 2.5rem;
-  transform: translateX(-50%);
-}
-
-/* Look = <CubeButton variant="surface">; sizing vars only */
-.button {
-  --h: 4rem;
-  --px: 2.5rem;
-  --fs: 0.6875rem;
-  --fw: 500;
-  --ls: 0.28em;
-  --tt: uppercase;
 }
 
 .meta {

@@ -14,7 +14,7 @@ const { home } = siteContent
  */
 export default function ClosingCta({ cta = home.cta }) {
   return (
-    <ScrollRevealSection className={styles.band}>
+    <ScrollRevealSection className={styles.band} data-nav-title="Get in touch">
       <div className={`container ${styles.inner}`}>
 
         <Reveal variant="fadeIn" className={styles.bigWord}>

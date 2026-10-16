@@ -14,6 +14,7 @@ import styles from './BigStatHeader.module.css'
  *   as       — heading tag for the title (default h1; About uses h2)
  *   duration — count-up time in ms (default 1200)
  *   pad      — minimum digits, passed to CountUp (its default is 2 → "08")
+ *   compact  — smaller title + tighter spacing (used by the pinned listing headers)
  */
 export default function BigStatHeader({
   title,
@@ -23,9 +24,10 @@ export default function BigStatHeader({
   as: Title = 'h1',
   duration = 1200,
   pad,
+  compact = false,
 }) {
   return (
-    <div className={styles.bigStat}>
+    <div className={`${styles.bigStat} ${compact ? styles.compact : ''}`}>
       <Title className={styles.title}>{title}</Title>
       <div className={styles.eyebrowRow}>
         <span className={styles.rule} aria-hidden="true" />
