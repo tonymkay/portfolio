@@ -113,7 +113,12 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1rem;
+}
+
+.heroActions > ul {
+  margin: 0;
+  padding: 0;
 }
 
 /* Hero button = <CubeButton>; look lives in components/ui/CubeButton.
@@ -145,8 +150,8 @@
   .heroActions {
     width: 100%;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.75rem;
   }
 
   .heroCta {

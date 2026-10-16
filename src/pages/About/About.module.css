@@ -106,15 +106,20 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1rem;
+}
+
+.actions > ul {
+  margin: 0;
+  padding: 0;
 }
 
 /* Phones: socials + button share one row */
 @media (max-width: 479px) {
   .actions {
     width: 100%;
-    justify-content: space-between;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.75rem;
   }
 
   .actions > :last-child {

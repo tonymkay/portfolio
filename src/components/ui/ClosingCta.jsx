@@ -22,7 +22,7 @@ export default function ClosingCta({ cta = home.cta }) {
         </Reveal>
 
         <Reveal variant="scaleUp">
-          <CubeButton to={cta.ctaHref} variant="light" size="xl" textLink>
+          <CubeButton to={cta.ctaHref} variant="light" size="xl" textLink compactMobile>
             {cta.buttonLabel}
           </CubeButton>
         </Reveal>

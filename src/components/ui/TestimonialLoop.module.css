@@ -22,12 +22,6 @@
   will-change: transform;
 }
 
-/* Pause on hover / keyboard focus */
-.viewport:hover .track,
-.viewport:focus-within .track {
-  animation-play-state: paused;
-}
-
 /* Each set carries its own right padding equal to the card gap, so the
    two sets are identical in width and the -50% jump is invisible. */
 .set {

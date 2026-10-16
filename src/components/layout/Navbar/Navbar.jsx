@@ -459,7 +459,10 @@ export default function Navbar() {
 
   const openWork = () => openPanel('work')
 
-  const scheduleClose = () => {
+  const scheduleClose = (event) => {
+    // Touch pointers can leave the pill as the page scrolls under a tap. Keep
+    // the menu open on touch; only mouse hover should dismiss it this way.
+    if (event?.pointerType && event.pointerType !== 'mouse') return
     clearTimeout(leaveTimer.current)
     leaveTimer.current = setTimeout(() => {
       setWorkOpen(false)
@@ -487,7 +490,8 @@ export default function Navbar() {
       type="button"
       className={`${styles.hamburger} ${extraClass}`}
       onClick={toggleMenu}
-      onMouseEnter={() => {
+      onPointerEnter={(event) => {
+        if (event.pointerType !== 'mouse') return
         if (scrolled) {
           clearTimeout(leaveTimer.current)
           setPanelReady(true)
@@ -553,8 +557,10 @@ export default function Navbar() {
       <motion.div
         ref={pillRef}
         className={`${styles.pill} ${scrolled ? styles.compact : ''} ${scrolled ? styles.glass : ''} ${(expanded || Boolean(activePanel)) ? styles.expanded : ''} ${intro && !introBarReady ? styles.introLocked : ''}`}
-        onMouseLeave={scheduleClose}
-        onMouseEnter={() => clearTimeout(leaveTimer.current)}
+        onPointerLeave={scheduleClose}
+        onPointerEnter={(event) => {
+          if (event.pointerType === 'mouse') clearTimeout(leaveTimer.current)
+        }}
       >
         {scrolled ? (
           <div className={styles.barCompact}>

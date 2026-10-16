@@ -33,6 +33,7 @@ export default function CubeButton({
   spaced = false,
   textLink = true,
   fullWidth = false,
+  compactMobile = false,
   rollOnGroupHover = false,
   className = '',
   children,
@@ -46,6 +47,7 @@ export default function CubeButton({
     spaced && styles.spaced,
     textLink && styles.textLink,
     fullWidth && styles.block,
+    compactMobile && styles.compactMobile,
     rollOnGroupHover && styles.groupRoll,
     className,
   ]

@@ -224,6 +224,19 @@
   height: clamp(3.5rem, 5.5vw, 4.75rem);
 }
 
+@media (max-width: 767px) {
+  .compactMobile.textLink.xl .face {
+    gap: 0.75rem;
+    padding: 0.35rem 0.4rem 0.35rem 1.2rem;
+    font-size: 1.25rem;
+  }
+
+  .compactMobile.textLink.xl .textLinkArrowCircle {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .textLink .front,
   .textLinkArrowCircle { transition: none; }
