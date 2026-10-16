@@ -1,7 +1,7 @@
 /* Breadcrumbs.module.css — reads the page's --ux-* colour tokens,
    same convention as BackLink.module.css */
 .breadcrumbs {
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 }
 
 .list {
@@ -11,10 +11,9 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: normal;
 }
 
 .item {
@@ -22,13 +21,24 @@
   align-items: center;
 }
 
+.item:first-child .link,
+.item:first-child .current {
+  display: flex;
+  align-items: center;
+}
+
 .link {
+  padding: 0.3rem 0.55rem;
+  margin: -0.3rem -0.55rem;
+  border-radius: 0.5rem;
   color: var(--ux-muted, #9C9CA6);
-  transition: color var(--transition-fast);
+  background: transparent;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .link:hover {
   color: var(--ux-text, #FFFFFF);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .link:focus-visible {
@@ -38,7 +48,7 @@
 }
 
 .current {
-  color: var(--ux-text, #FFFFFF);
+  color: var(--ux-muted, #9C9CA6);
 }
 
 .separator {

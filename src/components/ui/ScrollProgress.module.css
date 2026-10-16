@@ -1,0 +1,24 @@
+/* ScrollProgress.module.css — bottom-right scroll-position ring, green fill */
+
+.wrap {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 80;
+  display: flex;
+  pointer-events: none;
+}
+
+.wrap svg {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.25));
+}
+
+.track {
+  stroke: rgba(255, 255, 255, 0.15);
+}
+
+.bar {
+  stroke: #38a169;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s linear;
+}

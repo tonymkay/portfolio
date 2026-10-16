@@ -5,6 +5,7 @@ import BigStatHeader from '../../components/ui/BigStatHeader'
 import ClosingCta from '../../components/ui/ClosingCta'
 import ProjectGrid from '../../components/ui/ProjectGrid'
 import Reveal from '../../components/ui/Reveal'
+import ScrollProgress from '../../components/ui/ScrollProgress'
 import styles from './UxProjects.module.css'
 
 const { header } = uxPageContent
@@ -14,6 +15,7 @@ const projects = getAllUxProjects()
 export default function UxProjects() {
   return (
     <div className={styles.page}>
+      <ScrollProgress />
 
       {/* ══ HEADER — big thin title, — 03 CASE STUDIES — rule row ══ */}
       <motion.header

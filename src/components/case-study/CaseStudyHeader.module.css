@@ -1,22 +1,57 @@
 /* CaseStudyHeader.module.css — reads the --ux-* tokens from CaseStudyPage. */
+
+/* Pinned bar: breadcrumbs + Visit Site, opaque so content doesn't show
+   through underneath as the page scrolls. Sits below the transparent
+   navbar (z-index: 100). */
+.stickyBar {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: var(--ux-bg);
+}
+
+.stickyBarInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.stickyBarInner > nav {
+  margin-bottom: 0;
+}
+
 .header {
   display: flex;
   flex-direction: column;
   max-width: 1200px;
-  padding-top: 4rem;
+  padding-top: 2.5rem;
   padding-bottom: 3rem;
 }
 
 .title {
-  font-size: clamp(2.75rem, 7vw, 5rem);
-  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.05;
   color: var(--ux-text);
 }
 
+.visitBtn {
+  flex: none;
+}
+
+.divider {
+  margin-top: 2rem;
+  border-bottom: 1px solid var(--ux-border, rgba(255, 255, 255, 0.12));
+}
+
 .subtitle {
-  margin-top: 1.25rem;
+  margin-top: 1.75rem;
   max-width: 40rem;
   font-size: 1.0625rem;
   line-height: 1.6;
@@ -28,7 +63,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2.5rem 2rem;
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 
 @media (min-width: 768px) {
@@ -56,11 +91,6 @@
 a.metaValue:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
-}
-
-.websiteBtn {
-  align-self: flex-start;
-  margin-top: 0.15rem;
 }
 
 .hero { margin-top: 4rem; }

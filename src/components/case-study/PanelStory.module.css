@@ -12,3 +12,13 @@
   height: auto;
   border-radius: 0;
 }
+
+/* Panel that opens a video pop-up — reset button chrome, keep image layout */
+.panelVideo {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}

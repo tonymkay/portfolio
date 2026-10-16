@@ -27,7 +27,22 @@ import testScope from '../assets/images/ux/test-project/scope.webp'
 import testResearch from '../assets/images/ux/test-project/research.webp'
 import testProduct2 from '../assets/images/ux/test-project/product2.webp'
 import testSuccess from '../assets/images/ux/test-project/successstories.webp'
-import testThanks from '../assets/images/ux/test-project/thanks.webp'
+
+// ── PataSkills LMS System — real panel flow ──
+import lmsCover from '../assets/images/ux/pataskills-lms/cover.webp'
+import lmsProblem from '../assets/images/ux/pataskills-lms/problem.webp'
+import lmsScope from '../assets/images/ux/pataskills-lms/scope.webp'
+import lmsResearch from '../assets/images/ux/pataskills-lms/research.webp'
+import lmsProduct2 from '../assets/images/ux/pataskills-lms/product2.webp'
+import lmsThanks from '../assets/images/ux/pataskills-lms/thanks.webp'
+
+// ── PataSkills Learning App — real panel flow ──
+import pataskillsAppRealCover from '../assets/images/ux/pataskills-app/cover.webp'
+import pataskillsAppProblem from '../assets/images/ux/pataskills-app/problem.webp'
+import pataskillsAppScope from '../assets/images/ux/pataskills-app/scope.webp'
+import pataskillsAppSolution from '../assets/images/ux/pataskills-app/solution.webp'
+import pataskillsAppScreenshot from '../assets/images/ux/pataskills-app/screenshot.webp'
+import pataskillsAppScreenshot2 from '../assets/images/ux/pataskills-app/screenshot-2.webp'
 
 // ── AERD Database System — real panel flow ──
 import aerdCover from '../assets/images/ux/aerd-database/cover.webp'
@@ -37,7 +52,6 @@ import aerdScope from '../assets/images/ux/aerd-database/scope.webp'
 import aerdResearch from '../assets/images/ux/aerd-database/research.webp'
 import aerdProduct2 from '../assets/images/ux/aerd-database/product2.webp'
 import aerdSuccess from '../assets/images/ux/aerd-database/success.webp'
-import aerdThanks from '../assets/images/ux/aerd-database/thanks.webp'
 
 // ── Klima-Harvest Platform — real panel flow ──
 import klimaCover from '../assets/images/ux/klima-harvest/cover.webp'
@@ -48,11 +62,25 @@ import klimaProduct22 from '../assets/images/ux/klima-harvest/product22.webp'
 import klimaScope from '../assets/images/ux/klima-harvest/scope.webp'
 import klimaSuccess from '../assets/images/ux/klima-harvest/success.webp'
 
+// ── ESSA Website — real panel flow ──
+import essaCover from '../assets/images/ux/essa/COVER.webp'
+import essaProblem from '../assets/images/ux/essa/problem.webp'
+import essaMockup1 from '../assets/images/ux/essa/01_mockup.webp'
+import essaMockup2 from '../assets/images/ux/essa/02_mockup.webp'
+import essaMockup3 from '../assets/images/ux/essa/03_mockup.webp'
+import essaMockup4 from '../assets/images/ux/essa/04_mockup.webp'
+import essaMockup5 from '../assets/images/ux/essa/05_mockup.webp'
+
+// ── HERI Africa Website — real panel flow ──
+import heriCover from '../assets/images/ux/heri-africa/cover.webp'
+import heriProblem from '../assets/images/ux/heri-africa/problem.webp'
+import heriMockup1 from '../assets/images/ux/heri-africa/01_mockup.webp'
+import heriMockup2 from '../assets/images/ux/heri-africa/02_mockup.webp'
+import heriMockup3 from '../assets/images/ux/heri-africa/03_mockup.webp'
+import heriMockup4 from '../assets/images/ux/heri-africa/04_mockup.webp'
+import heriMockup5 from '../assets/images/ux/heri-africa/05_mockup.webp'
+
 // ── Real projects — cover images only, for now ──
-import pataskillsLmsCover from '../assets/images/ux/ux_pataskills-lms-cover.webp'
-import pataskillsAppCover from '../assets/images/ux/ux_pataskills-app-cover.webp'
-import essaCover from '../assets/images/ux/ux_essa-website-cover.webp'
-import heriCover from '../assets/images/ux/ux_heri-africa-cover.webp'
 import bomaCover from '../assets/images/ux/ux_boma-ngo-cover.webp'
 
 export const uxPageContent = {
@@ -80,7 +108,7 @@ const placeholderPanels = (cover, title) => [
   { id: 'research', src: cover, alt: `${title} — UX research` },
   { id: 'product-2', src: cover, alt: `${title} — product` },
   { id: 'success', src: cover, alt: `${title} — success story` },
-  { id: 'thanks', src: cover, alt: `${title} — thanks` },
+  { id: 'thanks', src: lmsThanks, alt: `${title} — thanks` },
 ]
 
 export const uxProjects = [
@@ -103,7 +131,7 @@ export const uxProjects = [
       { id: 'research', src: testResearch, alt: 'Genova AI — UX research' },
       { id: 'product-2', src: testProduct2, alt: 'Genova AI — product' },
       { id: 'success', src: testSuccess, alt: 'Genova AI — success story' },
-      { id: 'thanks', src: testThanks, alt: 'Genova AI — thanks' },
+      { id: 'thanks', src: lmsThanks, alt: 'Genova AI — thanks' },
     ],
     order: 0,
   },
@@ -117,8 +145,15 @@ export const uxProjects = [
     service: 'Product Design',
     year: '2026',
     website: 'https://lms.pataproducts.com',
-    coverImage: pataskillsLmsCover,
-    panels: placeholderPanels(pataskillsLmsCover, 'PataSkills LMS System'),
+    coverImage: lmsCover,
+    panels: [
+      { id: 'cover', src: lmsCover, alt: 'PataSkills LMS System — cover' },
+      { id: 'problem', src: lmsProblem, alt: 'PataSkills LMS System — problem statement' },
+      { id: 'scope', src: lmsScope, alt: 'PataSkills LMS System — scope of work' },
+      { id: 'research', src: lmsResearch, alt: 'PataSkills LMS System — UX research' },
+      { id: 'product-2', src: lmsProduct2, alt: 'PataSkills LMS System — product' },
+      { id: 'thanks', src: lmsThanks, alt: 'PataSkills LMS System — thanks' },
+    ],
     order: 1,
   },
   {
@@ -131,8 +166,16 @@ export const uxProjects = [
     service: 'UX & UI Design',
     year: '2026',
     website: 'https://pataskills.com',
-    coverImage: pataskillsAppCover,
-    panels: placeholderPanels(pataskillsAppCover, 'PataSkills Learning App'),
+    coverImage: pataskillsAppRealCover,
+    panels: [
+      { id: 'cover', src: pataskillsAppRealCover, alt: 'PataSkills Learning App — cover' },
+      { id: 'problem', src: pataskillsAppProblem, alt: 'PataSkills Learning App — problem statement' },
+      { id: 'scope', src: pataskillsAppScope, alt: 'PataSkills Learning App — scope of work' },
+      { id: 'solution', src: pataskillsAppSolution, alt: 'PataSkills Learning App — solution' },
+      { id: 'screenshot', src: pataskillsAppScreenshot, alt: 'PataSkills Learning App — screenshot' },
+      { id: 'screenshot-2', src: pataskillsAppScreenshot2, alt: 'PataSkills Learning App — screenshot' },
+      { id: 'thanks', src: lmsThanks, alt: 'PataSkills Learning App — thanks' },
+    ],
     order: 2,
   },
   {
@@ -154,7 +197,7 @@ export const uxProjects = [
       { id: 'research', src: aerdResearch, alt: 'AERD Database System — UX research' },
       { id: 'product-2', src: aerdProduct2, alt: 'AERD Database System — product' },
       { id: 'success', src: aerdSuccess, alt: 'AERD Database System — success story' },
-      { id: 'thanks', src: aerdThanks, alt: 'AERD Database System — thanks' },
+      { id: 'thanks', src: lmsThanks, alt: 'AERD Database System — thanks' },
     ],
     order: 3,
   },
@@ -169,7 +212,16 @@ export const uxProjects = [
     year: '2025',
     website: 'https://essa-africa.org',
     coverImage: essaCover,
-    panels: placeholderPanels(essaCover, 'ESSA Website'),
+    panels: [
+      { id: 'cover', src: essaCover, alt: 'ESSA Website — cover' },
+      { id: 'problem', src: essaProblem, alt: 'ESSA Website — problem statement' },
+      { id: 'mockup-1', src: essaMockup1, alt: 'ESSA Website — mockup' },
+      { id: 'mockup-2', src: essaMockup2, alt: 'ESSA Website — mockup' },
+      { id: 'mockup-3', src: essaMockup3, alt: 'ESSA Website — mockup' },
+      { id: 'mockup-4', src: essaMockup4, alt: 'ESSA Website — mockup', videoId: 'DgSLvfyxH_s' },
+      { id: 'mockup-5', src: essaMockup5, alt: 'ESSA Website — mockup' },
+      { id: 'thanks', src: lmsThanks, alt: 'ESSA Website — thanks' },
+    ],
     order: 4,
   },
   {
@@ -183,7 +235,16 @@ export const uxProjects = [
     year: '2025',
     website: 'https://heriafrica.org',
     coverImage: heriCover,
-    panels: placeholderPanels(heriCover, 'HERI Africa Website'),
+    panels: [
+      { id: 'cover', src: heriCover, alt: 'HERI Africa Website — cover' },
+      { id: 'problem', src: heriProblem, alt: 'HERI Africa Website — problem statement' },
+      { id: 'mockup-5', src: heriMockup5, alt: 'HERI Africa Website — mockup' },
+      { id: 'mockup-2', src: heriMockup2, alt: 'HERI Africa Website — mockup' },
+      { id: 'mockup-3', src: heriMockup3, alt: 'HERI Africa Website — mockup' },
+      { id: 'mockup-4', src: heriMockup4, alt: 'HERI Africa Website — mockup' },
+      { id: 'mockup-1', src: heriMockup1, alt: 'HERI Africa Website — mockup' },
+      { id: 'thanks', src: lmsThanks, alt: 'HERI Africa Website — thanks' },
+    ],
     order: 5,
   },
   {
