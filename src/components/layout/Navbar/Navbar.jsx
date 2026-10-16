@@ -110,6 +110,15 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
+    if (!intro || !pageImages.heroPortrait) return
+    const portraitPreload = new Image()
+    portraitPreload.fetchPriority = 'high'
+    portraitPreload.decoding = 'async'
+    portraitPreload.src = pageImages.heroPortrait
+    if (portraitPreload.decode) portraitPreload.decode().catch(() => {})
+  }, [intro, pageImages.heroPortrait])
+
+  useEffect(() => {
     if (!intro) {
       setIntroBarExpanded(true)
       setIntroBarReady(true)
@@ -634,6 +643,9 @@ export default function Navbar() {
                           className={styles.introPortrait}
                           src={pageImages.heroPortrait}
                           alt={`Portrait of ${designer.fullName}`}
+                          loading="eager"
+                          fetchPriority="high"
+                          decoding="async"
                         />
                       </div>
                     </div>
