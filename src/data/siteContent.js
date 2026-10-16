@@ -43,7 +43,7 @@ export const siteContent = {
   siteName: 'Murimi',
   siteTagline: 'Identity Designer & Strategist',
   siteUrl: 'https://murimi.me',
-  copyrightYear: '2025',
+  copyrightYear: '2026',
 
   // ---------- Page Images ----------
   images: {
@@ -70,7 +70,7 @@ export const siteContent = {
     longBio: "Since 2021 I have been crafting meaningful visual experiences, starting as a graphic designer and evolving into an identity designer in 2023. In 2024, I expanded into UX/UI design for digital products across diverse projects. My focus is on building distinctive brand identities and intuitive user interfaces, delivering thoughtful, cohesive outcomes that elevate brands and enhance user experiences.",
     yearsExperience: `${yearsOfExperience}Yrs`,
     experienceLabel: 'Experience in Design',
-    email: 'hello@murimi.me',
+    email: 'tonymkay10@gmail.com',
     phone: '(+254) 000-000-000',
     location: 'Nairobi, Kenya',
     cvUrl: '#',
@@ -78,27 +78,35 @@ export const siteContent = {
 
   // ---------- Social Links ----------
   social: {
-    linkedin: 'https://linkedin.com/in/murimi',
-    facebook: 'https://facebook.com/murimi',
-    instagram: 'https://instagram.com/murimi',
-    twitter: 'https://x.com/murimi',
-    tiktok: 'https://tiktok.com/@murimi',
-    behance: 'https://behance.net/murimi',
-    dribbble: 'https://dribbble.com/murimi',
+    linkedin: 'https://linkedin.com/in/antony-murimi/',
+    instagram: 'https://instagram.com/tony_mkay',
   },
 
   // ---------- Navigation ----------
   nav: {
-    about: { label: 'About Us', href: '/about' },
-    process: { label: 'Process', href: '/process' },
+    about: {
+      label: 'About',
+      href: '/about',
+      subItems: [
+        { label: 'About Me', anchor: 'about-me' },
+        { label: 'Experience', anchor: 'experience' },
+      ],
+    },
+    process: {
+      label: 'Process',
+      href: '/process',
+      subItems: [
+        { label: 'Concept Design Process', anchor: 'concept-design' },
+        { label: 'Establishing a Brand Direction', anchor: 'brand-direction' },
+      ],
+    },
     contact: { label: "Let's talk", href: '/contact' },
     work: {
       label: 'Work',
       items: [
-        { label: 'UI/UX Projects', short: 'UI/UX', cta: 'View UI/UX', href: '/ui-ux', image: navUxCover },
         { label: 'Logos & Identities', short: 'Logos & Identities', cta: 'View Identities', href: '/projects', image: navLogosCover },
         { label: 'Posters', short: 'Posters', cta: 'View Posters', href: '/posters', image: navPostersCover },
-        { label: 'Blogs', short: 'Blogs', cta: 'Read Blogs', href: '/blogs' },
+        { label: 'UI/UX Projects', short: 'UI/UX', cta: 'View UI/UX', href: '/ui-ux', image: navUxCover },
       ],
     },
     links: [
@@ -108,16 +116,6 @@ export const siteContent = {
       { label: 'Process', href: '/process' },
     ],
     cta: { label: 'Book a Call ↗', href: '/contact' },
-  },
-
-  // ---------- Footer ----------
-  footer: {
-    links: [
-      { label: 'Home', href: '/' },
-      { label: 'About us', href: '/about' },
-      { label: 'Projects', href: '/projects' },
-      { label: 'Contact us', href: '/contact' },
-    ],
   },
 
   // ---------- Home Page ----------
@@ -169,9 +167,17 @@ export const siteContent = {
       ctaLabel: 'Book A Call ↗',
       ctaHref: '/contact',
       roles: [
-        { year: '2025–', company: 'MediaPal Net', period: 'April 2025 – Present', start: [2025, 4], end: null, description: 'Designing Creatives for Programmatic Ads, Layout designs for Pitch Decks', tags: ['UX/UI', 'Keynote'] },
-        { year: '2024–', company: 'Strategic Technologies', period: 'August 2024 – March 2025', start: [2024, 8], end: [2025, 3], description: 'Lead UI/UX Designer, The Joma Project', tags: ['UX', 'Product'] },
-        { year: '2024–', company: 'Didupa Holdings Limited', period: 'February 2024 – July 2025', start: [2024, 2], end: [2025, 7], description: 'Visual designer for Social Media campaigns', tags: ['Branding', 'Comms'] },
+        { year: '2025–', company: 'MediaPal Net', period: 'April 2025 – Present', start: [2025, 4], end: null, description: 'Designing Creatives for Programmatic Ads, Layout designs for Pitch Decks', tags: ['Ad Campaigns', 'UX/UI'] },
+        {
+          year: '2024–',
+          company: 'Strategic Technologies',
+          period: 'August 2024 – March 2025',
+          start: [2024, 8],
+          end: [2025, 3],
+          description: 'UX/UI designer across four digital projects: Boma Project, ESSA Project, HERI Project, and Klima-Harvest.',
+          tags: ['UX/UI', 'Product'],
+        },
+        { year: '2024–', company: 'Didupa Holdings Limited', period: 'February 2024 – July 2025', start: [2024, 2], end: [2025, 7], description: 'Visual designer for Social Media campaigns', tags: ['Branding', 'Comms', 'Posters'] },
         { year: '2023–', company: 'GeoPsy Research', period: 'August 2023 – January 2024', start: [2023, 8], end: [2024, 1], description: 'Researcher/Designer in GIS and Remote Sensing', tags: ['GIS/RS', 'Branding'] },
         { year: '2021–', company: 'Mkay Technologies', period: 'February 2021 – August 2023', start: [2021, 2], end: [2023, 8], description: 'Visual designer for Social Media campaigns', tags: ['Layout', 'Branding'] },
       ],
@@ -189,7 +195,7 @@ export const siteContent = {
       eyebrow: 'Selected Projects',
       heading: 'Explore My Portfolio',
       viewMoreLabel: 'View More ↗',
-      viewMoreHref: '/projects',
+      viewMoreHref: '/posters',
     },
     testimonials: {
       eyebrow: 'Testimonials',
@@ -210,9 +216,9 @@ export const siteContent = {
       description: "Let's build your brand identities today!",
       ctaLabel: "Let's talk ↗",
       ctaHref: '/contact',
-      // Home page dark CTA: big faded word + button share buttonLabel;
-      // statement is split into white / muted segments.
-      buttonLabel: 'Get in touch',
+      // Home page dark CTA: keep the background phrase and button label distinct.
+      backdropLabel: 'Get in touch',
+      buttonLabel: "Let's Talk",
       segments: [
         { text: "If you're looking for a " },
         { text: 'digital designer', muted: true },
@@ -243,8 +249,8 @@ export const siteContent = {
     // `suffix` (e.g. '+') renders right after the number.
     numbers: {
       years: { value: yearsOfExperience, suffix: '+', label: 'Experience' },
-      clients: { value: 10, suffix: '+', label: 'Clients' },
-      projects: { value: 50, suffix: '+', label: 'Projects' },
+      clients: { value: 50, suffix: '+', label: 'Clients' },
+      projects: { value: 6, suffix: '+', label: 'Projects' },
     },
     // Logo row between Experience and Projects. Swap `logo: null` for an
     // imported image (e.g. logo: boma) to replace the placeholder mark.
@@ -261,10 +267,35 @@ export const siteContent = {
       { name: 'ESSA', logo: null },
     ],
     projects: [
-      { index: '01', name: 'Kaya Connect Project', description: 'Conservation of mangrove forest in Kilifi', tags: ['Conservation'] },
-      { index: '02', name: 'Kakamega Environment Conservation Project', description: 'Research and communication materials on environmental conservation', tags: ['Research', 'Comms'] },
-      { index: '03', name: 'ESSA Project', description: 'Research platform bringing education researchers into one pool', tags: ['Research', 'Web'] },
-      { index: '04', name: 'HERI Africa', description: 'Website for education research initiatives', tags: ['Research', 'Web'] },
+      { index: '01', name: 'Boma Project', description: [
+        'Website revamp for Boma NGO.',
+        'Developed an interactive prototype for the redesigned experience.',
+        'Mapped user journeys and designed responsive interfaces for exploring Boma’s programs and impact.',
+      ], tags: ['UX/UI', 'Product'] },
+      { index: '02', name: 'ESSA Project', description: [
+        'Website revamp for an education research platform.',
+        'Restructured navigation and information architecture to make research easier to find.',
+        'Designed responsive page layouts and reusable interface patterns for researchers.',
+      ], tags: ['UX/UI', 'Product'] },
+      { index: '03', name: 'HERI Project', description: [
+        'Designed a simple landing page for HERI’s education research initiatives.',
+        'Organized the content to make the organization’s research focus easy to understand.',
+        'Created a clear, responsive layout to guide visitors to relevant information.',
+      ], tags: ['UX/UI', 'Product'] },
+      { index: '04', name: 'Klima-Harvest', description: [
+        'Designed a trading platform for people working in conservation and carbon offsetting.',
+        'Created for carbon harvesters, carbon investors, and institutions.',
+      ], tags: ['UX/UI', 'Product'] },
+      { index: '05', name: 'Kaya Connect Project', description: [
+        'Worked with GeoPsy Research on visual communication for a mangrove and indigenous tree conservation project.',
+        'Designed flyers, posters, and print materials to promote seedling sales.',
+        'Communicated how buying seedlings supports conservation of indigenous trees.',
+      ], tags: ['Visual Design', 'Print', 'Conservation'] },
+      { index: '06', name: 'Kakamega Environment Conservation Project', description: [
+        'Worked as a visual designer with GeoPsy Research on environmental conservation communication.',
+        'Designed flyers, posters, and other print materials to share conservation information.',
+        'Created communication materials to help audiences understand conservation activities and how to take part.',
+      ], tags: ['Visual Design', 'Print', 'Comms'] },
     ],
   },
 
@@ -350,27 +381,9 @@ export const siteContent = {
       heading: 'Book a 30-Mins Brand Discovery Call',
       background: contactHero,
     },
-    description: "Start your brand discovery process and unlock the full potential of your ideas. Book a Brand Discovery Call to share your vision and see how we can help shape and elevate your next big move together!",
-    form: {
-      fields: {
-        firstName: 'First name',
-        lastName: 'Last name',
-        email: 'Email',
-        phone: 'Phone number',
-        message: 'Message',
-      },
-      placeholders: {
-        firstName: 'First name',
-        lastName: 'Last name',
-        email: 'you@company.com',
-        phone: '(+254) 000-000-000',
-        message: 'Leave us a message...',
-      },
-      privacyLabel: 'You agree to our friendly',
-      privacyLinkLabel: 'privacy policy',
-      privacyHref: '#',
-      submitLabel: 'Book A Call ↗',
-    },
+    description: 'Choose a time and book your discovery call through Calendly.',
+    calendlyUrl: 'https://calendly.com/tonymkay10/discovery-call',
+    bookingLabel: 'Book A Call',
     processTeaser: {
       heading: 'A Quick look at the Design Process',
       description: "I'm always excited to bring bold ideas to life through a thoughtful, collaborative design process. Whether you're starting from scratch or refining an existing concept.",

@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { siteContent } from '../../data/siteContent'
 import { logoProjects } from '../../data/logos'
+import { posterProjects } from '../../data/posters'
+import { getAllUxProjects } from '../../data/uxProjects'
 import { motion as motionPresets } from '../../theme/motion'
 import MasonryGrid from '../../components/ui/MasonryGrid'
 import CubeButton from '../../components/ui/CubeButton'
@@ -15,9 +17,11 @@ import styles from './Home.module.css'
 
 const { home, designer, images: pageImages } = siteContent
 const about = home.about
-// A small sample of the logo grid — change HOME_LOGO_COUNT to show more/fewer.
-const HOME_LOGO_COUNT = 8
-const sampleLogos = logoProjects.slice(0, HOME_LOGO_COUNT)
+const sampleProjects = [
+  ...logoProjects.slice(0, 4),
+  ...posterProjects.slice(0, 4),
+  ...getAllUxProjects().slice(0, 3),
+]
 
 export default function Home() {
   usePageTheme('dark')
@@ -84,12 +88,12 @@ export default function Home() {
 
           <Reveal variant="fadeIn" className={styles.sectionEyebrowRow}>
             <span className={styles.rule} aria-hidden="true" />
-            <h2 className={styles.sectionEyebrow}>{home.projects.eyebrow}</h2>
+            <h2 className={styles.sectionEyebrow}>Selected Projects</h2>
             <span className={styles.rule} aria-hidden="true" />
           </Reveal>
 
-          {/* Sample of the logo grid; linkable={false} while detail pages are off */}
-          <MasonryGrid projects={sampleLogos} basePath="/projects" linkable={false} />
+          {/* One mixed sample grid: logos, posters and UX covers together. */}
+          <MasonryGrid projects={sampleProjects} basePath="/posters" linkable={false} />
 
           <Reveal
             variant="fadeUp"

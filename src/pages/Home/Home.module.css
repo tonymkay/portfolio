@@ -60,7 +60,7 @@
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-teal-light);
+  color: var(--ux-muted);
   white-space: nowrap;
 }
 
@@ -158,7 +158,7 @@
 }
 
 /* ══════════════════════════════════════════════
-   PROJECTS — white bg, "Selected Projects" label,
+   PROJECTS — dark background with centered project categories,
    2-col grid of large cards
    ══════════════════════════════════════════════ */
 .projects {

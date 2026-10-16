@@ -15,35 +15,6 @@ const svgProps = {
 
 const links = [
   {
-    key: 'twitter',
-    label: 'X',
-    href: social.twitter,
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
-  },
-  {
-    key: 'dribbble',
-    label: 'Dribbble',
-    href: social.dribbble,
-    icon: (
-      <svg {...svgProps}>
-        <circle cx="12" cy="12" r="10" />
-        <path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94" />
-        <path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32" />
-        <path d="M8.56 2.75c4.37 6 6 9.42 8 17.72" />
-      </svg>
-    ),
-  },
-  {
-    key: 'behance',
-    label: 'Behance',
-    href: social.behance,
-    icon: <span className={styles.behance} aria-hidden="true">Bē</span>,
-  },
-  {
     key: 'instagram',
     label: 'Instagram',
     href: social.instagram,
@@ -70,8 +41,8 @@ const links = [
 ]
 
 /**
- * SocialLinks — a row of round icon links (X, Dribbble, Behance, Instagram,
- * LinkedIn) from siteContent.social. Reads the --ux-* colour tokens of the
+ * SocialLinks — a row of round icon links (Instagram, LinkedIn) from siteContent.social.
+ * Reads the --ux-* colour tokens of the
  * page it sits in (falls back to a dark look).
  */
 export default function SocialLinks({ className = '' }) {

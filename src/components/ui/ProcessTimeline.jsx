@@ -154,6 +154,7 @@ export default function ProcessTimeline({ steps }) {
               ref={(el) => { blockRefs.current[i] = el }}
               className={styles.block}
               data-nav-title={step.navTitle}
+              id={step.id}
             >
               <ScrollRevealSection as="div" className={styles.text} threshold={0.25}>
                 <Reveal variant="fadeUp" as="h3" className={styles.title}>{step.title}</Reveal>

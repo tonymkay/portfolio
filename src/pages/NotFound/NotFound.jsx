@@ -11,7 +11,7 @@ export default function NotFound() {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <CubeButton to="/" rounded className={styles.homeBtn}>
-          ← Back to Home
+          Back to Home
         </CubeButton>
       </div>
     </div>

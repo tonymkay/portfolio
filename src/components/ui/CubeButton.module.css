@@ -1,6 +1,4 @@
-/* CubeButton.module.css — 3D cube-roll hover for every button on the site.
-   Front face at rest; on hover the cube rolls up (rotateX +90deg) and the
-   second face swings in from underneath. Geometry uses --h (button height). */
+/* Rounded site buttons transition from a filled face to a clear outline. */
 
 .btn {
   /* defaults = size md */
@@ -10,7 +8,7 @@
   --fw: 600;
   --ls: 0;
   --tt: none;
-  --radius: 0;
+  --radius: 0.875rem;
 
   display: inline-block;
   position: relative;
@@ -18,7 +16,6 @@
   padding: 0;
   border: 0;
   background: none;
-  perspective: 900px;
   font-family: var(--font-primary);
   text-decoration: none;
   cursor: pointer;
@@ -35,21 +32,11 @@
   width: 100%;
 }
 
-/* ── Cube ── */
+/* ── Button label ── */
 .cube {
   position: relative;
   display: block;
   height: 100%;
-  transform-style: preserve-3d;
-  transform: translateZ(calc(var(--h) / -2));
-  /* Ease-out with a long tail: quick start, then the roll decelerates
-     and glides into place (slow-motion settle). */
-  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn:not(:disabled):hover .cube,
-.btn:focus-visible .cube {
-  transform: translateZ(calc(var(--h) / -2)) rotateX(90deg);
 }
 
 .face {
@@ -63,31 +50,21 @@
   border-radius: var(--radius);
   box-sizing: border-box;
   white-space: nowrap;
-  backface-visibility: hidden;
   font-size: var(--fs);
   font-weight: var(--fw);
   letter-spacing: var(--ls);
   text-transform: var(--tt);
   line-height: 1;
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease;
 }
 
 .front {
   position: relative;
-  transform: translateZ(calc(var(--h) / 2));
-}
-
-/* Hover face — sits below the front; the cube rolls up so it swings in from underneath */
-.top {
-  position: absolute;
-  inset: 0;
-  transform: rotateX(-90deg) translateZ(calc(var(--h) / 2));
 }
 
 .rounded { --radius: 9999px; }
 
-@media (prefers-reduced-motion: reduce) {
-  .cube { transition-duration: 0.01ms; }
-}
+@media (prefers-reduced-motion: reduce) { .face { transition: none; } }
 
 /* ── Sizes ── */
 .sm { --h: 2.375rem; --px: 1.25rem; --fs: 0.875rem; --fw: 600; }
@@ -120,10 +97,7 @@
   .xl { --h: 5rem; --fs: 1rem; width: 16rem; }
 }
 
-/* ── Colours — one scheme for every button ──
-   Rest (front face): navy fill, white text.
-   Hover (top face): outline — transparent, navy stroke, navy text.
-   All variant names share it, so any button can be swapped freely. */
+/* Filled variants use a navy fill with a clear outlined hover. */
 .solid .front,
 .outline .front,
 .soft .front {
@@ -132,27 +106,125 @@
   color: var(--color-white);
 }
 
-.solid .top,
-.outline .top,
-.soft .top {
+.solid:not(:disabled):hover .front,
+.outline:not(:disabled):hover .front,
+.soft:not(:disabled):hover .front,
+.solid:focus-visible .front,
+.outline:focus-visible .front,
+.soft:focus-visible .front {
   background: transparent;
   border-color: var(--color-navy);
   color: var(--color-navy);
 }
 
-/* Dark backgrounds (About hero, photo banners): same idea, inverted for contrast */
-.light .front { background: var(--color-white); border-color: var(--color-white); color: var(--color-navy); }
-.light .top   { background: transparent; border-color: var(--color-white); color: var(--color-white); }
+/* Light variant sits on dark backgrounds: white outline at rest, white fill on hover. */
+.light .front { background: transparent; border-color: var(--color-white); color: var(--color-white); }
+.light:not(:disabled):hover .front,
+.light:focus-visible .front { background: var(--color-white); border-color: var(--color-white); color: var(--color-navy); }
 
-/* On photos (project cards): outline face gets a white backing so it reads on any image */
+/* Surface variant flips to a white face so it reads clearly on photos. */
 .surface .front { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-white); }
-.surface .top   { background: var(--color-white); border-color: var(--color-navy); color: var(--color-navy); }
-
-/* Roll when a parent tagged .cube-group is hovered (whole card is the link) */
-:global(.cube-group):hover .groupRoll .cube {
-  transform: translateZ(calc(var(--h) / -2)) rotateX(90deg);
-}
+.surface:not(:disabled):hover .front,
+.surface:focus-visible .front { background: var(--color-white); border-color: var(--color-navy); color: var(--color-navy); }
 
 /* Selected state (e.g. active filter chip): outlined at rest, filled on hover */
 .active .front { background: transparent; border-color: var(--color-navy); color: var(--color-navy); }
-.active .top   { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-white); }
+
+/* Shared CTA pill with a circular arrow that inverts with the pill on hover. */
+.textLink {
+  width: auto;
+  height: auto;
+}
+
+.textLink .cube { height: auto; }
+
+.textLink .face,
+.textLink .front {
+  height: auto;
+  padding: 0.35rem 0.4rem 0.35rem 1.2rem;
+  border: 1px solid var(--button-ink);
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--button-ink);
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease;
+}
+
+.btn.textLink:not(:disabled):hover .front,
+.btn.textLink:focus-visible .front {
+  background: var(--button-hover);
+  border-color: var(--button-hover);
+  color: var(--button-hover-ink);
+}
+
+.textLink .face {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  line-height: 1;
+}
+
+.textLink.solid,
+.textLink.outline,
+.textLink.soft,
+.textLink.active {
+  --button-ink: var(--color-page-dark, #242429);
+  --button-hover: var(--color-page-dark, #242429);
+  --button-hover-ink: var(--color-white);
+  --arrow-rest-bg: var(--color-page-dark, #242429);
+  --arrow-rest-ink: var(--color-white);
+  --arrow-hover-bg: var(--color-white);
+  --arrow-hover-ink: var(--color-page-dark, #242429);
+}
+
+.textLink.light,
+.textLink.surface {
+  --button-ink: var(--color-white);
+  --button-hover: var(--color-white);
+  --button-hover-ink: var(--color-page-dark, #242429);
+  --arrow-rest-bg: var(--color-white);
+  --arrow-rest-ink: var(--color-page-dark, #242429);
+  --arrow-hover-bg: var(--color-page-dark, #242429);
+  --arrow-hover-ink: var(--color-white);
+}
+
+.textLinkArrowCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--arrow-rest-bg);
+  color: var(--arrow-rest-ink);
+  transition: background-color 220ms ease, color 220ms ease, transform 220ms ease;
+}
+
+.textLinkArrow {
+  width: 58%;
+  height: 58%;
+}
+
+.btn.textLink:not(:disabled):hover .textLinkArrowCircle,
+.btn.textLink:focus-visible .textLinkArrowCircle {
+  background: var(--arrow-hover-bg);
+  color: var(--arrow-hover-ink);
+  transform: scale(1.03);
+}
+
+.textLink.xl .face {
+  gap: 1.1rem;
+  padding: 0.5rem 0.55rem 0.5rem 1.75rem;
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  font-weight: 600;
+}
+
+.textLink.xl .textLinkArrowCircle {
+  width: clamp(3.5rem, 5.5vw, 4.75rem);
+  height: clamp(3.5rem, 5.5vw, 4.75rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .textLink .front,
+  .textLinkArrowCircle { transition: none; }
+}

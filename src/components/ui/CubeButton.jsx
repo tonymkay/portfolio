@@ -2,26 +2,22 @@ import { Link } from 'react-router-dom'
 import styles from './CubeButton.module.css'
 
 /**
- * CubeButton — one button for the whole site, with a 3D "cube roll" hover.
- * At rest the front face shows; on hover / keyboard focus the cube rolls
- * up and a second face (same label) swings in from underneath.
+ * CubeButton — shared text-link CTA with an animated underline and arrow.
  *
  * Renders <Link> (to), <a> (href), or <button> (default).
  *
  * Props:
  *   to / href / external — link target (router link, plain link, new-tab link)
  *   onClick, type, disabled — as on a normal button
- *   variant   — default/'solid': navy fill + white text at rest, outline on hover.
- *               'light': inverted (white fill at rest), for dark backgrounds.
- *               'surface': as default, outline face has a white backing (on photos).
- *               'active': flipped (outlined at rest, filled on hover) for selected states.
+ *   variant   — sets the CTA text color for its background context.
  *   size      — 'sm' | 'md' | 'lg' | 'xl'
  *   rounded   — pill-shaped faces
  *   spaced    — uppercase, wide letter-spacing (editorial style)
+ *   textLink  — use the shared underline-and-arrow treatment (enabled by default)
  *   fullWidth — stretch to the container width
  *   className — layout only (margin, align-self…) or --h / --px / --fs / --ls overrides
  *
- * Note: the cube needs a fixed height, so size sets --h. Width follows the label.
+ * Size controls type scale; width follows the label.
  */
 export default function CubeButton({
   as,
@@ -35,6 +31,7 @@ export default function CubeButton({
   size = 'md',
   rounded = false,
   spaced = false,
+  textLink = true,
   fullWidth = false,
   rollOnGroupHover = false,
   className = '',
@@ -47,6 +44,7 @@ export default function CubeButton({
     styles[size],
     rounded && styles.rounded,
     spaced && styles.spaced,
+    textLink && styles.textLink,
     fullWidth && styles.block,
     rollOnGroupHover && styles.groupRoll,
     className,
@@ -54,10 +52,24 @@ export default function CubeButton({
     .filter(Boolean)
     .join(' ')
 
+  const buttonLabel = typeof children === 'string'
+    ? children.replace(/\s*[↗→]\s*$/, '')
+    : children
+
+  const textLinkContents = textLink ? (
+    <>
+      <span className={styles.textLinkLabel}>{buttonLabel}</span>
+      <span className={styles.textLinkArrowCircle} aria-hidden="true">
+        <svg className={styles.textLinkArrow} viewBox="0 0 24 24" fill="none">
+          <path d="M7 17 17 7M7 7h10v10" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+    </>
+  ) : children
+
   const inner = (
     <span className={styles.cube}>
-      <span className={`${styles.face} ${styles.front}`}>{children}</span>
-      <span className={`${styles.face} ${styles.top}`} aria-hidden="true">{children}</span>
+      <span className={`${styles.face} ${styles.front}`}>{textLinkContents}</span>
     </span>
   )
 

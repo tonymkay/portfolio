@@ -1,41 +1,36 @@
-/* Footer.module.css */
-
 .footer {
   background-color: var(--color-white);
   color: var(--color-text-primary);
   border-top: 1px solid rgba(30, 43, 60, 0.1);
-  overflow: hidden;
 }
 
-/* ── Email / website / socials row ── */
 .contactRow {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem;
-  padding-top: 3.5rem;
+  gap: 1.5rem;
+  padding-top: 2rem;
   padding-bottom: 2rem;
 }
 
 .contactItem {
   display: inline-flex;
   align-items: center;
+  justify-self: start;
   gap: 0.5rem;
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--color-text-primary);
+  text-decoration: none;
   transition: color var(--transition-fast);
 }
 
-.contactItem:hover {
-  color: var(--color-teal);
-}
+.contactItem:hover { color: var(--color-teal); }
 
 .contactIcon {
   display: flex;
+  flex: 0 0 auto;
   color: var(--color-teal);
-  flex-shrink: 0;
 }
 
 .contactIcon svg {
@@ -43,17 +38,26 @@
   height: 18px;
 }
 
+.copyright {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
 .socialRow {
   display: flex;
   align-items: center;
+  justify-self: end;
   gap: 1rem;
 }
 
 .socialLink {
-  color: var(--color-text-secondary);
-  transition: color var(--transition-fast), transform var(--transition-fast);
   display: flex;
   align-items: center;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast), transform var(--transition-fast);
 }
 
 .socialLink:hover {
@@ -66,79 +70,32 @@
   height: 18px;
 }
 
-/* ── Divider ── */
-.divider {
-  border-top: 1px solid rgba(30, 43, 60, 0.1);
-  width: 100%;
-}
-
-/* ── Bottom bar: nav links + copyright, centered ── */
-.bottomBar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem 0.625rem;
-  padding: 1.25rem 1rem;
-  text-align: center;
-}
-
-.bottomLink {
-  font-size: 0.8125rem;
-  color: var(--color-text-secondary);
-  transition: color var(--transition-fast);
-  white-space: nowrap;
-}
-
-.bottomLink:hover {
-  color: var(--color-text-primary);
-}
-
-.bottomDot {
-  color: rgba(30, 43, 60, 0.3);
-  font-size: 0.8125rem;
-}
-
-/* ── Dark pages — html[data-page-theme='dark'] (see hooks/usePageTheme) ──
-   Same background as the page so the footer blends in; text and lines flip. */
 :global(html[data-page-theme='dark']) .footer {
   background-color: var(--color-page-dark);
   color: var(--color-white);
   border-top-color: rgba(255, 255, 255, 0.08);
 }
 
-:global(html[data-page-theme='dark']) .contactItem {
-  color: var(--color-white);
-}
+:global(html[data-page-theme='dark']) .contactItem { color: var(--color-white); }
+:global(html[data-page-theme='dark']) .contactItem:hover { color: var(--color-teal-light); }
+:global(html[data-page-theme='dark']) .contactIcon { color: var(--color-teal-light); }
+:global(html[data-page-theme='dark']) .socialLink { color: #9C9CA6; }
+:global(html[data-page-theme='dark']) .socialLink:hover { color: var(--color-white); }
+:global(html[data-page-theme='dark']) .copyright { color: #9C9CA6; }
 
-:global(html[data-page-theme='dark']) .contactItem:hover {
-  color: var(--color-teal-light);
-}
+@media (max-width: 767px) {
+  .contactRow {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.25rem 0.75rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
 
-:global(html[data-page-theme='dark']) .contactIcon {
-  color: var(--color-teal-light);
-}
+  .copyright {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    white-space: normal;
+  }
 
-:global(html[data-page-theme='dark']) .socialLink {
-  color: #9C9CA6;
-}
-
-:global(html[data-page-theme='dark']) .socialLink:hover {
-  color: var(--color-white);
-}
-
-:global(html[data-page-theme='dark']) .divider {
-  border-top-color: rgba(255, 255, 255, 0.1);
-}
-
-:global(html[data-page-theme='dark']) .bottomLink {
-  color: #9C9CA6;
-}
-
-:global(html[data-page-theme='dark']) .bottomLink:hover {
-  color: var(--color-white);
-}
-
-:global(html[data-page-theme='dark']) .bottomDot {
-  color: rgba(255, 255, 255, 0.3);
+  .socialRow { gap: 0.75rem; }
 }

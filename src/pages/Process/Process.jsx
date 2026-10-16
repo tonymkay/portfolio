@@ -55,6 +55,7 @@ const timelineSteps = [
     ),
   },
   {
+    id: 'brand-direction',
     navTitle: clean(process.direction.eyebrow),
     title: process.direction.heading,
     description: process.direction.description,
@@ -97,7 +98,7 @@ export default function Process() {
     <div className={styles.page}>
 
       {/* ── Design Process (workflow) — comes first ── */}
-      <ScrollRevealSection className={styles.workflow} data-nav-title={clean(process.workflow.eyebrow)}>
+      <ScrollRevealSection id="concept-design" className={styles.workflow} data-nav-title={clean(process.workflow.eyebrow)}>
         <div className="container">
           <div className={styles.sectionHeader}>
             <EyebrowRow>{clean(process.workflow.eyebrow)}</EyebrowRow>

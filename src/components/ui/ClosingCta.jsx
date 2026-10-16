@@ -18,11 +18,11 @@ export default function ClosingCta({ cta = home.cta }) {
       <div className={`container ${styles.inner}`}>
 
         <Reveal variant="fadeIn" className={styles.bigWord}>
-          <span aria-hidden="true">{cta.buttonLabel}</span>
+          <span aria-hidden="true">{cta.backdropLabel || cta.buttonLabel}</span>
         </Reveal>
 
         <Reveal variant="scaleUp">
-          <CubeButton to={cta.ctaHref} variant="light" size="xl">
+          <CubeButton to={cta.ctaHref} variant="light" size="xl" textLink>
             {cta.buttonLabel}
           </CubeButton>
         </Reveal>

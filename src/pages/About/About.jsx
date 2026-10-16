@@ -30,6 +30,7 @@ export default function About() {
 
       {/* ══ HERO — portrait, statement, intro, socials + button ══ */}
       <motion.section
+        id="about-me"
         className={`container ${styles.hero}`}
         data-nav-title="About Me"
         initial="hidden"
@@ -61,12 +62,12 @@ export default function About() {
       </motion.section>
 
       {/* ══ EXPERIENCE — pinned; scrolling steps through months and companies ══ */}
-      <div data-nav-title="Experience">
+      <div id="experience" data-nav-title="Experience">
         <ExperienceTimeline roles={home.experience.roles} years={numbers.years.value} />
       </div>
 
       {/* ══ PROJECTS — centered count header, project list below ══ */}
-      <ScrollRevealSection className={styles.projects} data-nav-title="Projects">
+      <ScrollRevealSection id="projects" className={styles.projects} data-nav-title="Projects">
         <div className={`container ${styles.block}`}>
 
           <Reveal variant="fadeUp">
@@ -88,12 +89,16 @@ export default function About() {
                   <div className={styles.roleLeftInfo}>
                     <span className={styles.roleYear}>{project.index}</span>
                     <p className={styles.roleCompany}>{project.name}</p>
-                  </div>
-                  <div className={styles.roleRightInfo}>
-                    <p className={styles.roleDesc}>{project.description}</p>
                     <div className={styles.roleTags}>
                       {project.tags.map((t) => <Tag key={t} variant="outline">{t}</Tag>)}
                     </div>
+                  </div>
+                  <div className={styles.roleRightInfo}>
+                    <ul className={styles.roleDescriptions}>
+                      {(Array.isArray(project.description) ? project.description : [project.description]).map((description) => (
+                        <li key={description} className={styles.roleDesc}>{description}</li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </Reveal>
