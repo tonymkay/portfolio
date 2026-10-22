@@ -35,23 +35,25 @@ import pataskillsAppSolution from '../assets/images/ux/pataskills-app/solution.w
 import pataskillsAppScreenshot from '../assets/images/ux/pataskills-app/screenshot.webp'
 import pataskillsAppScreenshot2 from '../assets/images/ux/pataskills-app/screenshot-2.webp'
 
-// ── AERD Database System — real panel flow ──
-import aerdCover from '../assets/images/ux/aerd-database/cover.webp'
-import aerdProblem from '../assets/images/ux/aerd-database/problem.webp'
-import aerdProduct1 from '../assets/images/ux/aerd-database/product1.webp'
-import aerdScope from '../assets/images/ux/aerd-database/scope.webp'
-import aerdResearch from '../assets/images/ux/aerd-database/research.webp'
-import aerdProduct2 from '../assets/images/ux/aerd-database/product2.webp'
-import aerdSuccess from '../assets/images/ux/aerd-database/success.webp'
+// ── AERD Database System + Klima-Harvest Platform ──
+// Folders hold cover.webp, image1.webp … image5.webp. Loaded with a glob so a
+// missing file (e.g. aerd-database/image3.webp) is skipped instead of crashing
+// the build, and shows up automatically once the file is added.
+const uxGlob = import.meta.glob('../assets/images/ux/{aerd-database,klima-harvest}/*.webp', {
+  eager: true,
+  import: 'default',
+})
+const uxImg = (folder, name) => uxGlob[`../assets/images/ux/${folder}/${name}.webp`]
 
-// ── Klima-Harvest Platform — real panel flow ──
-import klimaCover from '../assets/images/ux/klima-harvest/cover.webp'
-import klimaProblem from '../assets/images/ux/klima-harvest/problem.webp'
-import klimaProduct11 from '../assets/images/ux/klima-harvest/product11.webp'
-import klimaProduct2 from '../assets/images/ux/klima-harvest/product2.webp'
-import klimaProduct22 from '../assets/images/ux/klima-harvest/product22.webp'
-import klimaScope from '../assets/images/ux/klima-harvest/scope.webp'
-import klimaSuccess from '../assets/images/ux/klima-harvest/success.webp'
+const IMAGE_SLOTS = ['cover', 'image1', 'image2', 'image3', 'image4', 'image5']
+
+const buildPanels = (folder, title) =>
+  [...IMAGE_SLOTS.map((slot) => ({ id: slot, src: uxImg(folder, slot), alt: `${title} — ${slot}` })),
+    { id: 'thanks', src: lmsThanks, alt: `${title} — thanks` }]
+    .filter((p) => p.src)
+
+const aerdCover = uxImg('aerd-database', 'cover')
+const klimaCover = uxImg('klima-harvest', 'cover')
 
 // ── ESSA Website — real panel flow ──
 import essaCover from '../assets/images/ux/essa/COVER.webp'
@@ -157,16 +159,7 @@ export const uxProjects = [
     year: '2026',
     website: 'https://aerd.africa',
     coverImage: aerdCover,
-    panels: [
-      { id: 'cover', src: aerdCover, alt: 'AERD Database System — cover' },
-      { id: 'problem', src: aerdProblem, alt: 'AERD Database System — problem statement' },
-      { id: 'product-1', src: aerdProduct1, alt: 'AERD Database System — product' },
-      { id: 'scope', src: aerdScope, alt: 'AERD Database System — scope of work' },
-      { id: 'research', src: aerdResearch, alt: 'AERD Database System — UX research' },
-      { id: 'product-2', src: aerdProduct2, alt: 'AERD Database System — product' },
-      { id: 'success', src: aerdSuccess, alt: 'AERD Database System — success story' },
-      { id: 'thanks', src: lmsThanks, alt: 'AERD Database System — thanks' },
-    ],
+    panels: buildPanels('aerd-database', 'AERD Database System'),
     order: 3,
   },
   {
@@ -226,15 +219,7 @@ export const uxProjects = [
     year: '2025',
     website: 'https://www.figma.com/design/a1ASZjs8JGxItcfNWkEmCB/Klima-Harvest?node-id=3090-434&t=6pQckzKrvEVbSzXq-1',
     coverImage: klimaCover,
-    panels: [
-      { id: 'cover', src: klimaCover, alt: 'Klima-Harvest Platform — cover' },
-      { id: 'problem', src: klimaProblem, alt: 'Klima-Harvest Platform — problem statement' },
-      { id: 'scope', src: klimaScope, alt: 'Klima-Harvest Platform — scope of work' },
-      { id: 'product-1', src: klimaProduct11, alt: 'Klima-Harvest Platform — product' },
-      { id: 'product-2', src: klimaProduct2, alt: 'Klima-Harvest Platform — product' },
-      { id: 'product-3', src: klimaProduct22, alt: 'Klima-Harvest Platform — product' },
-      { id: 'success', src: klimaSuccess, alt: 'Klima-Harvest Platform — success story' },
-    ],
+    panels: buildPanels('klima-harvest', 'Klima-Harvest Platform'),
     order: 6,
   },
   {

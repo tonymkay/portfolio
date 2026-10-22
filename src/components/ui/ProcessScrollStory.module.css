@@ -1,0 +1,198 @@
+.section {
+  position: relative;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.intro {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 17%;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 1.5rem;
+  text-align: center;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+/* Scroll-driven cube caption — same X-axis roll as WordRotator */
+.capWrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 15%;
+  z-index: 30;
+  height: 1.2em;
+  font-size: clamp(1.5rem, 3.6vw, 2.75rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--ux-text, #fff);
+  perspective: 11em;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.capCube {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translateZ(-0.6em);
+  will-change: transform;
+}
+
+.capFace {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  white-space: nowrap;
+  backface-visibility: hidden;
+}
+
+.hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6%;
+  z-index: 30;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ux-muted, #9c9ca6);
+  pointer-events: none;
+}
+
+.item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.shape {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--ux-muted, #9c9ca6);
+  border: 1px solid var(--ux-line, rgba(255, 255, 255, 0.2));
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.glyph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--ux-muted, #9c9ca6);
+  pointer-events: none;
+}
+
+.card {
+  border: 1px solid var(--ux-line, rgba(255, 255, 255, 0.2));
+  border-radius: var(--radius-xl, 1.25rem);
+  background: var(--ux-surface, #2e2e34);
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 1.25rem 1.5rem 1.5rem;
+  opacity: 0;
+}
+
+.badge {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--ux-text, #fff);
+  color: var(--ux-bg, #242429);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.title {
+  margin-top: auto;
+  font-size: 1.625rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--ux-text, #fff);
+}
+
+/* Full-page step slides — one per step, same space */
+.slides {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 0 clamp(1.5rem, 8vw, 9rem);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.slideNo {
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ux-muted, #9c9ca6);
+}
+
+.slideTitle {
+  max-width: 16ch;
+  font-size: clamp(2.75rem, 8vw, 8rem);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  color: var(--ux-text, #fff);
+}
+
+.slideText {
+  max-width: 34ch;
+  font-size: clamp(1.125rem, 2vw, 1.75rem);
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--ux-muted, #9c9ca6);
+}

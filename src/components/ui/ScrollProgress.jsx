@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './ScrollProgress.module.css'
 
-const SIZE = 52
-const STROKE = 3
+const SIZE = 56
+const STROKE = 10
 const RADIUS = (SIZE - STROKE) / 2
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 

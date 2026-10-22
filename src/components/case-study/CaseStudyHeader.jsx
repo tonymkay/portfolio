@@ -1,4 +1,3 @@
-import { ArrowUpRight } from 'lucide-react'
 import CubeButton from '../ui/CubeButton'
 import Breadcrumbs from '../ui/Breadcrumbs'
 import styles from './CaseStudyHeader.module.css'
@@ -23,7 +22,6 @@ export default function CaseStudyHeader({
           {website && (
             <CubeButton href={website} external variant="light" size="sm" className={styles.visitBtn}>
               Visit Site
-              <ArrowUpRight size={16} strokeWidth={2.25} />
             </CubeButton>
           )}
         </div>

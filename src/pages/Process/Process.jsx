@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 import { siteContent } from '../../data/siteContent'
 import { logoProjects } from '../../data/logos'
+import { uxProcess } from '../../data/processSteps'
 import { motion as motionPresets } from '../../theme/motion'
 import ClosingCta from '../../components/ui/ClosingCta'
 import ProcessTimeline from '../../components/ui/ProcessTimeline'
+import ProcessScrollStory from '../../components/ui/ProcessScrollStory'
 import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
 import Reveal from '../../components/ui/Reveal'
 import usePageTheme from '../../hooks/usePageTheme'
@@ -98,28 +100,20 @@ export default function Process() {
     <div className={styles.page}>
 
       {/* ── Design Process (workflow) — comes first ── */}
-      <ScrollRevealSection id="concept-design" className={styles.workflow} data-nav-title={clean(process.workflow.eyebrow)}>
-        <div className="container">
-          <div className={styles.sectionHeader}>
+      <ProcessScrollStory
+        id="concept-design"
+        navTitle={clean(process.workflow.eyebrow)}
+        steps={uxProcess.steps}
+        intro={(
+          <>
             <EyebrowRow>{clean(process.workflow.eyebrow)}</EyebrowRow>
             <Reveal variant="fadeUp" as="h2" className={styles.sectionHeading}>
               {process.workflow.heading}
             </Reveal>
-          </div>
-          {/* Floating tilted cards — one row, wraps to two if they don't fit */}
-          <div className={styles.cards}>
-            {process.workflow.cards.map((card, i) => (
-              <Reveal key={card.title} variant="fadeUp" className={styles.cardSlot}>
-                <div className={styles.card}>
-                  <span className={styles.cardBadge}>{i + 1}</span>
-                  <span className={styles.cardLabel}>{card.label}</span>
-                  <h3 className={styles.cardTitle}>{card.title}</h3>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </ScrollRevealSection>
+          </>
+        )}
+      />
+
 
       {/* ── "My Creative Workflow" heading — sits between the cards and the steps ── */}
       <motion.section
