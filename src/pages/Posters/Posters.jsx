@@ -36,7 +36,7 @@ export default function Posters() {
       <div className={`container ${styles.list}`}>
         {/* linkable={false}: no detail pages, tiles are plain images (no names).
             pinterest: denser columns, wider gaps, softer corners. */}
-        <MasonryGrid projects={posterProjects} basePath="/posters" linkable={false} pinterest />
+        <MasonryGrid projects={posterProjects} basePath="/posters" linkable={false} pinterest batchSize={4} />
 
         {posterProjects.length === 0 && (
           <p className={styles.empty}>No posters yet.</p>

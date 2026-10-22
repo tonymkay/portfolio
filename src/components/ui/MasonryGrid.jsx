@@ -220,28 +220,60 @@ function columnWidths(columns, ratios, width, gap) {
  *
  * Tiles appear straight away — no scroll-reveal animation.
  */
-export default function MasonryGrid({ projects, basePath, linkable = true, pinterest = false }) {
+export default function MasonryGrid({ projects, basePath, linkable = true, pinterest = false, batchSize = 0 }) {
   const columnCount = useColumnCount(pinterest)
-  const ratios = useImageRatios(projects)
-  const ready = projects.every((p) => ratios[p.coverImage])
+  const total = projects.length
+
+  // Batched loading: `requested` images are being preloaded; `shownCount` are
+  // on screen. A batch is shown only once all of its images have loaded, then
+  // the next batch is requested when the bottom of the grid nears the viewport.
+  const [requested, setRequested] = useState(batchSize > 0 ? Math.min(batchSize, total) : total)
+  const [shownCount, setShownCount] = useState(0)
+  const sentinelRef = useRef(null)
+
+  const loading = useMemo(() => projects.slice(0, requested), [projects, requested])
+  const ratios = useImageRatios(loading)
+  const loaded = loading.every((p) => ratios[p.coverImage])
+  const visibleProjects = useMemo(() => projects.slice(0, shownCount), [projects, shownCount])
+  const ready = shownCount > 0 || total === 0
+
+  useEffect(() => {
+    if (loaded && shownCount < requested) setShownCount(requested)
+  }, [loaded, requested, shownCount])
+
+  useEffect(() => {
+    if (batchSize <= 0 || !loaded || shownCount < requested || requested >= total) return undefined
+    const el = sentinelRef.current
+    if (!el) return undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setRequested((r) => Math.min(r + batchSize, total))
+      },
+      { rootMargin: '600px 0px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [batchSize, loaded, shownCount, requested, total])
+
   const gridRef = useRef(null)
   const { width, gap } = useMeasure(gridRef)
 
   const columns = useMemo(
     () =>
       buildColumns(
-        projects,
+        visibleProjects,
         columnCount,
         ratios,
         ready,
         pinterest ? PINTEREST_GAP_ALLOWANCE : GAP_ALLOWANCE
       ),
-    [projects, columnCount, ratios, ready, pinterest]
+    [visibleProjects, columnCount, ratios, ready, pinterest]
   )
 
   const widths = ready ? columnWidths(columns, ratios, width, gap) : null
 
   return (
+    <>
     <div
       ref={gridRef}
       className={`${styles.masonry} ${pinterest ? styles.pinterest : ''} ${ready ? '' : styles.pending}`}
@@ -279,5 +311,7 @@ export default function MasonryGrid({ projects, basePath, linkable = true, pinte
         </div>
       ))}
     </div>
+    {batchSize > 0 && <div ref={sentinelRef} aria-hidden="true" style={{ height: 1 }} />}
+    </>
   )
 }
