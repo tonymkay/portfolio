@@ -220,14 +220,16 @@ function columnWidths(columns, ratios, width, gap) {
  *
  * Tiles appear straight away — no scroll-reveal animation.
  */
-export default function MasonryGrid({ projects, basePath, linkable = true, pinterest = false, batchSize = 0 }) {
+export default function MasonryGrid({ projects, basePath, linkable = true, pinterest = false, batchSize = 0, batchByRow = false }) {
   const columnCount = useColumnCount(pinterest)
   const total = projects.length
+  // One batch = one row (left to right) when batchByRow, else a fixed count.
+  const step = batchByRow ? columnCount : batchSize
 
   // Batched loading: `requested` images are being preloaded; `shownCount` are
   // on screen. A batch is shown only once all of its images have loaded, then
   // the next batch is requested when the bottom of the grid nears the viewport.
-  const [requested, setRequested] = useState(batchSize > 0 ? Math.min(batchSize, total) : total)
+  const [requested, setRequested] = useState(step > 0 ? Math.min(step, total) : total)
   const [shownCount, setShownCount] = useState(0)
   const sentinelRef = useRef(null)
 
@@ -242,18 +244,18 @@ export default function MasonryGrid({ projects, basePath, linkable = true, pinte
   }, [loaded, requested, shownCount])
 
   useEffect(() => {
-    if (batchSize <= 0 || !loaded || shownCount < requested || requested >= total) return undefined
+    if (step <= 0 || !loaded || shownCount < requested || requested >= total) return undefined
     const el = sentinelRef.current
     if (!el) return undefined
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setRequested((r) => Math.min(r + batchSize, total))
+        if (entry.isIntersecting) setRequested((r) => Math.min(r + step, total))
       },
       { rootMargin: '600px 0px' }
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [batchSize, loaded, shownCount, requested, total])
+  }, [step, loaded, shownCount, requested, total])
 
   const gridRef = useRef(null)
   const { width, gap } = useMeasure(gridRef)
@@ -311,7 +313,18 @@ export default function MasonryGrid({ projects, basePath, linkable = true, pinte
         </div>
       ))}
     </div>
-    {batchSize > 0 && <div ref={sentinelRef} aria-hidden="true" style={{ height: 1 }} />}
+    {step > 0 && requested > shownCount && (
+      <div
+        className={`${styles.masonry} ${pinterest ? styles.pinterest : ''}`}
+        style={{ '--cols': columnCount, marginTop: shownCount > 0 ? 'var(--gap)' : 0 }}
+        aria-hidden="true"
+      >
+        {Array.from({ length: requested - shownCount }, (_, i) => (
+          <div key={i} className={styles.skeleton} />
+        ))}
+      </div>
+    )}
+    {step > 0 && <div ref={sentinelRef} aria-hidden="true" style={{ height: 1 }} />}
     </>
   )
 }

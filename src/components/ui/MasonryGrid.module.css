@@ -123,6 +123,38 @@
   .pinterest { --gap: 1.25rem; }
 }
 
+/* ── Skeleton row — placeholders shown while the next row of covers loads ── */
+.skeleton {
+  flex: 0 0 calc((100% - var(--gap) * (var(--cols) - 1)) / var(--cols));
+  min-width: 0;
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.05) 30%,
+    rgba(255, 255, 255, 0.13) 50%,
+    rgba(255, 255, 255, 0.05) 70%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.4s linear infinite;
+  aspect-ratio: 3 / 4;
+}
+
+.skeleton:nth-child(5n + 2) { aspect-ratio: 4 / 5; }
+.skeleton:nth-child(5n + 3) { aspect-ratio: 2 / 3; }
+.skeleton:nth-child(5n + 4) { aspect-ratio: 4 / 5; }
+.skeleton:nth-child(5n + 5) { aspect-ratio: 1 / 1.2; }
+
+.pinterest .skeleton { border-radius: 1rem; }
+
+@keyframes skeletonShimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tile img,
   .overlay,
