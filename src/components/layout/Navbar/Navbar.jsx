@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { siteContent } from '../../../data/siteContent'
 import { getLogoBySlug } from '../../../data/logos'
 import { getProjectBySlug } from '../../../data/projects'
-import logoUrl from '../../../assets/images/home/logo.svg'
+import LogoMark from './LogoMark'
 import styles from './Navbar.module.css'
 
 const { nav, home, siteName, images: pageImages, designer } = siteContent
@@ -264,11 +264,7 @@ export default function Navbar() {
           <div className={styles.bar}>
             {LOGO_PAGES.includes(pathname) ? (
               <Link to="/" className={styles.logo} onClick={close} aria-label={`${siteName} — home`}>
-                <span
-                  className={styles.logoMark}
-                  style={{ '--logo-url': `url(${logoUrl})` }}
-                  aria-hidden="true"
-                />
+                <LogoMark className={styles.logoMark} />
               </Link>
             ) : (
               <button
