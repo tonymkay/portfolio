@@ -1,0 +1,92 @@
+/* Intro.module.css — first-visit welcome screen.
+   Full-screen dark overlay above the navbar; collapses into the navbar pill. */
+
+.intro {
+  --ux-text: #FFFFFF;
+  --ux-muted: #9C9CA6;
+
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #242429;
+  color: var(--ux-text);
+}
+
+.content {
+  width: 100%;
+  padding: 0 var(--container-x, 1.5rem);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Pill buttons — same recipe as the navbar pill: frosted white, fully rounded,
+   soft shadow and a hairline inner edge. Hover flips to the dark glass look. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #242429;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  backdrop-filter: blur(26px) saturate(1.6);
+  box-shadow:
+    var(--shadow-lg, 0 10px 30px rgba(0, 0, 0, 0.25)),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition:
+    background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.button:hover,
+.button:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  box-shadow:
+    var(--shadow-lg, 0 10px 30px rgba(0, 0, 0, 0.25)),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+
+.button:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button { transition: none; }
+}
+
+@media (max-width: 479px) {
+  .stack { gap: 2rem; }
+  .actions { flex-direction: column; width: 100%; }
+  .button { width: 100%; }
+}

@@ -1,0 +1,75 @@
+
+/* ProjectSideRail.module.css — action bar pinned at the bottom centre of the
+   project page (it lives inside the page frame, so it grows / shrinks with
+   the open / close animation). Glass look; every button shows its label. */
+
+.rail {
+  position: absolute;
+  left: 50%;
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 85;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  max-width: calc(100% - 1.5rem);
+  border-radius: 999px;
+  /* frosted glass, white-biased: opaque enough to stay readable over both
+     dark and white parts of the page, with a soft dark edge/shadow so it
+     still separates from white content */
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(26px) saturate(1.6);
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(20, 20, 24, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.5rem;
+  padding: 0 1rem 0 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  color: rgba(20, 20, 24, 0.88);
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.btn svg { flex: none; }
+
+.label { display: inline-block; }
+
+.divider {
+  width: 1px;
+  height: 1.25rem;
+  background: rgba(20, 20, 24, 0.18);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  color: #000;
+  background: rgba(20, 20, 24, 0.09);
+}
+
+.btn:focus-visible {
+  outline: 2px solid #141418;
+  outline-offset: 2px;
+}
+
+@media (max-width: 720px) {
+  .rail { bottom: max(0.9rem, env(safe-area-inset-bottom)); }
+  .btn { height: 2.3rem; padding: 0 0.75rem 0 0.65rem; gap: 0.4rem; font-size: 0.8125rem; }
+}

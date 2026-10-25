@@ -1,10 +1,12 @@
+import { Outlet } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getAllUxProjects, uxPageContent } from '../../data/uxProjects'
 import { motion as motionPresets } from '../../theme/motion'
 import BigStatHeader from '../../components/ui/BigStatHeader'
 import GlassHeader from '../../components/ui/GlassHeader'
 import ClosingCta from '../../components/ui/ClosingCta'
-import ProjectGrid from '../../components/ui/ProjectGrid'
+import ProjectFolder from '../../components/ui/ProjectFolder'
+import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
 import Reveal from '../../components/ui/Reveal'
 import styles from './UxProjects.module.css'
 
@@ -14,6 +16,7 @@ const projects = getAllUxProjects()
 // The section tabs and the dark theme come from <WorkLayout>.
 export default function UxProjects() {
   return (
+    <>
     <div className={styles.page}>
 
       {/* ══ HEADER — compact title + rule row; pins to the top as liquid glass ══ */}
@@ -31,14 +34,26 @@ export default function UxProjects() {
         </motion.header>
       </GlassHeader>
 
-      {/* ══ CASE STUDIES — same two-column grid as Projects, no scroll reveal ══ */}
+      {/* ══ CASE STUDIES — glass folders, each reveals on scroll ══ */}
       <div className={`container ${styles.list}`}>
-        <ProjectGrid projects={projects} basePath="/ui-ux" />
+        <div className={styles.folders}>
+          {projects.map((project) => (
+            <ScrollRevealSection key={project.id} as="div">
+              <Reveal variant="fadeUp">
+                <ProjectFolder project={project} to={`/ui-ux/${project.slug}`} />
+              </Reveal>
+            </ScrollRevealSection>
+          ))}
+        </div>
       </div>
 
       {/* ══ CTA — same closing banner as About / Home ══ */}
       <ClosingCta />
 
     </div>
+
+    {/* The open project (child route :slug) — a sheet over this listing */}
+    <Outlet />
+    </>
   )
 }

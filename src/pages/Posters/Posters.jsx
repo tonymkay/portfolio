@@ -5,7 +5,7 @@ import { motion as motionPresets } from '../../theme/motion'
 import BigStatHeader from '../../components/ui/BigStatHeader'
 import GlassHeader from '../../components/ui/GlassHeader'
 import ClosingCta from '../../components/ui/ClosingCta'
-import MasonryGrid from '../../components/ui/MasonryGrid'
+import PosterGrid from '../../components/ui/PosterGrid'
 import Reveal from '../../components/ui/Reveal'
 // Same look as Logos & Identities, so the page borrows its stylesheet as-is.
 import styles from '../Projects/Projects.module.css'
@@ -34,9 +34,8 @@ export default function Posters() {
 
       {/* ══ POSTER GRID — staggered masonry, rounded tiles (same as Logos & Identities) ══ */}
       <div className={`container ${styles.list}`}>
-        {/* linkable={false}: no detail pages, tiles are plain images (no names).
-            pinterest: denser columns, wider gaps, softer corners. */}
-        <MasonryGrid projects={posterProjects} basePath="/posters" linkable={false} pinterest batchByRow />
+        {/* Fixed-size skeleton slots; posters load top to bottom and fade in one by one. */}
+        <PosterGrid projects={posterProjects} />
 
         {posterProjects.length === 0 && (
           <p className={styles.empty}>No posters yet.</p>

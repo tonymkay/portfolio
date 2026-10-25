@@ -1,3 +1,4 @@
+
 /**
  * useScrollReveal.js
  * Returns a ref and a boolean `isVisible` that fires once when the
@@ -5,11 +6,19 @@
  *
  * threshold   — 0–1, how much of the element must be visible to trigger
  * rootMargin  — CSS margin on the viewport box (negative = earlier trigger)
+ *
+ * The observer's root is the current scroll root (see hooks/scrollRoot):
+ * the project sheet's own scrolling element when inside a sheet, or the
+ * window (root = null) on normal pages. That way the rootMargin is measured
+ * against the box that actually scrolls, so reveals inside the sheet fire
+ * at the right moment.
  */
 import { useEffect, useRef, useState } from 'react'
+import { useScrollRoot } from './scrollRoot'
 
 const useScrollReveal = (threshold = 0.08, rootMargin = '0px 0px -60px 0px') => {
   const ref = useRef(null)
+  const root = useScrollRoot()
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -24,12 +33,12 @@ const useScrollReveal = (threshold = 0.08, rootMargin = '0px 0px -60px 0px') => 
           observer.unobserve(element)
         }
       },
-      { threshold, rootMargin }
+      { root, threshold, rootMargin }
     )
 
     observer.observe(element)
     return () => observer.disconnect()
-  }, [threshold, rootMargin])
+  }, [root, threshold, rootMargin])
 
   return { ref, isVisible }
 }

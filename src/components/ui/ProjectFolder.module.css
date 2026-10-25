@@ -1,0 +1,182 @@
+/* ProjectFolder.module.css — glass-fronted folder case-study card.
+   - .back is a plain solid project-coloured fill: no mask, shadow, outline or glass.
+     A separate gradient layer (.back::after) fades it into the page background.
+   - .cover is always sharp: no blur, dimming or shadow, before or after hover.
+   - .pane is the glass that slides down on hover; it fades out before the text.
+   - .text sits on the faded area so it reads as lying on the page background.
+   --accent / --accent-chip come from the cover image. */
+.card {
+  display: block;
+  width: 100%;
+}
+
+.folder {
+  position: relative;
+  aspect-ratio: var(--folder-ratio, 3 / 2);
+  isolation: isolate;
+}
+
+@media (min-width: 768px) {
+  .folder { aspect-ratio: var(--folder-ratio, 16 / 9); }
+}
+
+/* plain solid fill */
+.back {
+  position: absolute;
+  inset: 12% 0 0 0;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: var(--accent, var(--ux-surface, #2e2e34));
+}
+
+/* fade into the page background — its own layer, under the cover */
+.back::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(to bottom, transparent 45%, var(--ux-bg, #242429) 100%);
+  pointer-events: none;
+}
+
+/* the cover — always in focus; only its position changes on hover */
+.cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  top: 0;
+  width: auto;
+  height: auto;
+  max-width: 78%;
+  max-height: 68%;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  transform: translateY(26%) scale(0.96);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1;
+}
+
+/* floating chips — solid, no stroke, above everything */
+.chip {
+  position: absolute;
+  z-index: 5;
+  padding: 0.55rem 1.1rem;
+  border-radius: 0.5rem;
+  background: var(--accent-chip, var(--ux-surface, #2e2e34));
+  font-size: 0.9375rem;
+  font-weight: 300;
+  white-space: nowrap;
+  color: var(--ux-text, #fff);
+  opacity: 0;
+  transform: translate(0, 12px) rotate(0deg) scale(0.8);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease;
+  pointer-events: none;
+}
+
+.c1 { left: -4%;  top: 24%; --r: -8deg; }
+.c2 { left: 1%;   top: 48%; --r: 7deg;  }
+.c3 { right: -3%; top: 22%; --r: 8deg;  }
+.c4 { right: 2%;  top: 44%; --r: -6deg; }
+
+/* the sliding glass. It overlaps the folder's bottom edge: margin-top pulls
+   it up by exactly its own height, so it adds nothing to the layout and the
+   text below never moves. Percentages are of card width. Desktop folder is
+   16:9: 24% of width = 43% of its height at rest, 10% on hover. */
+.pane {
+  position: relative;
+  z-index: 3;
+  height: 0;
+  margin-top: calc(-1 * var(--pane-rest, 32%));
+  padding-bottom: var(--pane-rest, 32%);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, white 20%, transparent),
+    color-mix(in srgb, white 6%, transparent)
+  );
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-mask-image: linear-gradient(to bottom, #000 15%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 15%, transparent 100%);
+  transition: margin-top 600ms cubic-bezier(0.22, 1, 0.36, 1), padding-bottom 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 767px) {
+  /* mobile folder is 3:2 */
+  .pane {
+    margin-top: calc(-1 * var(--pane-rest, 36%));
+    padding-bottom: var(--pane-rest, 36%);
+  }
+}
+
+/* the text starts just above the folder's bottom edge, on the faded area */
+.text {
+  position: relative;
+  z-index: 4;
+  margin-top: -1rem;
+  padding-bottom: 0.25rem;
+}
+
+/* hover / focus / touch: reveal */
+.card:hover .cover,
+.card:focus-visible .cover,
+.card[data-revealed='true'] .cover {
+  transform: translateY(0) scale(1.16);
+}
+
+.card:hover .pane,
+.card:focus-visible .pane,
+.card[data-revealed='true'] .pane {
+  margin-top: calc(-1 * var(--pane-hover, 16%));
+  padding-bottom: var(--pane-hover, 16%);
+}
+
+.card:hover .chip,
+.card:focus-visible .chip,
+.card[data-revealed='true'] .chip {
+  opacity: 1;
+  transform: translate(0, 0) rotate(var(--r)) scale(1);
+}
+
+.statement {
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ux-text, #fff);
+}
+
+.meta {
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--ux-muted, #9c9ca6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover, .pane, .chip { transition: none; }
+}
+
+/* three-image fan (Logos, Posters): stacked at rest, dealt out on hover */
+.fan {
+  max-width: var(--fan-width, 30%);
+  max-height: 66%;
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.35);
+}
+
+.fan0 { z-index: 1; transform: translateY(26%) rotate(-3deg) scale(0.96); }
+.fan1 { z-index: 3; transform: translateY(26%) scale(0.96); }
+.fan2 { z-index: 2; transform: translateY(26%) rotate(3deg) scale(0.96); }
+
+.card:hover .fan0,
+.card:focus-visible .fan0,
+.card[data-revealed='true'] .fan0 { transform: translate(-78%, 4%) rotate(-9deg) scale(1.06); }
+
+.card:hover .fan1,
+.card:focus-visible .fan1,
+.card[data-revealed='true'] .fan1 { transform: translateY(-2%) scale(1.16); }
+
+.card:hover .fan2,
+.card:focus-visible .fan2,
+.card[data-revealed='true'] .fan2 { transform: translate(78%, 4%) rotate(9deg) scale(1.06); }

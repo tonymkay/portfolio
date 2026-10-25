@@ -21,9 +21,28 @@
   text-align: center;
 }
 
-/* Grid + card look live in <ProjectGrid> / <ProjectCard>. */
+/* Grid + card look live in <ProjectFolder>. */
 .list {
   padding-top: 2.5rem;
   padding-bottom: 6rem;
+}
+
+.folders {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 11rem;
+  max-width: 38rem;
+  margin-inline: auto;
+}
+
+.folders > * { min-width: 0; }
+
+/* While a project sheet is open the listing behind it must sit perfectly
+   still. The card you clicked loses :hover the moment the sheet covers it, so
+   its zoom would otherwise slowly un-zoom behind the blur — read as the page
+   moving. Drop the listing's transitions for as long as the sheet is open.
+   (The sheet is a sibling of .page, so cards inside it keep their hover.) */
+:global(body[data-sheet-open]) .page * {
+  transition: none !important;
 }
 

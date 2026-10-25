@@ -17,19 +17,39 @@
   gap: 1.5rem;
   flex-wrap: wrap;
   max-width: 1200px;
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+  padding-top: var(--case-bar-pt, 2rem);
+  padding-bottom: var(--case-bar-pb, 1rem);
 }
 
 .stickyBarInner > nav {
   margin-bottom: 0;
 }
 
+/* No breadcrumbs: the bar is only the scroll-progress line, running across
+   the top and stopping short of the close button at the top right (which sits
+   in the page frame, outside the scroller). The progress lane's negative
+   margin is meant to cancel a flex row gap, so reset it. */
+.progressOnly .stickyBarInner {
+  display: block;
+  max-width: none;
+  padding-top: 0.9rem;
+  padding-bottom: 1.2rem;
+  padding-right: 3.75rem; /* close button (2rem) + its right offset + gap */
+}
+
+.progressOnly .stickyBarInner > div {
+  margin-top: 0;
+}
+
+@media (max-width: 720px) {
+  .progressOnly .stickyBarInner { padding-right: 3.1rem; }
+}
+
 .header {
   display: flex;
   flex-direction: column;
   max-width: 1200px;
-  padding-top: 2.5rem;
+  padding-top: var(--case-header-pt, 2.5rem);
   padding-bottom: 3rem;
 }
 
@@ -43,11 +63,6 @@
 
 .visitBtn {
   flex: none;
-}
-
-.divider {
-  margin-top: 2rem;
-  border-bottom: 1px solid var(--ux-border, rgba(255, 255, 255, 0.12));
 }
 
 .subtitle {

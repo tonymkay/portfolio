@@ -27,6 +27,28 @@
   scale: 1;
 }
 
+/* label variant — solid pill with text instead of the glass disc */
+.labelled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ux-text, #fff);
+  color: var(--ux-bg, #1a1a1a);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transform-origin: left top;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cursor {
     transition: none;

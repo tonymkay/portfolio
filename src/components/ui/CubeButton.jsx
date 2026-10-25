@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import styles from './CubeButton.module.css'
 
 /**
@@ -61,10 +62,8 @@ export default function CubeButton({
   const textLinkContents = textLink ? (
     <>
       <span className={styles.textLinkLabel}>{buttonLabel}</span>
-      <span className={styles.textLinkArrowCircle} aria-hidden="true">
-        <svg className={styles.textLinkArrow} viewBox="0 0 24 24" fill="none">
-          <path d="M7 17 17 7M7 7h10v10" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+      <span className={styles.textLinkArrow} aria-hidden="true">
+        <ArrowRight strokeWidth={1.75} />
       </span>
     </>
   ) : children

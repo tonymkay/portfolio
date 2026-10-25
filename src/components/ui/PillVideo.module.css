@@ -1,0 +1,109 @@
+/* PillVideo.module.css — full-screen video preview that zooms out of the pill.
+   Sits above the Intro overlay (z-index 200) and the navbar. */
+
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+}
+
+/* blurs and dims everything behind the video */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 14, 18, 0.55);
+  -webkit-backdrop-filter: blur(22px) saturate(1.1);
+  backdrop-filter: blur(22px) saturate(1.1);
+  cursor: pointer;
+}
+
+/* left / top / width / height / radius are animated inline by framer-motion */
+.frame {
+  position: fixed;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+  display: block;
+}
+
+/* Loading state: three dots that hop one after another. Each has its own
+   duration, so the wave drifts out of step and never looks mechanical. */
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 1rem 1.25rem;
+  border-radius: 999px;
+  background: rgba(14, 14, 18, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+.dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: hop 1.15s infinite;
+}
+
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.16s; animation-duration: 1.27s; }
+.dot:nth-child(3) { animation-delay: 0.34s; animation-duration: 1.06s; }
+
+/* up with ease-out, down with ease-in, then a short rest: reads as a real bounce */
+@keyframes hop {
+  0% { transform: translateY(0); animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); }
+  30% { transform: translateY(-0.65rem); animation-timing-function: cubic-bezier(0.32, 0, 0.67, 0); }
+  60%, 100% { transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot { animation: pulse 1.4s ease-in-out infinite; }
+}
+
+/* frosted white pill button, same recipe as the navbar */
+.close {
+  position: fixed;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #242429;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  backdrop-filter: blur(26px) saturate(1.6);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.close:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}

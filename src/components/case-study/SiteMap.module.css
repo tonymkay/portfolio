@@ -1,0 +1,189 @@
+/* SiteMap.module.css — information-architecture diagram, BOMA palette.
+   Mobile first: 2 columns of cards. 640px+: 3 columns. 1024px+: Home on the
+   left, cards staggered on the right, connectors drawn by SiteMap.jsx. */
+
+.root {
+  --ink: #1a1a1a;
+
+  background: #fff;
+  color: var(--ink);
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.title {
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--ink);
+  font-size: clamp(1.75rem, 4.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.flow {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Card: header band + rows, flat offset shadow ── */
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  border-radius: 0.6rem;
+  background: #fff;
+  box-shadow: 4px 4px 0 #e2dbd1;
+  break-inside: avoid;
+}
+
+.band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--ink);
+  color: #fff;
+}
+
+.name {
+  margin: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.count {
+  display: grid;
+  flex: none;
+  place-items: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.rows {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.7rem;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  min-height: 2.1rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 0.25rem;
+  font-size: clamp(0.72rem, 0.6rem + 0.5vw, 0.85rem);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.red { background: #f7d6d9; color: #6d0f1b; }
+.orange { background: #fddcbd; color: #6a3000; }
+.sand { background: #f2ebe2; color: #3b3128; }
+.gold { background: #f7e6ad; color: #4a3a00; }
+.sage { background: #dde9d2; color: #2f4220; }
+.solid { background: var(--ink); color: #fff; font-weight: 600; }
+
+/* Home: charcoal band, rows laid out in columns when the card is full width */
+.home .band { background: var(--ink); }
+.home .name { font-size: 1.1rem; }
+.home .rows { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* ── Collapsed layout: spine from Home down to the cards ── */
+.spine {
+  position: relative;
+  width: 1.5px;
+  height: 2.75rem;
+  margin: 0 auto;
+  background: var(--ink);
+}
+
+.spine::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ink);
+  transform: translateX(-50%);
+}
+
+.spine::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.cards {
+  column-count: 2;
+  column-gap: 0.75rem;
+}
+
+.cards .card { margin-bottom: 0.75rem; }
+
+.wires {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: visible;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .cards {
+    column-count: 3;
+    column-gap: 1rem;
+  }
+  .cards .card { margin-bottom: 1rem; }
+  .home .rows { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .flow {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .spine { display: none; }
+
+  .home {
+    flex: 0 0 clamp(14rem, 22%, 18rem);
+    width: auto;
+  }
+  .home .rows { grid-template-columns: 1fr; }
+
+  /* Staggered cards: each is offset by --shift (0–1) across the spare width */
+  .cards {
+    display: flex;
+    flex: 0 0 58%;
+    flex-direction: column;
+    column-count: auto;
+    gap: 2rem;
+  }
+  .cards .card {
+    width: 56%;
+    margin-bottom: 0;
+    margin-left: calc(var(--shift, 0) * 44%);
+  }
+}

@@ -1,0 +1,969 @@
+/* Navbar.module.css — centered floating pill.
+   Top of page: logo | About Us | Work (hover expands into cards) | Contact Us.
+   Scrolled: glass pill — hamburger | adaptive content area | Contact Us. */
+
+.navbar {
+  position: fixed;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--container-x);
+  pointer-events: none;
+  transform: translateY(0);
+  transition:
+    top 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* First-visit intro: pill centered in the viewport. Anchored by its own
+   center, so expanding the Work menu grows it equally up and down. */
+.intro {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.introWelcome {
+  position: fixed;
+  z-index: 95;
+  top: 18vh;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: min(56rem, calc(100vw - 3rem));
+  transform: translateX(-50%);
+  transition: filter 320ms ease, opacity 320ms ease;
+}
+
+.introWelcomeBlurred {
+  filter: blur(7px);
+  opacity: 0.55;
+}
+
+.introPrompt {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 2.75rem;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 1.28;
+  text-align: center;
+}
+
+.introPromptMuted {
+  color: #9999a3;
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--color-page-dark, #242429);
+  opacity: 1;
+}
+
+.menuBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(20, 22, 28, 0.14);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+}
+
+/* ── Pill ── */
+.pill {
+  --nav-bg: var(--color-white);
+  --nav-fg: var(--color-text-primary);
+  --nav-edge: transparent;
+  --nav-cta-bg: var(--color-page-dark, #242429);
+  --nav-cta-fg: var(--color-white);
+  --nav-cta-bg-hover: #14161C;
+  --nav-active-bg: var(--color-navy);
+  --nav-active-fg: var(--color-white);
+  --nav-card-bg: var(--color-off-white);
+  --nav-card-bg-hover: var(--color-light-gray);
+  --nav-card-surface: #e1e4ea;
+  --nav-card-surface-hover: #d5d9e1;
+  --nav-card-edge: #b4bbc8;
+  --nav-preview-bg: #f7f8fa;
+
+  pointer-events: auto;
+  position: relative;
+  width: min(28rem, 100%);
+  min-height: 3.75rem;
+  overflow: hidden;
+  background: var(--nav-bg);
+  color: var(--nav-fg);
+  border-radius: 1.875rem;
+  box-shadow: var(--shadow-lg), inset 0 0 0 1px var(--nav-edge);
+  transition:
+    width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color var(--transition-slow),
+    box-shadow var(--transition-slow),
+    backdrop-filter var(--transition-slow);
+}
+
+.intro .pill,
+.navbar:not(.intro) .pill.expanded:not(.compact) {
+  width: min(34rem, 100%);
+}
+
+.intro .pill {
+  --nav-bg: rgba(255, 255, 255, 0.84);
+  --nav-edge: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(12px) saturate(1.25);
+  backdrop-filter: blur(12px) saturate(1.25);
+  transition:
+    background-color var(--transition-slow),
+    box-shadow var(--transition-slow),
+    backdrop-filter var(--transition-slow);
+}
+
+.intro .pill.introLocked {
+  pointer-events: none;
+}
+
+.compact {
+  width: min(24rem, 100%);
+}
+
+.glass {
+  --nav-bg: rgba(255, 255, 255, 0.55);
+  --nav-edge: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+}
+
+.glass.expanded {
+  --nav-bg: rgba(255, 255, 255, 0.82);
+}
+
+/* ── Bars ── */
+.bar,
+.barCompact {
+  display: flex;
+  align-items: center;
+  min-height: 3.75rem;
+  box-sizing: border-box;
+}
+
+.bar {
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+}
+
+.intro .bar {
+  padding: 0.75rem 1rem 0.75rem 1.75rem;
+}
+
+/* Desktop: same two columns as the drop panel, so About / Process start at
+   the second column and line up with the name below. */
+@media (min-width: 769px) {
+  .bar,
+  .intro .bar {
+    display: grid;
+    grid-template-columns: minmax(0, 50%) minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .bar .logo {
+    justify-self: start;
+  }
+
+  .bar .links {
+    justify-self: start;
+    margin-left: 0.25rem;
+  }
+}
+
+.barCompact {
+  gap: 0.75rem;
+  padding: 0.5rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logoMark {
+  width: 32px;
+  height: 32px;
+  background-color: var(--color-teal);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-weight: 800;
+  font-size: 0.875rem;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--nav-fg);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+/* Home button: no border or arrow — a soft circle grows from the centre on hover */
+.logoIntroButton {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--radius-full);
+  color: #242429;
+  transition: color 300ms ease;
+}
+
+.logoIntroButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(36, 36, 41, 0.08);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease;
+}
+
+.logoIntroButton .logoText {
+  display: inline-block;
+  color: inherit;
+  font-size: 0.875rem;
+}
+
+.logoIntroButton:hover,
+.logoIntroButton:focus-visible {
+  color: #000;
+}
+
+.logoIntroButton:hover::before,
+.logoIntroButton:focus-visible::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
+/* ── Links (top-of-page bar) ── */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.25rem;
+  border-radius: var(--radius-full);
+  background: var(--nav-card-bg);
+}
+
+.compactMenuLinks {
+  width: calc(100% - 2rem);
+  justify-content: flex-start;
+  margin: 0.75rem 1rem 0;
+  box-sizing: border-box;
+}
+
+.compactMenuLinks .link {
+  flex: 1;
+  justify-content: center;
+}
+
+.link {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1rem;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--nav-fg);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.link:hover,
+.link.active {
+  background: transparent;
+  color: var(--nav-fg);
+}
+
+.workBtn.open {
+  background: transparent;
+  color: var(--nav-fg);
+}
+
+.navSelection {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  border: 1px solid rgba(22, 32, 48, 0.14);
+}
+
+.linkLabel {
+  position: relative;
+  z-index: 1;
+  text-transform: uppercase;
+}
+
+.chev {
+  width: 0.9rem;
+  height: 0.9rem;
+  transition: transform var(--transition-base);
+}
+
+.workBtn.open .chev {
+  transform: rotate(180deg);
+}
+
+.contact {
+  position: relative;
+  margin-left: 0;
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--radius-full);
+  background: var(--nav-cta-bg);
+  color: var(--nav-cta-fg);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.contact:hover {
+  background: var(--nav-cta-bg-hover);
+  color: var(--nav-cta-fg);
+}
+
+.barCompact .contact {
+  margin-left: 0;
+}
+
+/* ── Hamburger ── */
+.hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--nav-cta-bg);
+  color: var(--nav-cta-fg);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.hamburger:hover {
+  background: var(--nav-cta-bg-hover);
+  color: var(--nav-cta-fg);
+}
+
+.hamburger svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+/* ── Adaptive content area (scrolled bar) ── */
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5rem;
+  overflow: hidden;
+}
+
+.contentText {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--nav-fg);
+}
+
+/* ── Expanding drop area ── */
+.drop {
+  position: relative;
+  overflow: hidden;
+}
+
+.intro .drop {
+  padding-bottom: 0.75rem;
+}
+
+.panelLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 50%) minmax(0, 1fr);
+  align-items: start;
+  gap: 1.25rem;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.panelContent {
+  min-width: 0;
+  min-height: 9rem;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Hamburger menu list ── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem 0.75rem;
+}
+
+.listLink {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--nav-fg);
+  text-decoration: none;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.listLink:hover {
+  background: var(--nav-card-bg);
+}
+
+.listActive,
+.listActive:hover {
+  background: var(--nav-active-bg);
+  color: var(--nav-active-fg);
+}
+
+.listCta {
+  margin-top: 0.5rem;
+  padding: 0.95rem 1rem;
+  border-radius: var(--radius-full);
+  background: var(--nav-cta-bg);
+  color: var(--nav-cta-fg);
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* ── Intro deep-link sub-item list ── */
+.introSubList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0.25rem 0;
+}
+
+.introMenuCards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.25rem 0;
+}
+
+.introMenuGroup {
+  min-width: 0;
+}
+
+.introMenuHeading {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--color-muted, #8e929c);
+}
+
+.introProfileHeading {
+  margin: 0 0 0.8rem;
+  padding: 0.25rem 1.15rem 0;
+}
+
+.introProfileHeading h3,
+.introProfileHeading p {
+  margin: 0;
+}
+
+.introProfileHeading h3 {
+  color: var(--nav-fg);
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.introProfileHeading p {
+  margin-top: 0.2rem;
+  color: var(--color-muted, #8e929c);
+  font-size: 0.9rem;
+}
+
+.introAboutStandalone {
+  width: 100%;
+  padding-inline: 1.15rem;
+}
+
+.aboutPanelProfile {
+  width: 100%;
+  padding: 1rem 0.25rem;
+}
+
+.introPortraitColumn {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.aboutPanelProfile .introProfileHeading {
+  margin-bottom: 1.5rem;
+  padding-inline: 0;
+}
+
+.aboutPanelProfile .introAboutStandalone {
+  padding-inline: 0;
+}
+
+.aboutPanelProfile .introSubLink {
+  width: 100%;
+}
+
+.aboutPanelProfile .menuStats {
+  width: 100%;
+  margin: 1.15rem 0 1.25rem;
+}
+
+.aboutPanelProfile .menuStatCard {
+  min-height: 6rem;
+  border-color: rgba(29, 41, 57, 0.2);
+  color: rgba(29, 41, 57, 0.72);
+  opacity: 1;
+}
+
+.aboutPanelProfile .introProfileHeading h3 {
+  font-size: 1.8rem;
+}
+
+.introMenuCard {
+  padding: 0.45rem 1.15rem 0.35rem;
+  border: 1px solid rgba(180, 187, 200, 0.4);
+  border-radius: 1rem;
+  background: #e9edf2;
+}
+
+.introMenuChildren {
+  display: flex;
+  flex-direction: column;
+}
+
+.introMenuCard .menuSectionLine {
+  margin: 0 0 0.15rem;
+}
+
+.menuStats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0.5rem 1rem 0.75rem 0;
+}
+
+.menuStatCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 6rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid currentColor;
+  border-radius: 0.85rem;
+  opacity: 0.78;
+}
+
+.menuStatValue {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.menuStatLabel {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.menuSection {
+  width: 100%;
+}
+
+.menuPreview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  width: calc(100% - 1rem);
+  margin: 0.1rem 0.5rem 0.4rem;
+}
+
+.menuPreviewTile {
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 0;
+  border-radius: 0.45rem;
+  background: transparent;
+}
+
+.menuPreviewTile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 240ms ease;
+}
+
+.menuPreviewTile:hover img,
+.menuPreviewTile:focus-visible img {
+  transform: scale(1.04);
+}
+
+.menuSectionLine {
+  display: block;
+  height: 1px;
+  margin: 0 1rem 0.5rem 0;
+  background: currentColor;
+  opacity: 0.24;
+  transform: scaleY(0.55);
+  transform-origin: left center;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.menuSection:hover .menuSectionLine,
+.menuSection:focus-within .menuSectionLine {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.introAboutStandalone:hover .menuSectionLine,
+.introAboutStandalone:focus-within .menuSectionLine {
+  opacity: 1;
+  transform: scaleY(1.4);
+}
+
+.introPortraitFrame {
+  position: relative;
+  width: 85%;
+  max-width: 22rem;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: #e9edf2;
+}
+
+.introPortrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+  transform: scale(1.25);
+}
+
+.introSubLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3rem;
+  padding: 0.65rem 1rem 0.65rem 0;
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--nav-fg);
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.introSubArrow {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex: 0 0 auto;
+  transition: color 180ms ease, transform 220ms ease;
+}
+
+.introSubArrowCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: var(--nav-fg);
+  opacity: 0.52;
+  transition: opacity 200ms ease, transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.introSubLink:hover .introSubArrowCircle,
+.introSubLink:focus-visible .introSubArrowCircle,
+.introAboutStandalone:hover .introSubArrowCircle,
+.introAboutStandalone:focus-within .introSubArrowCircle {
+  opacity: 1;
+  transform: translateX(0.3rem);
+}
+
+.introSubLink:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .introWelcome {
+    top: 17vh;
+    width: min(34rem, calc(100vw - 2rem));
+    gap: 1rem;
+  }
+
+  .introPrompt {
+    line-height: 1.25;
+  }
+
+  .drop {
+    max-height: calc(100dvh - 6rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  .pill,
+  .compact {
+    width: 100%;
+  }
+
+  .intro .pill {
+    width: 100%;
+  }
+
+  .links {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: flex;
+  }
+
+  .panelLayout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+    padding: 0.75rem;
+    justify-items: center;
+  }
+
+  .panelContent {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    min-height: 0;
+    justify-content: center;
+  }
+
+  .introSubList {
+    width: 75%;
+    margin-inline: auto;
+    padding: 0.25rem 0;
+  }
+
+  .introPortraitFrame {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+    width: 90%;
+    max-width: none;
+    height: auto;
+    aspect-ratio: 1.15;
+    align-self: center;
+  }
+
+  .introPortraitColumn {
+    width: 90%;
+    align-items: flex-start;
+  }
+
+  .introPortraitColumn .introPortraitFrame {
+    width: 100%;
+  }
+
+  .introPortrait {
+    object-position: center 62%;
+    transform: scale(1.38);
+  }
+
+  .introSubLink {
+    justify-content: flex-start;
+    padding-inline: 0;
+    text-align: left;
+  }
+
+  .introSubArrowCircle {
+    position: static;
+    margin-left: 0.5rem;
+  }
+
+  .menuSectionLine {
+    margin-right: 0;
+  }
+
+  .introMenuCards {
+    width: 90%;
+    margin-inline: auto;
+  }
+
+  .introMenuHeading {
+    padding-inline: 1.15rem;
+  }
+
+  .introProfileHeading h3 {
+    font-size: 1.65rem;
+  }
+
+  .introMenuCards .introProfileHeading {
+    padding-inline: 0;
+  }
+
+  .aboutPanelProfile .introProfileHeading h3 {
+    font-size: 2rem;
+  }
+
+  .introAboutStandalone .introSubLink {
+    position: relative;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 1.5rem;
+  }
+
+  .introAboutStandalone .introSubArrowCircle {
+    position: absolute;
+    right: 0;
+    margin-left: 0;
+  }
+
+  .introMenuCard .introSubArrowCircle {
+    position: absolute;
+    right: 0;
+    margin-left: 0;
+  }
+
+  .introMenuCard .menuStats {
+    width: 100%;
+    margin: 0.6rem 0 0;
+  }
+
+  .menuStats {
+    width: 75%;
+    margin-inline: auto;
+  }
+
+  .barCompact .contact {
+    padding: 0.75rem 1.1rem;
+  }
+
+  .glass.expanded .introSubLink {
+    justify-content: space-between;
+  }
+
+  .glass.expanded .introSubArrowCircle {
+    position: absolute;
+    right: 0;
+    margin-left: 0;
+  }
+}
+
+/* ── Dark pages — html[data-page-theme='dark'] (see hooks/usePageTheme) ──
+   The white pill needs nothing; only the glass state sits on the dark page. */
+:global(html[data-page-theme='dark']) .glass {
+  --nav-bg: rgba(36, 36, 41, 0.55);
+  --nav-fg: var(--color-white);
+  --nav-edge: rgba(255, 255, 255, 0.14);
+  --nav-cta-bg: var(--color-white);
+  --nav-cta-fg: var(--color-navy);
+  --nav-cta-bg-hover: var(--color-mid-gray);
+  --nav-active-bg: var(--color-white);
+  --nav-active-fg: var(--color-navy);
+  --nav-card-bg: rgba(255, 255, 255, 0.08);
+  --nav-card-bg-hover: rgba(255, 255, 255, 0.14);
+}
+
+:global(html[data-page-theme='dark']) .glass.expanded {
+  --nav-bg: rgba(36, 36, 41, 0.85);
+}
+
+:global(html[data-page-theme='dark']) .glass .navSelection {
+  background: var(--nav-card-bg-hover);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardImg,
+  .chev,
+  .navbar,
+  .pill { transition: none; }
+}
+
+
+/* While a project sheet is open the sheet runs almost to the top edge, so the
+   floating pill steps out of the way (set by <ProjectSheet> on <body>). */
+:global(body[data-sheet-open]) .navbar {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}

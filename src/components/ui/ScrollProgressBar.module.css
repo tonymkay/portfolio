@@ -1,0 +1,58 @@
+/* ScrollProgressBar.module.css — rounded teal pill with a green shimmer,
+   aligned to the page content width (not edge to edge). */
+
+/* Zero-height full-width row at the end of the breadcrumb bar's flex row,
+   so the line spans exactly the breadcrumb row's content box: from where
+   the breadcrumbs start to where the Visit Site button ends. The -1.5rem
+   cancels the parent's row gap so no extra height is added. */
+.lane {
+  position: relative;
+  flex: 0 0 100%;
+  height: 0;
+  margin-top: -1.5rem;
+  pointer-events: none;
+}
+
+.track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.5rem;
+  height: 2px; /* thin until the user starts scrolling */
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16); /* gray = not yet scrolled */
+  overflow: hidden;
+  transition: height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.track[data-active='true'] {
+  height: 7px;
+}
+
+.fill {
+  width: 0;
+  height: 100%;
+  border-radius: 999px;
+  /* Teal base with a green band; tiles seamlessly every 120px. */
+  background-color: #14b8a6;
+  background-image: linear-gradient(
+    90deg,
+    #14b8a6 0%,
+    #4ade80 50%,
+    #14b8a6 100%
+  );
+  background-size: 120px 100%;
+  background-repeat: repeat-x;
+  /* Fill grows left → right; the shimmer flows right → left. */
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position-x: 0; }
+  to   { background-position-x: -120px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill { animation: none; }
+  .track { transition: none; }
+}

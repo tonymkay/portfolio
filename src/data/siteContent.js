@@ -10,21 +10,14 @@
 // (see imagesguide.md) and Vite HMR picks it up instantly.
 // Components use conditional rendering, so a null image shows a styled placeholder.
 
-import homeHero from '../assets/images/home/home_hero.webp'
-import homePortrait from '../assets/images/home/home_portrait.jpg'
 import heroPortrait from '../assets/images/home/hero_portrait.webp'
-import heroBg from '../assets/images/home/hero_bg.webp'
-import homeCta from '../assets/images/home/cta.webp'
-import aboutPortrait from '../assets/images/about/about_portrait.jpg'
-import aboutWorkspace from '../assets/images/about/about_workspace.webp'
-import contactHero from '../assets/images/contact/contact_hero.webp'
 import projectsHero from '../assets/images/projects/projects_hero.jpg'
 // Navbar "Work" dropdown card image for the Logos & Identities entry
-import navLogosCover from '../assets/images/logos/ORION.webp'
+import navLogosCover from '../assets/images/logos/ASN.webp'
 // Navbar "Work" dropdown card image for the UI/UX entry
-import navUxCover from '../assets/images/ux/ux_pataskills-app-cover.webp'
+import navUxCover from '../assets/images/ux/pataskills-app/cover.webp'
 // Navbar "Work" dropdown card image for the Posters entry
-import navPostersCover from '../assets/images/posters/AdiliRealEstate.webp'
+import navPostersCover from '../assets/images/posters/NAMASAKA.webp'
 import brandBold from '../assets/images/process/bold.webp'
 import brandRetro from '../assets/images/process/retro.webp'
 import brandModern from '../assets/images/process/modern.webp'
@@ -47,14 +40,7 @@ export const siteContent = {
 
   // ---------- Page Images ----------
   images: {
-    homeHero,
-    homePortrait,
     heroPortrait,
-    heroBg,
-    homeCta,
-    aboutPortrait,
-    aboutWorkspace,
-    contactHero,
     projectsHero,
     // Array of 3 brand direction panel images (bold / retro / modern)
     brandDirection,
@@ -74,6 +60,7 @@ export const siteContent = {
     phone: '(+254) 000-000-000',
     location: 'Nairobi, Kenya',
     cvUrl: '#',
+    introVideoId: 'eLxdVzh2nCc',
   },
 
   // ---------- Social Links ----------
@@ -194,8 +181,8 @@ export const siteContent = {
     projects: {
       eyebrow: 'Selected Projects',
       heading: 'Explore My Portfolio',
-      viewMoreLabel: 'View More ↗',
-      viewMoreHref: '/posters',
+      viewMoreLabel: 'View All Work ↗',
+      viewMoreHref: '/work',
     },
     testimonials: {
       eyebrow: 'Testimonials',
@@ -267,24 +254,24 @@ export const siteContent = {
       { name: 'ESSA', logo: null },
     ],
     projects: [
-      { index: '01', name: 'Boma Project', description: [
-        'Website revamp for Boma NGO.',
-        'Developed an interactive prototype for the redesigned experience.',
-        'Mapped user journeys and designed responsive interfaces for exploring Boma’s programs and impact.',
+      { index: '01', name: 'Klima-Harvest', slug: 'klima-harvest', description: [
+        'Designed a trading platform for people working in conservation and carbon offsetting.',
+        'Created for carbon harvesters, carbon investors, and institutions.',
       ], tags: ['UX/UI', 'Product'] },
-      { index: '02', name: 'ESSA Project', description: [
+      { index: '02', name: 'ESSA Project', slug: 'essa-website', description: [
         'Website revamp for an education research platform.',
         'Restructured navigation and information architecture to make research easier to find.',
         'Designed responsive page layouts and reusable interface patterns for researchers.',
       ], tags: ['UX/UI', 'Product'] },
-      { index: '03', name: 'HERI Project', description: [
+      { index: '03', name: 'HERI Project', slug: 'heri-africa', description: [
         'Designed a simple landing page for HERI’s education research initiatives.',
         'Organized the content to make the organization’s research focus easy to understand.',
         'Created a clear, responsive layout to guide visitors to relevant information.',
       ], tags: ['UX/UI', 'Product'] },
-      { index: '04', name: 'Klima-Harvest', description: [
-        'Designed a trading platform for people working in conservation and carbon offsetting.',
-        'Created for carbon harvesters, carbon investors, and institutions.',
+      { index: '04', name: 'Boma Project', slug: 'boma-ngo', description: [
+        'Website revamp for Boma NGO.',
+        'Developed an interactive prototype for the redesigned experience.',
+        'Mapped user journeys and designed responsive interfaces for exploring Boma’s programs and impact.',
       ], tags: ['UX/UI', 'Product'] },
       { index: '05', name: 'Kaya Connect Project', description: [
         'Worked with GeoPsy Research on visual communication for a mangrove and indigenous tree conservation project.',
@@ -379,7 +366,7 @@ export const siteContent = {
     hero: {
       eyebrow: '● Book A Call',
       heading: 'Book a 30-Mins Brand Discovery Call',
-      background: contactHero,
+      background: null,
     },
     description: 'Choose a time and book your discovery call through Calendly.',
     calendlyUrl: 'https://calendly.com/tonymkay10/discovery-call',

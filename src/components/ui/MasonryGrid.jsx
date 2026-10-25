@@ -20,7 +20,7 @@ function getPinterestColumnCount() {
   return 2
 }
 
-function useColumnCount(pinterest) {
+export function useColumnCount(pinterest) {
   const read = pinterest ? getPinterestColumnCount : getColumnCount
   const [count, setCount] = useState(read)
 
@@ -56,7 +56,7 @@ function useImageRatios(projects) {
 
 // Small allowance per tile for the gap between tiles (as a share of tile width).
 const GAP_ALLOWANCE = 0.04
-const PINTEREST_GAP_ALLOWANCE = 0.065
+export const PINTEREST_GAP_ALLOWANCE = 0.065
 
 // How much a tile sitting out of its natural reading order costs, compared
 // with the columns ending at different heights (both measured in tile widths).
@@ -75,7 +75,7 @@ const ORDER_WEIGHT = 0.02
  *
  * Until image ratios are known it falls back to a plain round-robin.
  */
-function buildColumns(projects, count, ratios, ready, gapAllowance = GAP_ALLOWANCE) {
+export function buildColumns(projects, count, ratios, ready, gapAllowance = GAP_ALLOWANCE) {
   const n = projects.length
 
   if (!ready || count < 2 || n < 2) {
@@ -159,7 +159,7 @@ function buildColumns(projects, count, ratios, ready, gapAllowance = GAP_ALLOWAN
 }
 
 /** Tracks the grid's pixel width and its column gap (px). */
-function useMeasure(ref) {
+export function useMeasure(ref) {
   const [size, setSize] = useState({ width: 0, gap: 0 })
 
   useEffect(() => {
@@ -185,7 +185,7 @@ function useMeasure(ref) {
  * add up to the grid width lines every bottom edge up. Posters always fill their
  * column's width, uncropped. Returns null until it can be computed.
  */
-function columnWidths(columns, ratios, width, gap) {
+export function columnWidths(columns, ratios, width, gap) {
   if (!width) return null
   const sums = columns.map((column) =>
     column.reduce((total, p) => total + (ratios[p.coverImage] ?? 1), 0)

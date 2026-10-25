@@ -1,0 +1,139 @@
+
+/* ProjectSheet.module.css — a UX case study as a full page over the listing.
+   No backdrop / blur / rounded corners: the page covers everything. */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80; /* below the navbar (100), above the listing */
+}
+
+/* The animated frame: full page. The grow-from-tile / shrink-to-tile is a
+   clip-path animation driven from JS on this element, so the scroller and the
+   bottom action bar inside it move together. */
+.sheet {
+  position: absolute;
+  inset: 0;
+  background: var(--color-page-dark, #242429);
+  overflow: hidden;
+  animation: sheetIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* The page's own scroll area (this is the scroll root for the progress bar) */
+.scroller {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  /* No side scrollbar — the progress bar at the top shows position */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  /* Headroom under the (progress-bar-only) top strip; CaseStudyHeader reads it */
+  --case-header-pt: 1rem;
+}
+
+.scroller::-webkit-scrollbar { display: none; }
+
+/* Close button: top right, just after the progress bar. It sits in the frame
+   (outside the scroller) so it never scrolls away or gets covered. */
+.closeBtn {
+  position: absolute;
+  top: 0.6rem;
+  right: 1rem;
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  color: rgba(20, 20, 24, 0.88);
+  /* frosted glass, white-biased (matches the bottom action bar) */
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(26px) saturate(1.6);
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(20, 20, 24, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.closeBtn:hover,
+.closeBtn:focus-visible {
+  color: #000;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.closeBtn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Tooltip, opens below the button */
+.closeBtn::after {
+  content: attr(data-label);
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(26px) saturate(1.6);
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  box-shadow: 0 0 0 1px rgba(20, 20, 24, 0.08);
+  color: #141418;
+  font-size: 0.8125rem;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.closeBtn:hover::after,
+.closeBtn:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 720px) {
+  .closeBtn { right: 0.6rem; width: 1.9rem; height: 1.9rem; }
+  .closeBtn::after { display: none; }
+}
+
+/* Breathing room at the end so the bottom action bar never covers content */
+.scroller::after {
+  content: '';
+  display: block;
+  height: 6.5rem;
+}
+
+/* Exit */
+.closing .sheet { animation: sheetOut 0.26s cubic-bezier(0.4, 0, 1, 1) both; }
+
+/* Opened from a tile: the grow/shrink is driven from JS (clip-path from the
+   tile's box), so the CSS rise-in / drop-out steps aside. */
+.fromTile .sheet,
+.fromTile.closing .sheet { animation: none; }
+
+@keyframes sheetIn {
+  from { opacity: 0; transform: translateY(48px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes sheetOut {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateY(48px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet,
+  .closing .sheet { animation: none; }
+}

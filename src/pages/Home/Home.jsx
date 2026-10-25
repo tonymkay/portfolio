@@ -1,26 +1,28 @@
 import { motion } from 'framer-motion'
 import { siteContent } from '../../data/siteContent'
-import { logoProjects } from '../../data/logos'
-import { posterProjects } from '../../data/posters'
 import { getAllUxProjects } from '../../data/uxProjects'
+import { logosCategory, postersCategory } from '../../data/categoryFolders'
 import { motion as motionPresets } from '../../theme/motion'
-import MasonryGrid from '../../components/ui/MasonryGrid'
 import CubeButton from '../../components/ui/CubeButton'
-import SocialLinks from '../../components/ui/SocialLinks'
-import ClosingCta from '../../components/ui/ClosingCta'
+import ScrollCue from '../../components/ui/ScrollCue'
+import ProjectFolder from '../../components/ui/ProjectFolder'
 import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
 import Reveal from '../../components/ui/Reveal'
 import WordRotator from '../../components/ui/WordRotator'
-import TestimonialLoop from '../../components/ui/TestimonialLoop'
 import usePageTheme from '../../hooks/usePageTheme'
 import styles from './Home.module.css'
 
 const { home, designer, images: pageImages } = siteContent
-const about = home.about
-const sampleProjects = [
-  ...logoProjects.slice(0, 4),
-  ...posterProjects.slice(0, 4),
-  ...getAllUxProjects().slice(0, 3),
+
+// Order on Home: Klima, ESSA (UI/UX), then Logos, then Posters.
+const uxById = Object.fromEntries(getAllUxProjects().map((p) => [p.id, p]))
+const folderProjects = [
+  ...['ux-klima', 'ux-essa']
+    .map((id) => uxById[id])
+    .filter(Boolean)
+    .map((p) => ({ ...p, to: `/ui-ux/${p.slug}` })),
+  logosCategory,
+  postersCategory,
 ]
 
 export default function Home() {
@@ -70,10 +72,7 @@ export default function Home() {
           </Reveal>
 
           <Reveal variant="fadeUp" className={styles.heroActions}>
-            <SocialLinks />
-            <CubeButton to={home.hero.contactHref} variant="light" spaced className={styles.heroCta}>
-              {home.hero.contactLabel}
-            </CubeButton>
+            <ScrollCue />
           </Reveal>
 
         </div>
@@ -92,9 +91,15 @@ export default function Home() {
             <span className={styles.rule} aria-hidden="true" />
           </Reveal>
 
-          {/* One mixed sample grid: logos, posters and UX covers together. */}
-          <MasonryGrid projects={sampleProjects} basePath="/posters" linkable={false} />
-
+          <div className={styles.folders}>
+            {folderProjects.map(({ to, ...project }) => (
+              <ScrollRevealSection key={project.id} as="div">
+                <Reveal variant="fadeUp">
+                  <ProjectFolder project={project} to={to} />
+                </Reveal>
+              </ScrollRevealSection>
+            ))}
+          </div>
           <Reveal
             variant="fadeUp"
             style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}
@@ -106,56 +111,6 @@ export default function Home() {
 
         </div>
       </ScrollRevealSection>
-
-      {/* ══════════════════════════════════════
-          ABOUT TEASER — dark band: eyebrow, statement
-          (white lead + gray rest), outlined button
-          ══════════════════════════════════════ */}
-      <ScrollRevealSection className={styles.aboutBand} data-nav-title={about.eyebrow}>
-        <div className={`container ${styles.aboutInner}`}>
-
-          <Reveal variant="fadeIn" className={styles.aboutEyebrowRow}>
-            <span className={styles.aboutRule} aria-hidden="true" />
-            <h2 className={styles.aboutEyebrow}>{about.eyebrow}</h2>
-            <span className={styles.aboutRule} aria-hidden="true" />
-          </Reveal>
-
-          <Reveal variant="fadeUp" as="p" className={styles.aboutText}>
-            <span className={styles.aboutLead}>{about.teaser.lead}</span>{' '}
-            <span className={styles.aboutRest}>{about.teaser.rest}</span>
-          </Reveal>
-
-          <Reveal variant="fadeUp">
-            <CubeButton to={about.teaser.ctaHref} variant="light" spaced>
-              {about.teaser.ctaLabel}
-            </CubeButton>
-          </Reveal>
-
-        </div>
-      </ScrollRevealSection>
-
-      {/* ══════════════════════════════════════
-          TESTIMONIALS — horizontal seamless loop,
-          right to left, pauses on hover
-          ══════════════════════════════════════ */}
-      <ScrollRevealSection className={styles.testimonials} data-nav-title={home.testimonials.eyebrow}>
-        <div className={`container ${styles.sectionInner}`}>
-
-          <Reveal variant="fadeIn" className={styles.sectionEyebrowRow}>
-            <span className={styles.rule} aria-hidden="true" />
-            <h2 className={styles.sectionEyebrow}>{home.testimonials.eyebrow}</h2>
-            <span className={styles.rule} aria-hidden="true" />
-          </Reveal>
-
-          <Reveal variant="fadeUp" className={styles.testimonialWrap}>
-            <TestimonialLoop items={home.testimonials.items} />
-          </Reveal>
-
-        </div>
-      </ScrollRevealSection>
-
-      {/* ── CTA — shared closing banner ── */}
-      <ClosingCta />
 
     </div>
   )

@@ -171,16 +171,11 @@
   background: transparent;
 }
 
-/* Centered column shared by Projects + Testimonials — same centering
-   approach as the About band so every eyebrow lines up on one axis */
+/* Centered column for the work section */
 .sectionInner {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.sectionInner > .testimonialWrap {
-  width: 100%;
 }
 
 /* — SELECTED PROJECTS — */
@@ -210,71 +205,34 @@
 }
 
 /* ══════════════════════════════════════════════
-   ABOUT TEASER — dark band below Projects.
-   Eyebrow with side rules, light-weight statement
-   (white lead + gray rest), outlined button.
+   WORK — 3 UX folders (always open), then the
+   Posters + Logos shortcut cards
    ══════════════════════════════════════════════ */
-.aboutBand {
-  padding: 6rem 0 7rem;
+.folders {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 11rem;
+  width: 100%;
+  max-width: 38rem;
+  margin-inline: auto;
 }
 
-.aboutInner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
+.folders > * { min-width: 0; }
 
-.aboutEyebrowRow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  margin-bottom: 4rem;
+.shortcuts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+  width: 100%;
+  margin-top: 8rem;
 }
-
-.aboutRule {
-  flex: none;
-  width: clamp(2.5rem, 6vw, 4.5rem);
-  height: 1px;
-  background: var(--ux-muted);
-  opacity: 0.7;
-}
-
-.aboutEyebrow {
-  font-size: 0.8125rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ux-muted);
-  white-space: nowrap;
-}
-
-.aboutText {
-  max-width: 58rem;
-  font-size: clamp(1.5rem, 3.3vw, 2.5rem);
-  font-weight: 300;
-  line-height: 1.4;
-  letter-spacing: -0.005em;
-  margin-bottom: 3rem;
-}
-
-.aboutLead { color: var(--ux-text); }
-.aboutRest { color: var(--ux-muted); }
 
 @media (max-width: 767px) {
-  .aboutBand { padding: 4.5rem 0 5rem; }
-  .aboutEyebrowRow { margin-bottom: 2.5rem; }
-  .aboutText { margin-bottom: 2.25rem; }
-}
-
-/* ══════════════════════════════════════════════
-   TESTIMONIALS — eyebrow + <TestimonialLoop>
-   (card + loop styles live in the component)
-   ══════════════════════════════════════════════ */
-.testimonials {
-  padding: 4rem 0 6rem;
-  background: transparent;
+  .folders { gap: 7rem; }
+  .shortcuts {
+    grid-template-columns: 1fr;
+    margin-top: 5rem;
+  }
 }
 
 

@@ -2,18 +2,15 @@ import { motion } from 'framer-motion'
 import { siteContent } from '../../data/siteContent'
 import { motion as motionPresets } from '../../theme/motion'
 import usePageTheme from '../../hooks/usePageTheme'
-import Tag from '../../components/ui/Tag'
-import CubeButton from '../../components/ui/CubeButton'
-import SocialLinks from '../../components/ui/SocialLinks'
+import ScrollCue from '../../components/ui/ScrollCue'
 import ClosingCta from '../../components/ui/ClosingCta'
-import BigStatHeader from '../../components/ui/BigStatHeader'
 import ExperienceTimeline from '../../components/ui/ExperienceTimeline'
-import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
+import NameHero from '../../components/ui/NameHero'
 import Reveal from '../../components/ui/Reveal'
 import styles from './About.module.css'
 
-const { home, designer, about: aboutContent, images: pageImages } = siteContent
-const { hero, numbers, projects } = aboutContent
+const { home, about: aboutContent, designer } = siteContent
+const { hero, numbers } = aboutContent
 
 /** Renders [{ text, muted? }] as inline spans; muted ones turn grey. */
 function Segments({ items }) {
@@ -37,27 +34,14 @@ export default function About() {
         animate="visible"
         variants={motionPresets.staggerContainer}
       >
-        <Reveal variant="scaleUp" className={styles.portrait}>
-          <span className={styles.portraitInner}>
-            {pageImages.heroPortrait && (
-              <img src={pageImages.heroPortrait} alt={`Portrait of ${designer.fullName}`} />
-            )}
-          </span>
-        </Reveal>
-
-        <Reveal variant="fadeUp" as="h1" className={styles.statement}>
-          <Segments items={hero.statement} />
-        </Reveal>
+        <NameHero videoId={designer.introVideoId} />
 
         <Reveal variant="fadeUp" as="p" className={styles.intro}>
           <Segments items={hero.intro} />
         </Reveal>
 
         <Reveal variant="fadeUp" className={styles.actions}>
-          <SocialLinks />
-          <CubeButton to={home.hero.contactHref} variant="light" spaced>
-            {home.hero.contactLabel}
-          </CubeButton>
+          <ScrollCue />
         </Reveal>
       </motion.section>
 
@@ -65,48 +49,6 @@ export default function About() {
       <div id="experience" data-nav-title="Experience">
         <ExperienceTimeline roles={home.experience.roles} years={numbers.years.value} />
       </div>
-
-      {/* ══ PROJECTS — centered count header, project list below ══ */}
-      <ScrollRevealSection id="projects" className={styles.projects} data-nav-title="Projects">
-        <div className={`container ${styles.block}`}>
-
-          <Reveal variant="fadeUp">
-            <BigStatHeader
-              title="Designed"
-              count={numbers.projects.value}
-              suffix={numbers.projects.suffix}
-              label={numbers.projects.label}
-              as="h2"
-              duration={1600}
-              pad={1}
-            />
-          </Reveal>
-
-          <div className={styles.listRight}>
-            {projects.map((project) => (
-              <Reveal key={project.index} variant="fadeUp" className={styles.roleRow}>
-                <div className={styles.roleDetails}>
-                  <div className={styles.roleLeftInfo}>
-                    <span className={styles.roleYear}>{project.index}</span>
-                    <p className={styles.roleCompany}>{project.name}</p>
-                    <div className={styles.roleTags}>
-                      {project.tags.map((t) => <Tag key={t} variant="outline">{t}</Tag>)}
-                    </div>
-                  </div>
-                  <div className={styles.roleRightInfo}>
-                    <ul className={styles.roleDescriptions}>
-                      {(Array.isArray(project.description) ? project.description : [project.description]).map((description) => (
-                        <li key={description} className={styles.roleDesc}>{description}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-        </div>
-      </ScrollRevealSection>
 
       {/* ══ CTA — same as the homepage ══ */}
       <ClosingCta />

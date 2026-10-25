@@ -108,8 +108,11 @@ export default function ProcessScrollStory({ id, navTitle, intro, steps }) {
       const seg = (k) => range(pv, tl[k][0], tl[k][1])
 
       const wide = vw >= 700
-      const S = Math.min(168, (vw - 32) / count)
+      const rows = wide ? 2 : 1
+      const perRow = Math.ceil(count / rows)
+      const S = Math.min(wide ? 220 : 168, (vw - (wide ? 96 : 32)) / perRow)
       const orderScale = (S * 0.86) / W
+      const rowPitch = S * 0.86 * (H / W) + S * 0.16
       const cover = Math.max(vw / W, vh / H) * 1.02
       const t1 = ease(seg('gather'))
       const sq = ease(range(seg('gather'), 0.5, 1))
@@ -130,14 +133,18 @@ export default function ProcessScrollStory({ id, navTitle, intro, steps }) {
         const pr = (i - (count - 1) / 2) * 4
         const sx = cfg.x * vw + Math.sin(time * 0.7 + cfg.d) * 14 * (1 - t1)
         const sy = cfg.y * vh + Math.cos(time * 0.6 + cfg.d) * 12 * (1 - t1)
-        const ox = (i - (count - 1) / 2) * S
+        const col = i % perRow
+        const row = Math.floor(i / perRow)
+        const ox = (col - (perRow - 1) / 2) * S
+        const oy = (row - (rows - 1) / 2) * rowPitch
         let x = lerp(lerp(sx, px, t1), ox, t2)
-        const y = lerp(lerp(sy, py, t1), 0, t2)
+        let y = lerp(lerp(sy, py, t1), oy, t2)
         const r = lerp(lerp(cfg.r, pr, t1), 0, t2)
         const base = lerp(lerp(cfg.s, 0.4, t1), orderScale, t2)
         let sc = base
         if (first) {
           x = lerp(x, 0, zoom)
+          y = lerp(y, 0, zoom)
           sc = lerp(base, cover, zoom)
           el.style.borderRadius = `${lerp(20, 0, zoom)}px`
           el.style.borderColor = zoom > 0.3 ? 'transparent' : ''

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styles from './PanelStory.module.css'
 import VideoModal from './VideoModal'
+import { resolvePanelLabels } from '../../utils/panelLabels'
 
 /**
  * PanelStory — the whole case-study body as a Behance-style stack of
@@ -23,10 +24,22 @@ export default function PanelStory({ panels }) {
 
   if (!panels?.length) return null
 
+  // Section name per panel (from its image name) — read by the sticky breadcrumb
+  const labels = resolvePanelLabels(panels)
+
   return (
     <div className={`container ${styles.panelStory}`}>
-      {panels.map((panel) => {
+      {panels.map((panel, i) => {
         const bg = panel.background ? { background: panel.background } : undefined
+
+        if (panel.component) {
+          const Component = panel.component
+          return (
+            <div key={panel.id} className={styles.panel} data-section={labels[i]}>
+              <Component {...panel.componentProps} />
+            </div>
+          )
+        }
 
         if (panel.videoId) {
           return (
@@ -35,6 +48,7 @@ export default function PanelStory({ panels }) {
               type="button"
               className={`${styles.panel} ${styles.panelVideo}`}
               style={bg}
+              data-section={labels[i]}
               aria-label={`Play video — ${panel.alt}`}
               onClick={() => setActiveVideo(panel)}
             >
@@ -44,7 +58,7 @@ export default function PanelStory({ panels }) {
         }
 
         return (
-          <div key={panel.id} className={styles.panel} style={bg}>
+          <div key={panel.id} className={styles.panel} style={bg} data-section={labels[i]}>
             <img src={panel.src} alt={panel.alt} loading="eager" />
           </div>
         )
