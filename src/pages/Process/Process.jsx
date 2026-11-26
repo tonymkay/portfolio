@@ -5,7 +5,7 @@ import { uxProcess } from '../../data/processSteps'
 import { motion as motionPresets } from '../../theme/motion'
 import ClosingCta from '../../components/ui/ClosingCta'
 import ProcessTimeline from '../../components/ui/ProcessTimeline'
-import ProcessScrollStory from '../../components/ui/ProcessScrollStory'
+import ProcessZigzag from '../../components/ui/ProcessZigzag'
 import ScrollRevealSection from '../../components/ui/ScrollRevealSection'
 import Reveal from '../../components/ui/Reveal'
 import usePageTheme from '../../hooks/usePageTheme'
@@ -100,7 +100,7 @@ export default function Process() {
     <div className={styles.page}>
 
       {/* ── Design Process (workflow) — comes first ── */}
-      <ProcessScrollStory
+      <ProcessZigzag
         id="concept-design"
         navTitle={clean(process.workflow.eyebrow)}
         steps={uxProcess.steps}

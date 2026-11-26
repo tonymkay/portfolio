@@ -1,0 +1,156 @@
+/* PosterDetail.module.css — poster | details + related, then the rest grid.
+   Same dark tokens as <WorkLayout> (this page sits outside it). */
+
+.page {
+  --ux-bg: var(--color-page-dark);
+  --ux-surface: #2E2E34;
+  --ux-text: #FFFFFF;
+  --ux-body: rgba(255, 255, 255, 0.82);
+  --ux-muted: #9C9CA6;
+  --ux-line: rgba(255, 255, 255, 0.2);
+
+  padding-top: 5.5rem;
+  background: var(--ux-bg);
+  color: var(--ux-text);
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+/* ══ TOP — poster | side ══ */
+.top {
+  padding-bottom: 2.5rem;
+}
+
+.frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+  padding: 1rem;
+  border: 1px solid var(--ux-line);
+  border-radius: 1.25rem;
+}
+
+.posterCell {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.poster {
+  position: relative;
+  z-index: 3;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 58svh;
+  border-radius: 0.75rem;
+  background: var(--ux-surface);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.side .title {
+  margin: 0;
+  color: var(--ux-text);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.meta {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ux-muted);
+}
+
+.desc {
+  margin: 0.25rem 0 0;
+  max-width: 60ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ux-body);
+}
+
+/* ══ RELATED — a row of tiny thumbnails, pinned to the bottom of the column ══ */
+.related {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  max-width: 22rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.relatedItem {
+  margin: 0;
+  aspect-ratio: 3 / 4;
+}
+
+.relatedItem a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: var(--ux-surface);
+}
+
+.relatedImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.relatedItem a:hover .relatedImg {
+  transform: scale(1.03);
+}
+
+/* ══ REST — the full grid ══ */
+.rest {
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 900px) {
+  .frame {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+    padding: 1.25rem;
+  }
+
+  .side {
+    padding: 0.5rem 0.5rem 0.5rem 0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes borderIn {
+  from { border-color: transparent; }
+}
+
+.frame { animation: borderIn 500ms ease 150ms backwards; }
+.side { animation: fadeIn 450ms ease 250ms backwards; }
+.rest { animation: fadeIn 450ms ease 350ms backwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .relatedImg { transition: none; }
+  .frame, .side, .rest { animation: none; }
+}

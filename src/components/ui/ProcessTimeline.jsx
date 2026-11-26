@@ -51,11 +51,15 @@ export default function ProcessTimeline({ steps }) {
     list.style.setProperty('--pos', pos.toFixed(4))
     numberRefs.current.forEach((el, i) => {
       if (!el) return
-      const dist = Math.abs(i - pos)
-      const near = 1 - Math.min(dist, 1) // 1 on the highlighted row, 0 a step away
-      const far = 1 - clamp(dist - 1, 0, 1)
-      el.style.opacity = ((0.3 + 0.7 * near) * far).toFixed(3)
-      el.style.transform = `scale(${(1 + 0.45 * near).toFixed(3)})`
+      // Big number rolls like a cube face: the current one faces front, neighbours tilt away
+      const d = i - pos
+      el.style.opacity = (1 - Math.min(1, Math.abs(d) * 1.25)).toFixed(3)
+      el.style.transform = `rotateX(${(-d * 90).toFixed(2)}deg) translateZ(var(--face))`
+    })
+    // Focus: the step being read is bright, the others dim
+    blockRefs.current.forEach((el, i) => {
+      if (!el) return
+      el.style.opacity = (1 - 0.7 * Math.min(1, Math.abs(i - pos))).toFixed(3)
     })
   }
 

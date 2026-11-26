@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { siteContent } from '../../../data/siteContent'
 import { getLogoBySlug } from '../../../data/logos'
 import { getProjectBySlug } from '../../../data/projects'
+import { getPosterBySlug } from '../../../data/posters'
 import LogoMark from './LogoMark'
 import styles from './Navbar.module.css'
 
@@ -36,7 +37,13 @@ const projectTitle = (slug) => (getLogoBySlug(slug) ?? getProjectBySlug(slug))?.
 const labelFor = (path) => {
   if (CRUMB_LABELS[path]) return CRUMB_LABELS[path]
   const [section, slug] = path.split('/').filter(Boolean)
-  if (slug) return (section === 'projects' && projectTitle(slug)) || slug.replace(/-/g, ' ')
+  if (slug) {
+    return (
+      (section === 'projects' && projectTitle(slug)) ||
+      (section === 'posters' && getPosterBySlug(slug)?.title) ||
+      slug.replace(/-/g, ' ')
+    )
+  }
   return 'Not found'
 }
 
@@ -72,8 +79,16 @@ const readTrail = () => {
   }
 }
 
+const POSTER_PAGE = /^\/posters\/[^/]+/
+
 const nextTrail = (trail, pathname) => {
   if (/^\/ui-ux\/[^/]+/.test(pathname)) return trail
+  if (POSTER_PAGE.test(pathname)) {
+    // One poster slot only: opening another poster replaces it, never stacks.
+    const base = trail.filter((t) => !POSTER_PAGE.test(t))
+    const list = base.length ? base : ['/']
+    return [...(list.includes('/posters') ? list : [...list, '/posters']), pathname]
+  }
   if (LOGO_PAGES.includes(pathname)) return [pathname] // Home / About / Process start a new trail
   const at = trail.indexOf(pathname)
   if (at !== -1) return trail.slice(0, at + 1)

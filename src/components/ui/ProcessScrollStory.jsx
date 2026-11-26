@@ -4,9 +4,6 @@ import styles from './ProcessScrollStory.module.css'
 const W = 240
 const H = 150
 
-// Scroll-driven cube caption (same X-axis roll as WordRotator)
-const CAPTIONS = ['Bringing thoughts together', 'Organizing them into steps', 'Exploring the steps']
-
 // 12 scattered thoughts, one per step
 const REAL = Array.from({ length: 12 }, (_, i) => {
   const a = i * 2.399963
@@ -49,18 +46,17 @@ const pad = (n) => String(n).padStart(2, '0')
 // toCap3    — caption rolls to "Exploring the steps"
 // zoom      — first step expands to fill the page
 // steps     — one full-page slide per step, 100vh each
+const STEP = 35
+
 const buildTimeline = (count) => {
-  const steps0 = 620
+  const steps0 = 90
   return {
-    hold: [0, 150],
-    toCap1: [150, 210],
-    gather: [170, 330],
-    toCap2: [330, 390],
-    organize: [350, 490],
-    toCap3: [490, 550],
-    zoom: [540, 620],
+    hold: [0, 6],
+    toCap1: [6, 30],
+    gather: [8, 70],
+    zoom: [55, 90],
     steps0,
-    total: steps0 + count * 100,
+    total: steps0 + count * STEP,
   }
 }
 
@@ -68,15 +64,25 @@ export default function ProcessScrollStory({ id, navTitle, intro, steps }) {
   const sectionRef = useRef(null)
   const introRef = useRef(null)
   const hintRef = useRef(null)
-  const capWrapRef = useRef(null)
-  const capCubeRef = useRef(null)
   const slidesRef = useRef(null)
+  const panelRef = useRef(null)
   const itemRefs = useRef([])
   const contentRefs = useRef([])
   const glyphRefs = useRef([])
   const slideRefs = useRef([])
+  const railRefs = useRef([])
+  const railListRef = useRef(null)
   const count = steps.length
   const tl = useMemo(() => buildTimeline(count), [count])
+
+  // Click a stage on the left: scroll to the spot where that stage is current
+  const goTo = (i) => {
+    const section = sectionRef.current
+    if (!section) return
+    const top = section.getBoundingClientRect().top + window.scrollY
+    const pv = tl.steps0 + (i + 0.3) * STEP
+    window.scrollTo({ top: top + (pv / 100) * window.innerHeight, behavior: 'smooth' })
+  }
 
   useEffect(() => {
     const section = sectionRef.current
@@ -113,13 +119,12 @@ export default function ProcessScrollStory({ id, navTitle, intro, steps }) {
       const S = Math.min(wide ? 220 : 168, (vw - (wide ? 96 : 32)) / perRow)
       const orderScale = (S * 0.86) / W
       const rowPitch = S * 0.86 * (H / W) + S * 0.16
-      const cover = Math.max(vw / W, vh / H) * 1.02
       const t1 = ease(seg('gather'))
       const sq = ease(range(seg('gather'), 0.5, 1))
-      const t2 = ease(seg('organize'))
+      const t2 = 0
       const zoom = ease(seg('zoom'))
       const spread = 1 - 0.6 * sq
-      const textIn = wide ? ease(range(seg('organize'), 0.4, 0.95)) : 0
+      const textIn = 0
       const time = reduce ? 0 : now / 1000
 
       for (let i = 0; i < count; i += 1) {
@@ -133,31 +138,31 @@ export default function ProcessScrollStory({ id, navTitle, intro, steps }) {
         const pr = (i - (count - 1) / 2) * 4
         const sx = cfg.x * vw + Math.sin(time * 0.7 + cfg.d) * 14 * (1 - t1)
         const sy = cfg.y * vh + Math.cos(time * 0.6 + cfg.d) * 12 * (1 - t1)
-        const col = i % perRow
-        const row = Math.floor(i / perRow)
-        const ox = (col - (perRow - 1) / 2) * S
-        const oy = (row - (rows - 1) / 2) * rowPitch
-        let x = lerp(lerp(sx, px, t1), ox, t2)
-        let y = lerp(lerp(sy, py, t1), oy, t2)
-        const r = lerp(lerp(cfg.r, pr, t1), 0, t2)
-        const base = lerp(lerp(cfg.s, 0.4, t1), orderScale, t2)
-        let sc = base
-        if (first) {
-          x = lerp(x, 0, zoom)
-          y = lerp(y, 0, zoom)
-          sc = lerp(base, cover, zoom)
-          el.style.borderRadius = `${lerp(20, 0, zoom)}px`
-          el.style.borderColor = zoom > 0.3 ? 'transparent' : ''
+        const railEl = railRefs.current[i]
+        let tx = sx
+        let ty = sy
+        let tw = W * cfg.s
+        let th = H * cfg.s
+        if (railEl) {
+          const b = railEl.getBoundingClientRect()
+          tw = Math.min(b.width, 300)
+          th = b.height + 6
+          tx = b.left + tw / 2 - vw / 2
+          ty = b.top + b.height / 2 - vh / 2
         }
-        el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${r}deg) scale(${sc})`
-        el.style.opacity = String(first ? 1 : 1 - zoom)
+        const x = lerp(sx, tx, t1)
+        const y = lerp(sy, ty, t1)
+        const r = lerp(cfg.r, 0, t1)
+        const scX = lerp(cfg.s, tw / W, t1)
+        const scY = lerp(cfg.s, th / H, t1)
+        el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${r}deg) scale(${scX}, ${scY})`
+        el.style.opacity = String(1 - zoom)
         el.style.zIndex = String(first ? 12 : 2 + (i % 8))
         const blur = REAL_BLUR[i % REAL_BLUR.length] * (1 - t1)
         el.style.filter = blur > 0.05 ? `blur(${blur}px)` : 'none'
-        const fade = first ? range(seg('zoom'), 0.55, 0.9) : 0
-        if (content) content.style.opacity = String(textIn * (1 - fade))
+        if (content) content.style.opacity = '0'
         const glyph = glyphRefs.current[i]
-        if (glyph) glyph.style.opacity = String((1 - textIn) * (1 - fade))
+        if (glyph) glyph.style.opacity = '1'
       }
 
       for (let j = 0; j < NOISE.length; j += 1) {
@@ -166,14 +171,33 @@ export default function ProcessScrollStory({ id, navTitle, intro, steps }) {
         const cfg = NOISE[j]
         const sx = cfg.x * vw + Math.sin(time * 0.7 + cfg.d) * 14 * (1 - t1)
         const sy = cfg.y * vh + Math.cos(time * 0.6 + cfg.d) * 12 * (1 - t1)
-        const px = (j - 2.5) * 60 * spread
-        const py = (((j * 7) % 5) - 2) * 45 * spread
-        const x = lerp(sx, px, t1)
-        const y = lerp(sy, py, t1)
-        const r = lerp(cfg.r, (j - 2.5) * 6, t1)
-        const sc = lerp(1, 0.35, t1)
-        el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${r}deg) scale(${sc})`
-        el.style.opacity = String(1 - ease(range(seg('gather'), 0, 0.5)))
+        let tx = sx
+        let ty = sy
+        let tw = cfg.w
+        let th = cfg.h
+        const panelEl = panelRef.current
+        if (panelEl) {
+          const b = panelEl.getBoundingClientRect()
+          const peek = (NOISE.length - 1 - j) * 5
+          tw = b.width
+          th = b.height
+          tx = b.left + b.width / 2 - vw / 2 + peek
+          ty = b.top + b.height / 2 - vh / 2 - peek
+        }
+        const x = lerp(sx, tx, t1)
+        const y = lerp(sy, ty, t1)
+        const r = lerp(cfg.r, 0, t1)
+        const cw = lerp(cfg.w, tw, t1)
+        const ch = lerp(cfg.h, th, t1)
+        el.style.width = `${cw}px`
+        el.style.height = `${ch}px`
+        el.style.margin = `${-ch / 2}px 0 0 ${-cw / 2}px`
+        el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${r}deg)`
+        el.style.borderRadius = `${lerp(8, 18, t1)}px`
+        el.style.borderWidth = '1px'
+        el.style.background = 'var(--ux-surface, #2e2e34)'
+        el.style.opacity = '1'
+        el.style.color = `rgba(156, 156, 166, ${1 - t1})`
         const nb = NOISE_BLUR[j % NOISE_BLUR.length] * (1 - t1)
         el.style.filter = nb > 0.05 ? `blur(${nb}px)` : 'none'
       }
@@ -184,31 +208,30 @@ export default function ProcessScrollStory({ id, navTitle, intro, steps }) {
         introRef.current.style.opacity = String(1 - Math.min(1, ir * 1.4))
         introRef.current.style.transform = `perspective(900px) rotateX(${ir * 90}deg) translateY(${-ir * 16}px)`
       }
-      if (hintRef.current) hintRef.current.style.opacity = String(1 - range(pv, 0, 40))
-
-      // Caption cube: one roll per caption change
-      if (capWrapRef.current) {
-        const show = ease(range(pv, tl.toCap1[0] + 25, tl.toCap1[1]))
-        const out = ease(range(seg('zoom'), 0, 0.5))
-        capWrapRef.current.style.opacity = String(show * (1 - out))
-      }
-      if (capCubeRef.current) {
-        const angle = 90 * ease(seg('toCap2')) + 90 * ease(seg('toCap3'))
-        capCubeRef.current.style.transform = `translateZ(-0.6em) rotateX(${angle}deg)`
-      }
+      if (hintRef.current) hintRef.current.style.opacity = String(1 - range(pv, 0, 20))
 
       // Full-page slides: hold each step, then move to the next
-      const u = clamp((pv - tl.steps0) / (count * 100)) * count
+      const u = clamp((pv - tl.steps0) / (count * STEP)) * count
       const k = Math.min(count - 1, Math.floor(u))
-      const cs = Math.min(count - 1, k + ease(range(u - k, 0.6, 1)))
+      const cs = Math.min(count - 1, k + ease(range(u - k, 0.3, 1)))
       if (slidesRef.current) slidesRef.current.style.opacity = String(ease(range(seg('zoom'), 0.55, 1)))
+      if (railListRef.current) {
+        railListRef.current.style.pointerEvents = seg('zoom') > 0.95 ? 'auto' : 'none'
+      }
       for (let i = 0; i < count; i += 1) {
         const slide = slideRefs.current[i]
-        if (!slide) continue
-        const d = i - cs
-        const ad = Math.abs(d)
-        slide.style.opacity = String(Math.max(0, 1 - ad * 1.8))
-        slide.style.transform = `translate3d(0, ${d * 12}vh, 0) scale(${1 - ad * 0.03})`
+        if (slide) {
+          const d = i - cs
+          const ad = Math.abs(d)
+          slide.style.opacity = String(Math.max(0, 1 - ad * 2))
+          slide.style.transform = `translate3d(0, ${d * 4}vh, 0)`
+        }
+        const rail = railRefs.current[i]
+        if (rail) {
+          const near = 1 - Math.min(1, Math.abs(i - cs))
+          rail.style.opacity = String(0.3 + 0.7 * near)
+          rail.style.transform = `translate3d(${near * 12}px, 0, 0)`
+        }
       }
     }
 
@@ -229,20 +252,6 @@ export default function ProcessScrollStory({ id, navTitle, intro, steps }) {
     >
       <div className={styles.stage}>
         <div ref={introRef} className={styles.intro}>{intro}</div>
-
-        <div ref={capWrapRef} className={styles.capWrap}>
-          <div ref={capCubeRef} className={styles.capCube}>
-            {CAPTIONS.map((text, k) => (
-              <div
-                key={text}
-                className={styles.capFace}
-                style={{ transform: `rotateX(${-k * 90}deg) translateZ(0.6em)` }}
-              >
-                {text}
-              </div>
-            ))}
-          </div>
-        </div>
 
         {NOISE.map((n, j) => (
           <div
@@ -274,13 +283,42 @@ export default function ProcessScrollStory({ id, navTitle, intro, steps }) {
         ))}
 
         <div ref={slidesRef} className={styles.slides}>
-          {steps.map((step, i) => (
-            <div key={step.title} ref={(el) => { slideRefs.current[i] = el }} className={styles.slide}>
-              <span className={styles.slideNo}>{pad(i + 1)} / {pad(count)}</span>
-              <h3 className={styles.slideTitle}>{step.title}</h3>
-              <p className={styles.slideText}>{step.description}</p>
-            </div>
-          ))}
+          <ol ref={railListRef} className={styles.rail}>
+            {steps.map((step, i) => (
+              <li key={step.title} ref={(el) => { railRefs.current[i] = el }} className={styles.railItem}>
+                <button type="button" className={styles.railBtn} onClick={() => goTo(i)}>
+                  <span className={styles.railNo}>{pad(i + 1)}</span>
+                  <span className={styles.railTitle}>{step.title}</span>
+                </button>
+              </li>
+            ))}
+          </ol>
+          <div ref={panelRef} className={styles.panel}>
+            {steps.map((step, i) => (
+              <div key={step.title} ref={(el) => { slideRefs.current[i] = el }} className={styles.slide}>
+                <span className={styles.slideNo}>{pad(i + 1)} / {pad(count)}</span>
+                <h3 className={styles.slideTitle}>{step.title}</h3>
+                <ul className={styles.tools}>
+                  {step.tools.map((tool) => (
+                    <li key={tool.name} className={styles.tool}>
+                      <span className={styles.toolName}>{tool.name}</span>
+                      <span className={styles.toolRole}>{tool.role}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className={styles.meta}>
+                  <span className={styles.metaLabel}>Output</span>
+                  <span className={styles.metaValue}>{step.output}</span>
+                </div>
+                <div className={styles.meta}>
+                  <span className={styles.metaLabel}>{i === count - 1 ? 'Loops to' : 'Feeds'}</span>
+                  <span className={styles.metaValue}>
+                    {pad(((i + 1) % count) + 1)} {steps[(i + 1) % count].title}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div ref={hintRef} className={styles.hint}>Scroll</div>

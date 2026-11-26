@@ -83,7 +83,7 @@ export const siteContent = {
       label: 'Process',
       href: '/process',
       subItems: [
-        { label: 'Concept Design Process', anchor: 'concept-design' },
+        { label: 'UX/UI Design Process', anchor: 'concept-design' },
         { label: 'Establishing a Brand Direction', anchor: 'brand-direction' },
       ],
     },
@@ -342,8 +342,8 @@ export const siteContent = {
       viewMoreLabel: 'View Traditions ↗',
     },
     workflow: {
-      eyebrow: '● Designing',
-      heading: 'Concept Design Process',
+      eyebrow: '● Product Design',
+      heading: 'My UX/UI Design Process',
       cards: [
         { label: 'Nice to meet u', title: 'Discovery' },
         { label: 'Welcome', title: 'Onboarding' },

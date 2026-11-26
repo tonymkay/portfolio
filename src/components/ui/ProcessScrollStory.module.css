@@ -156,8 +156,66 @@
   position: absolute;
   inset: 0;
   z-index: 20;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  padding: 0 clamp(1.5rem, 8vw, 9rem);
   opacity: 0;
   pointer-events: none;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 2.2vh, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.railItem {
+  will-change: transform, opacity;
+}
+
+.railBtn {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.railBtn:focus-visible {
+  outline: 2px solid var(--ux-text, #fff);
+  outline-offset: 4px;
+}
+
+.railNo {
+  min-width: 1.75rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  color: var(--ux-muted, #9c9ca6);
+}
+
+.railTitle {
+  font-size: clamp(1.125rem, 2vw, 1.75rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--ux-text, #fff);
+}
+
+.panel {
+  position: relative;
+  align-self: center;
+  height: 78vh;
+  border-radius: 18px;
 }
 
 .slide {
@@ -168,7 +226,7 @@
   justify-content: center;
   align-items: flex-start;
   gap: 1.5rem;
-  padding: 0 clamp(1.5rem, 8vw, 9rem);
+  padding: clamp(1.25rem, 3vw, 3rem);
   opacity: 0;
   will-change: transform, opacity;
 }
@@ -181,18 +239,95 @@
 }
 
 .slideTitle {
-  max-width: 16ch;
-  font-size: clamp(2.75rem, 8vw, 8rem);
+  max-width: 18ch;
+  font-size: clamp(1.875rem, 4vw, 3.75rem);
   font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1.02;
   color: var(--ux-text, #fff);
 }
 
-.slideText {
-  max-width: 34ch;
-  font-size: clamp(1.125rem, 2vw, 1.75rem);
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tool {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid var(--ux-line, rgba(255, 255, 255, 0.2));
+  border-radius: 999px;
+  background: var(--ux-surface, #2e2e34);
+}
+
+.toolName {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--ux-text, #fff);
+}
+
+.toolRole {
+  font-size: 0.8125rem;
   font-weight: 300;
-  line-height: 1.4;
   color: var(--ux-muted, #9c9ca6);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1.25rem;
+}
+
+.metaLabel {
+  min-width: 5.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ux-muted, #9c9ca6);
+}
+
+.metaValue {
+  max-width: 52ch;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--ux-text, #fff);
+}
+
+
+@media (max-width: 699px) {
+  .slides {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 1.25rem;
+    padding-top: 22vh;
+    padding-bottom: 6vh;
+  }
+
+  .rail {
+    gap: 0.35rem;
+  }
+
+  .railTitle {
+    font-size: 0.9375rem;
+  }
+
+  .panel {
+    align-self: stretch;
+    height: auto;
+    min-height: 0;
+  }
+
+  .slide {
+    justify-content: flex-start;
+    gap: 1rem;
+  }
 }

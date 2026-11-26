@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { setSheetOrigin } from '../../hooks/sheetOrigin'
 import {
   PINTEREST_GAP_ALLOWANCE,
   buildColumns,
@@ -55,7 +57,7 @@ function ratioFromHeader(b) {
 }
 
 /** Reads just the header of an image to get its height/width ratio. */
-async function probeRatio(src) {
+async function measureRatio(src) {
   try {
     const res = await fetch(src, { headers: { Range: 'bytes=0-4095' } })
     const reader = res.body.getReader()
@@ -87,6 +89,13 @@ async function probeRatio(src) {
   })
 }
 
+/** Measured once per image for the whole session, so reopening the grid is instant. */
+const ratioCache = new Map()
+function probeRatio(src) {
+  if (!ratioCache.has(src)) ratioCache.set(src, measureRatio(src))
+  return ratioCache.get(src)
+}
+
 /** Ratios for every poster, or null until all of them are known. */
 function useRatios(projects) {
   const [ratios, setRatios] = useState(null)
@@ -109,21 +118,25 @@ function useRatios(projects) {
   return ratios
 }
 
-function Tile({ project, ratio, visible }) {
+function Tile({ project, ratio, visible, replace }) {
   return (
-    <div
+    <Link
+      to={`/posters/${project.slug}`}
+      replace={replace}
+      onClick={(e) => setSheetOrigin(e.currentTarget)}
       className={`${styles.tile} ${visible ? styles.loaded : ''}`}
       style={{ aspectRatio: `1 / ${ratio}` }}
       data-nav-hover={project.title}
+      aria-label={project.title}
     >
       {visible && (
         <img className={styles.img} src={project.coverImage} alt={project.title} decoding="async" />
       )}
-    </div>
+    </Link>
   )
 }
 
-export default function PosterGrid({ projects }) {
+export default function PosterGrid({ projects, replace = false }) {
   const columnCount = useColumnCount(true)
   const ratios = useRatios(projects)
   const gridRef = useRef(null)
@@ -228,6 +241,7 @@ export default function PosterGrid({ projects }) {
                   project={project}
                   ratio={ratios[project.coverImage]}
                   visible={rank.get(project.id) < shown}
+                  replace={replace}
                 />
               ))}
             </div>

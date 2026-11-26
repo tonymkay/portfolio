@@ -12,6 +12,7 @@ import UxProjects from './pages/UxProjects/UxProjects'
 import Posters from './pages/Posters/Posters'
 import Work from './pages/Work/Work'
 import UxProjectDetail from './pages/UxProjectDetail/UxProjectDetail'
+import PosterDetail from './pages/PosterDetail/PosterDetail'
 import Intro from './pages/Intro/Intro'
 
 // Wrapper that forces a full remount whenever the slug changes.
@@ -27,6 +28,11 @@ function KeyedUxProjectDetail() {
   return <UxProjectDetail key={slug} />
 }
 
+function KeyedPosterDetail() {
+  const { slug } = useParams()
+  return <PosterDetail key={slug} />
+}
+
 export default function AppRouter() {
   return (
     <BrowserRouter>
@@ -39,6 +45,7 @@ export default function AppRouter() {
           <Route path="/contact"       element={<Contact />} />
           <Route path="/work"          element={<Work />} />
           <Route path="/projects/:slug" element={<KeyedProjectDetail />} />
+          <Route path="/posters/:slug"  element={<KeyedPosterDetail />} />
           {/* Both listings share the tab switch and swipe between each other */}
           <Route element={<WorkLayout />}>
             <Route path="/projects"    element={<Projects />} />

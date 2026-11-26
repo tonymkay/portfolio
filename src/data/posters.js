@@ -23,6 +23,15 @@ const titleOverrides = {
   'THE LAW CHAMBERS': 'The Law Chambers',
 }
 
+// Optional text shown beside a poster on its page (/posters/:slug), keyed by
+// slug. Leave a poster out and it gets the generic description below.
+// e.g. 'brit': 'Launch poster for Brit.'
+const descriptionOverrides = {}
+
+// Generic text used for every poster that has no override above.
+const defaultDescription =
+  'A poster designed to grab attention and get its message across at a glance. Bold layout, clear hierarchy, and a look built to stand out in print and on screen.'
+
 const slugify = (s) =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
 
@@ -57,10 +66,21 @@ export const posterProjects = Object.entries(modules)
       client: toTitle(file),
       category: 'Poster',
       year: '2025',
+      description: descriptionOverrides[slug] ?? defaultDescription,
       coverImage: src,
       images: [src],
     }
   })
   .sort((a, b) => a.slug.localeCompare(b.slug, undefined, { numeric: true }))
+
+export const getPosterBySlug = (slug) => posterProjects.find((p) => p.slug === slug)
+
+/** The next `count` posters after this one (wrapping around), never the poster itself. */
+export const getRelatedPosters = (slug, count = 6) => {
+  const at = posterProjects.findIndex((p) => p.slug === slug)
+  if (at === -1) return []
+  const others = [...posterProjects.slice(at + 1), ...posterProjects.slice(0, at)]
+  return others.slice(0, count)
+}
 
 export default posterProjects
